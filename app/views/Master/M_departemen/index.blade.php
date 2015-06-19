@@ -59,7 +59,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Departemen ID</th>
+                                    <th>Kode</th>
                                     <th>Nama</th>
                                     <th>Deskripsi</th>
                                     <th>PIC</th>
@@ -73,15 +73,15 @@
                                 @foreach($data as $dt)
                                 <tr>
                                     <td class="text-right">{{$rownum++}}.</td>
-                                    <td>{{$dt->fcdeptid}}</td>
-                                    <td>{{$dt->fcname}}</td>
-                                    <td>{{$dt->fcdesc}}</td>
-                                    <td>{{$dt->fcpic}}</td>
-                                    <td>{{$dt->fcuserid}}</td>
-                                    <td>{{date('d-m-Y', strtotime($dt->fctglupd))}}</td>
+                                    <td>{{$dt->code}}</td>
+                                    <td>{{$dt->nama}}</td>
+                                    <td>{{$dt->desc}}</td>
+                                    <td>{{$dt->pic}}</td>
+                                    <td>{{$dt->username}}</td>
+                                    <td>{{date('d-m-Y', strtotime($dt->created_at))}}</td>
                                     <td class="text-right">
-                                        <a class="btn btn-xs btn-success" href="master/departemen/edit/{{$dt->rowguid}}" >Edit</a>
-                                        <a class="btn btn-xs btn-danger btn-delete" href="master/departemen/delete/{{$dt->rowguid}}" >Delete</a>
+                                        <a class="btn btn-xs btn-success" href="master/departemen/edit/{{$dt->id}}" >Edit</a>
+                                        <a class="btn btn-xs btn-danger btn-delete" href="master/departemen/delete/{{$dt->id}}" >Delete</a>
                                     </td>
                                 </tr>
                                 @endforeach

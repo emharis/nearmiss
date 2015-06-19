@@ -11,11 +11,13 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 -- Dumping database structure for nearmiss_db
+DROP DATABASE IF EXISTS `nearmiss_db`;
 CREATE DATABASE IF NOT EXISTS `nearmiss_db` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
 USE `nearmiss_db`;
 
 
 -- Dumping structure for table nearmiss_db.constval
+DROP TABLE IF EXISTS `constval`;
 CREATE TABLE IF NOT EXISTS `constval` (
   `name` varchar(250) DEFAULT NULL,
   `value` varchar(250) DEFAULT NULL
@@ -38,23 +40,37 @@ INSERT INTO `constval` (`name`, `value`) VALUES
 
 
 -- Dumping structure for table nearmiss_db.departemen
+DROP TABLE IF EXISTS `departemen`;
 CREATE TABLE IF NOT EXISTS `departemen` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(3) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
   `nama` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `user_id` int(11) DEFAULT NULL,
+  `desc` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `pic` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `code` (`code`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table nearmiss_db.departemen: ~0 rows (approximately)
+-- Dumping data for table nearmiss_db.departemen: ~1 rows (approximately)
 DELETE FROM `departemen`;
 /*!40000 ALTER TABLE `departemen` DISABLE KEYS */;
+INSERT INTO `departemen` (`id`, `code`, `nama`, `created_at`, `user_id`, `desc`, `pic`) VALUES
+	(2, 'HSE', 'Human Safety and Environment', '2015-06-19 07:22:04', 1, 'Departemen Keselamatan dan Lingkungan', 'Katamso');
 /*!40000 ALTER TABLE `departemen` ENABLE KEYS */;
 
 
 -- Dumping structure for table nearmiss_db.divisi
+DROP TABLE IF EXISTS `divisi`;
 CREATE TABLE IF NOT EXISTS `divisi` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(3) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
   `nama` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `user_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `code` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Dumping data for table nearmiss_db.divisi: ~0 rows (approximately)
@@ -64,6 +80,7 @@ DELETE FROM `divisi`;
 
 
 -- Dumping structure for table nearmiss_db.menu
+DROP TABLE IF EXISTS `menu`;
 CREATE TABLE IF NOT EXISTS `menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nama` varchar(100) DEFAULT NULL,
@@ -109,6 +126,7 @@ INSERT INTO `menu` (`id`, `nama`, `url`, `if_url`, `parent_id`, `publish`, `orde
 
 
 -- Dumping structure for table nearmiss_db.migrations
+DROP TABLE IF EXISTS `migrations`;
 CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
@@ -120,7 +138,51 @@ DELETE FROM `migrations`;
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 
 
+-- Dumping structure for table nearmiss_db.pegawai
+DROP TABLE IF EXISTS `pegawai`;
+CREATE TABLE IF NOT EXISTS `pegawai` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created_at` datetime DEFAULT NULL,
+  `kode` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `nama` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `jns_kelamin` enum('M','F') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tgl_lahir` date DEFAULT NULL,
+  `tmpt_lahir` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `status` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `alamat` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `kota` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `telp` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tgl_masuk` date DEFAULT NULL,
+  `posisi_id` int(11) DEFAULT NULL,
+  `level_pegawai` varchar(2) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `group_pegawai` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `nama_label` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `label_departemen` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `resign` enum('Y','N') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `status_safety` enum('Y','N') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `status_nearmiss` enum('Y','N') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `status_pic` enum('Y','N') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  `departemen_id` int(11) NOT NULL,
+  `divisi_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_ts_pegawai_users1_idx` (`user_id`),
+  KEY `fk_ts_pegawai_departemen1_idx` (`departemen_id`),
+  KEY `fk_ts_pegawai_divisi1_idx` (`divisi_id`),
+  CONSTRAINT `fk_ts_pegawai_departemen1` FOREIGN KEY (`departemen_id`) REFERENCES `departemen` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_ts_pegawai_divisi1` FOREIGN KEY (`divisi_id`) REFERENCES `divisi` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_ts_pegawai_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Dumping data for table nearmiss_db.pegawai: ~0 rows (approximately)
+DELETE FROM `pegawai`;
+/*!40000 ALTER TABLE `pegawai` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pegawai` ENABLE KEYS */;
+
+
 -- Dumping structure for table nearmiss_db.permissions
+DROP TABLE IF EXISTS `permissions`;
 CREATE TABLE IF NOT EXISTS `permissions` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
@@ -138,6 +200,7 @@ DELETE FROM `permissions`;
 
 
 -- Dumping structure for table nearmiss_db.permission_role
+DROP TABLE IF EXISTS `permission_role`;
 CREATE TABLE IF NOT EXISTS `permission_role` (
   `permission_id` int(10) unsigned NOT NULL,
   `role_id` int(10) unsigned NOT NULL,
@@ -156,6 +219,7 @@ DELETE FROM `permission_role`;
 
 
 -- Dumping structure for table nearmiss_db.roles
+DROP TABLE IF EXISTS `roles`;
 CREATE TABLE IF NOT EXISTS `roles` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
@@ -176,6 +240,7 @@ INSERT INTO `roles` (`id`, `name`, `deskription`, `level`, `created_at`, `update
 
 
 -- Dumping structure for table nearmiss_db.role_user
+DROP TABLE IF EXISTS `role_user`;
 CREATE TABLE IF NOT EXISTS `role_user` (
   `user_id` int(10) unsigned NOT NULL,
   `role_id` int(10) unsigned NOT NULL,
@@ -196,6 +261,7 @@ INSERT INTO `role_user` (`user_id`, `role_id`, `created_at`, `updated_at`) VALUE
 
 
 -- Dumping structure for table nearmiss_db.sec_group
+DROP TABLE IF EXISTS `sec_group`;
 CREATE TABLE IF NOT EXISTS `sec_group` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created_at` datetime DEFAULT NULL,
@@ -215,6 +281,7 @@ DELETE FROM `sec_group`;
 
 
 -- Dumping structure for table nearmiss_db.sf_anggota_badan
+DROP TABLE IF EXISTS `sf_anggota_badan`;
 CREATE TABLE IF NOT EXISTS `sf_anggota_badan` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created_at` datetime DEFAULT NULL COMMENT '\n',
@@ -255,6 +322,7 @@ INSERT INTO `sf_anggota_badan` (`id`, `created_at`, `code`, `desk`, `user_id`) V
 
 
 -- Dumping structure for table nearmiss_db.sf_cedera
+DROP TABLE IF EXISTS `sf_cedera`;
 CREATE TABLE IF NOT EXISTS `sf_cedera` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created_at` datetime DEFAULT NULL COMMENT '\n',
@@ -308,6 +376,7 @@ INSERT INTO `sf_cedera` (`id`, `created_at`, `code`, `desk`, `user_id`) VALUES
 
 
 -- Dumping structure for table nearmiss_db.sf_hubungan
+DROP TABLE IF EXISTS `sf_hubungan`;
 CREATE TABLE IF NOT EXISTS `sf_hubungan` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created_at` datetime DEFAULT NULL COMMENT '\n',
@@ -326,6 +395,7 @@ DELETE FROM `sf_hubungan`;
 
 
 -- Dumping structure for table nearmiss_db.sf_jenis_bahaya
+DROP TABLE IF EXISTS `sf_jenis_bahaya`;
 CREATE TABLE IF NOT EXISTS `sf_jenis_bahaya` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created_at` datetime DEFAULT NULL COMMENT '\n',
@@ -344,6 +414,7 @@ DELETE FROM `sf_jenis_bahaya`;
 
 
 -- Dumping structure for table nearmiss_db.sf_jenis_pekerjaan
+DROP TABLE IF EXISTS `sf_jenis_pekerjaan`;
 CREATE TABLE IF NOT EXISTS `sf_jenis_pekerjaan` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created_at` datetime DEFAULT NULL COMMENT '\n',
@@ -362,6 +433,7 @@ DELETE FROM `sf_jenis_pekerjaan`;
 
 
 -- Dumping structure for table nearmiss_db.sf_keadaan
+DROP TABLE IF EXISTS `sf_keadaan`;
 CREATE TABLE IF NOT EXISTS `sf_keadaan` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created_at` datetime DEFAULT NULL COMMENT '\n',
@@ -380,6 +452,7 @@ DELETE FROM `sf_keadaan`;
 
 
 -- Dumping structure for table nearmiss_db.sf_klasifikasi
+DROP TABLE IF EXISTS `sf_klasifikasi`;
 CREATE TABLE IF NOT EXISTS `sf_klasifikasi` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created_at` datetime DEFAULT NULL COMMENT '\n',
@@ -398,6 +471,7 @@ DELETE FROM `sf_klasifikasi`;
 
 
 -- Dumping structure for table nearmiss_db.sf_lokasi
+DROP TABLE IF EXISTS `sf_lokasi`;
 CREATE TABLE IF NOT EXISTS `sf_lokasi` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created_at` datetime DEFAULT NULL COMMENT '\n',
@@ -416,6 +490,7 @@ DELETE FROM `sf_lokasi`;
 
 
 -- Dumping structure for table nearmiss_db.sf_sumber_penyebab
+DROP TABLE IF EXISTS `sf_sumber_penyebab`;
 CREATE TABLE IF NOT EXISTS `sf_sumber_penyebab` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created_at` datetime DEFAULT NULL COMMENT '\n',
@@ -434,6 +509,7 @@ DELETE FROM `sf_sumber_penyebab`;
 
 
 -- Dumping structure for procedure nearmiss_db.SP_INSERT_SAFETY
+DROP PROCEDURE IF EXISTS `SP_INSERT_SAFETY`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_INSERT_SAFETY`(IN `p_desc` VARCHAR(250), IN `p_userid` INT, IN `p_table` VARCHAR(100), IN `p_prefix_col_name` VARCHAR(100))
 begin
@@ -461,93 +537,8 @@ end//
 DELIMITER ;
 
 
--- Dumping structure for table nearmiss_db.ts_departemen
-CREATE TABLE IF NOT EXISTS `ts_departemen` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `created_at` datetime DEFAULT NULL,
-  `kode` varchar(3) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `nama` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `pic` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `desk` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `user_id` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_ts_departemen_users1_idx` (`user_id`),
-  CONSTRAINT `fk_ts_departemen_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- Dumping data for table nearmiss_db.ts_departemen: ~0 rows (approximately)
-DELETE FROM `ts_departemen`;
-/*!40000 ALTER TABLE `ts_departemen` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ts_departemen` ENABLE KEYS */;
-
-
--- Dumping structure for table nearmiss_db.ts_pegawai
-CREATE TABLE IF NOT EXISTS `ts_pegawai` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `created_at` datetime DEFAULT NULL,
-  `kode` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `nama` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `jns_kelamin` enum('M','F') COLLATE utf8_unicode_ci DEFAULT NULL,
-  `tgl_lahir` date DEFAULT NULL,
-  `tmpt_lahir` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `status` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `alamat` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `kota` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `telp` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `tgl_masuk` date DEFAULT NULL,
-  `posisi_id` int(11) DEFAULT NULL,
-  `level_pegawai` varchar(2) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `group_pegawai` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `nama_label` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `label_departemen` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `email` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `resign` enum('Y','N') COLLATE utf8_unicode_ci DEFAULT NULL,
-  `status_safety` enum('Y','N') COLLATE utf8_unicode_ci DEFAULT NULL,
-  `status_nearmiss` enum('Y','N') COLLATE utf8_unicode_ci DEFAULT NULL,
-  `status_pic` enum('Y','N') COLLATE utf8_unicode_ci DEFAULT NULL,
-  `user_id` int(10) unsigned NOT NULL,
-  `departemen_id` int(11) NOT NULL,
-  `divisi_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_ts_pegawai_users1_idx` (`user_id`),
-  KEY `fk_ts_pegawai_departemen1_idx` (`departemen_id`),
-  KEY `fk_ts_pegawai_divisi1_idx` (`divisi_id`),
-  CONSTRAINT `fk_ts_pegawai_departemen1` FOREIGN KEY (`departemen_id`) REFERENCES `departemen` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_ts_pegawai_divisi1` FOREIGN KEY (`divisi_id`) REFERENCES `divisi` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_ts_pegawai_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- Dumping data for table nearmiss_db.ts_pegawai: ~0 rows (approximately)
-DELETE FROM `ts_pegawai`;
-/*!40000 ALTER TABLE `ts_pegawai` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ts_pegawai` ENABLE KEYS */;
-
-
--- Dumping structure for table nearmiss_db.ts_vendor
-CREATE TABLE IF NOT EXISTS `ts_vendor` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `created_at` datetime DEFAULT NULL,
-  `kode` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `nama` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `desk` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `alamat` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `contact_person` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `phone` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `fax` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `email` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `user_id` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_ts_vendor_users1_idx` (`user_id`),
-  CONSTRAINT `fk_ts_vendor_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- Dumping data for table nearmiss_db.ts_vendor: ~0 rows (approximately)
-DELETE FROM `ts_vendor`;
-/*!40000 ALTER TABLE `ts_vendor` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ts_vendor` ENABLE KEYS */;
-
-
 -- Dumping structure for table nearmiss_db.users
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
@@ -572,11 +563,52 @@ CREATE TABLE IF NOT EXISTS `users` (
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `username`, `password`, `salt`, `email`, `remember_token`, `verified`, `disabled`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 'admin', '$2a$08$Afz2r1HFDMA8cSoo6GwkCOlAQSHGMMNdO31aDenx10iUfKiANITHO', '8ba5d18b4cd2b70626a912a775f94658', 'admin@example.com', '4pbs74yQJ5LCxlEctXLzJSpgzGn0n5NaBAh5hNZBi9FbrtYx1tzhO1njQ3QN', 1, 0, '2015-06-12 06:23:03', '2015-06-12 07:16:57', NULL);
+	(1, 'admin', '$2a$08$Afz2r1HFDMA8cSoo6GwkCOlAQSHGMMNdO31aDenx10iUfKiANITHO', '8ba5d18b4cd2b70626a912a775f94658', 'admin@example.com', 'r7peivPFrAtLSfolurmo1NUEi0wwcveFOB5Nz8ASBESc4YQBqNMkBi7ZvuRg', 1, 0, '2015-06-12 06:23:03', '2015-06-19 00:19:18', NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 
+-- Dumping structure for table nearmiss_db.vendor
+DROP TABLE IF EXISTS `vendor`;
+CREATE TABLE IF NOT EXISTS `vendor` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created_at` datetime DEFAULT NULL,
+  `kode` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `nama` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `desk` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `alamat` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `contact_person` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `phone` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fax` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_ts_vendor_users1_idx` (`user_id`),
+  CONSTRAINT `fk_ts_vendor_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Dumping data for table nearmiss_db.vendor: ~0 rows (approximately)
+DELETE FROM `vendor`;
+/*!40000 ALTER TABLE `vendor` DISABLE KEYS */;
+/*!40000 ALTER TABLE `vendor` ENABLE KEYS */;
+
+
+-- Dumping structure for view nearmiss_db.VIEW_DEPARTEMEN
+DROP VIEW IF EXISTS `VIEW_DEPARTEMEN`;
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `VIEW_DEPARTEMEN` (
+	`id` INT(11) NOT NULL,
+	`code` VARCHAR(3) NOT NULL COLLATE 'utf8_unicode_ci',
+	`nama` VARCHAR(45) NULL COLLATE 'utf8_unicode_ci',
+	`created_at` TIMESTAMP NULL,
+	`user_id` INT(11) NULL,
+	`username` VARCHAR(30) NOT NULL COLLATE 'utf8_unicode_ci',
+	`desc` VARCHAR(150) NULL COLLATE 'utf8_unicode_ci',
+	`pic` VARCHAR(50) NULL COLLATE 'utf8_unicode_ci'
+) ENGINE=MyISAM;
+
+
 -- Dumping structure for view nearmiss_db.VIEW_SF_ANGGOTA_BADAN
+DROP VIEW IF EXISTS `VIEW_SF_ANGGOTA_BADAN`;
 -- Creating temporary table to overcome VIEW dependency errors
 CREATE TABLE `VIEW_SF_ANGGOTA_BADAN` (
 	`id` INT(11) NOT NULL,
@@ -589,6 +621,7 @@ CREATE TABLE `VIEW_SF_ANGGOTA_BADAN` (
 
 
 -- Dumping structure for view nearmiss_db.VIEW_SF_CEDERA
+DROP VIEW IF EXISTS `VIEW_SF_CEDERA`;
 -- Creating temporary table to overcome VIEW dependency errors
 CREATE TABLE `VIEW_SF_CEDERA` (
 	`id` INT(11) NOT NULL,
@@ -600,13 +633,22 @@ CREATE TABLE `VIEW_SF_CEDERA` (
 ) ENGINE=MyISAM;
 
 
+-- Dumping structure for view nearmiss_db.VIEW_DEPARTEMEN
+DROP VIEW IF EXISTS `VIEW_DEPARTEMEN`;
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `VIEW_DEPARTEMEN`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `VIEW_DEPARTEMEN` AS select `dp`.`id` AS `id`,`dp`.`code` AS `code`,`dp`.`nama` AS `nama`,`dp`.`created_at` AS `created_at`,`dp`.`user_id` AS `user_id`,`users`.`username` AS `username`,`dp`.`desc` AS `desc`,`dp`.`pic` AS `pic` from (`departemen` `dp` join `users` on((`dp`.`user_id` = `users`.`id`)));
+
+
 -- Dumping structure for view nearmiss_db.VIEW_SF_ANGGOTA_BADAN
+DROP VIEW IF EXISTS `VIEW_SF_ANGGOTA_BADAN`;
 -- Removing temporary table and create final VIEW structure
 DROP TABLE IF EXISTS `VIEW_SF_ANGGOTA_BADAN`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `VIEW_SF_ANGGOTA_BADAN` AS select `sfa`.`id` AS `id`,`sfa`.`created_at` AS `created_at`,`sfa`.`code` AS `code`,`sfa`.`desk` AS `desk`,`sfa`.`user_id` AS `user_id`,`usr`.`username` AS `username` from (`sf_anggota_badan` `sfa` join `users` `usr` on((`sfa`.`user_id` = `usr`.`id`)));
 
 
 -- Dumping structure for view nearmiss_db.VIEW_SF_CEDERA
+DROP VIEW IF EXISTS `VIEW_SF_CEDERA`;
 -- Removing temporary table and create final VIEW structure
 DROP TABLE IF EXISTS `VIEW_SF_CEDERA`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `VIEW_SF_CEDERA` AS select `sfa`.`id` AS `id`,`sfa`.`created_at` AS `created_at`,`sfa`.`code` AS `code`,`sfa`.`desk` AS `desk`,`sfa`.`user_id` AS `user_id`,`usr`.`username` AS `username` from (`sf_cedera` `sfa` join `users` `usr` on((`sfa`.`user_id` = `usr`.`id`)));

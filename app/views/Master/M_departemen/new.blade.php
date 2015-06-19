@@ -26,26 +26,26 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                   <div class="box-body">
                       <div class="form-departemen">
-                          <label >Departemen ID</label>
-                          <input autofocus type="text" name="fcdeptid" class="form-control" placeholder="Departemen ID" required maxlength="3">
+                          <label >Kode</label>
+                          <input autofocus type="text" name="code" class="form-control" placeholder="Departemen ID" required maxlength="3">
                       </div>
                   </div><!-- /.box-body -->
                   <div class="box-body">
                       <div class="form-departemen">
                           <label >Nama</label>
-                          <input autofocus type="text" name="fcname" class="form-control" placeholder="Nama" required maxlength="30">
+                          <input autofocus type="text" name="nama" class="form-control" placeholder="Nama" required maxlength="30">
                       </div>
                   </div><!-- /.box-body -->
                   <div class="box-body">
                       <div class="form-departemen">
                           <label >Deskripsi</label>
-                          <input autofocus type="text" name="fcdesc" class="form-control" placeholder="Deskripsi" maxlength="150">
+                          <input autofocus type="text" name="desc" class="form-control" placeholder="Deskripsi" maxlength="150">
                       </div>
                   </div><!-- /.box-body -->
                   <div class="box-body">
                       <div class="form-departemen">
                           <label >PIC</label>
-                          <input autofocus type="text" name="fcpic" class="form-control" placeholder="PIC" maxlength="50" >
+                          <input autofocus type="text" name="pic" class="form-control" placeholder="PIC" maxlength="50" >
                       </div>
                   </div><!-- /.box-body -->
 

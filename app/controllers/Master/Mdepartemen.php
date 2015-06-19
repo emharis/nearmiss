@@ -5,15 +5,14 @@ namespace App\Controllers\Master;
 class MdepartemenController extends \BaseController {
 
     function getIndex() {
-        $data = \DB::table('tsdepartment')->orderBy('fctglupd', 'desc')->paginate(\Helpers::constval('show_number_datatable'));
+        $data = \DB::table('VIEW_DEPARTEMEN')->orderBy('created_at', 'desc')->paginate(\Helpers::constval('show_number_datatable'));
         //array column filter
         $colarr = array(
-            'fcdeptid' => 'Departemen ID',
-            'fcname' => 'Nama',
-            'fcdesc' => 'Deskripsi',
-            'fcpic' => 'PIC',
-            'fcuserid' => 'User Pembuat',
-            'fctglupd' => 'Tanggal Pembuatan',
+            'id' => 'Kode Departemen',
+            'nama' => 'Nama',
+            'desc' => 'Deskripsi',
+            'user_id' => 'User Pembuat',
+            'created_at' => 'Tanggal Pembuatan',
         );
         return \View::make('Master/M_departemen/index', [
                     'data' => $data,
@@ -26,20 +25,20 @@ class MdepartemenController extends \BaseController {
     }
 
     function postNew() {
-        \DB::table('tsdepartment')
+        \DB::table('departemen')
                 ->insert(array(
-                    'fcdeptid' => \Input::get('fcdeptid'),
-                    'fcname' => \Input::get('fcname'),
-                    'fcdesc' => \Input::get('fcdesc'),
-                    'fcpic' => \Input::get('fcpic'),
-                    'fcuserid' => \Session::get('onusername')
+                    'code' => \Input::get('code'),
+                    'nama' => \Input::get('nama'),
+                    'desc' => \Input::get('desc'),
+                    'pic' => \Input::get('pic'),
+                    'user_id' =>  \Session::get('onuserid')
         ));
 
         return \Redirect::to('master/departemen');
     }
 
     function getEdit($id) {
-        $data = \DB::table('tsdepartment')->where('rowguid', $id)->first();
+        $data = \DB::table('departemen')->where('rowguid', $id)->first();
         return \View::make('Master/M_departemen/edit', array(
                     'data' => $data
         ));
@@ -47,7 +46,7 @@ class MdepartemenController extends \BaseController {
 
     function postEdit() {
 
-        \DB::table('tsdepartment')
+        \DB::table('departemen')
                 ->where('rowguid', \Input::get('rowguid'))
                 ->update(array(
                     'fcdeptid' => \Input::get('fcdeptid'),
@@ -61,20 +60,18 @@ class MdepartemenController extends \BaseController {
     }
 
     function getDelete($id) {
-        \DB::table('tsdepartment')->where('rowguid', $id)->delete();
+        \DB::table('departemen')->where('rowguid', $id)->delete();
         return \Redirect::back();
     }
 
     function postFilter() {
-        $data = \DB::table('tsdepartment')->where(\Input::get('column'), 'like', '%' . \Input::get('value') . '%')->paginate(\Helpers::constval('show_number_datatable'));
+        $data = \DB::table('departemen')->where(\Input::get('column'), 'like', '%' . \Input::get('value') . '%')->paginate(\Helpers::constval('show_number_datatable'));
         //array column filter
          $colarr = array(
-            'fcdeptid' => 'Departemen ID',
-            'fcname' => 'Nama',
-            'fcdesc' => 'Deskripsi',
-            'fcpic' => 'PIC',
-            'fcuserid' => 'User Pembuat',
-            'fctglupd' => 'Tanggal Pembuatan',
+            'id' => 'Departemen ID',
+            'nama' => 'Nama',
+            'user_id' => 'User Pembuat',
+            'created_at' => 'Tanggal Pembuatan',
         );
         return \View::make('Master/M_departemen/index', [
                     'data' => $data,
