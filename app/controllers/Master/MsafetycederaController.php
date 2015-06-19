@@ -23,7 +23,8 @@ class MsafetycederaController extends \BaseController {
     }
 
     function postNew() {
-        \DB::select("CALL SP_INSERT_SAFETY_CEDERA('" . \Input::get('desc') . "', '" . \Session::get('onuserid') . "')");
+//        \DB::select("CALL SP_INSERT_SAFETY_CEDERA('" . \Input::get('desc') . "', '" . \Session::get('onuserid') . "')");
+        \DB::select("CALL SP_INSERT_SAFETY('" . \Input::get('desc') . "', '" . \Session::get('onuserid') . "','sf_cedera','sf_cedera_code_prefix')");
 
         return \Redirect::to('master/safetycedera');
     }

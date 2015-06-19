@@ -23,7 +23,8 @@ class MsafetyanggotabadanController extends \BaseController {
     }
 
     function postNew() {
-        \DB::select("CALL SP_INSERT_SAFETY_ANGGOTABADAN('" . \Input::get('desc') . "', '" . \Session::get('onuserid') . "')");
+//        \DB::select("CALL SP_INSERT_SAFETY_ANGGOTABADAN('" . \Input::get('desc') . "', '" . \Session::get('onuserid') . "')");
+        \DB::select("CALL SP_INSERT_SAFETY('" . \Input::get('desc') . "', '" . \Session::get('onuserid') . "','sf_anggota_badan','sf_anggotabadan_code_prefix')");
 
         return \Redirect::to('master/safetyanggotabadan');
     }
