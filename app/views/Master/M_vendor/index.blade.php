@@ -30,11 +30,11 @@
                     <div class="box-body" >
                         <form role="form" id="formFilter" action="master/vendor/filter" method="POST">
                             <div class="box-body no-padding">
-                                <div class="form-vendor">
+                                <div class="form-group">
                                     <label for="exampleInputEmail1">Column</label>
                                     {{Form::select('column',$colarr,(isset($isfilter)?$filter_col:null),array('class'=>'form-control'))}}
                                 </div>
-                                <div class="form-vendor">
+                                <div class="form-group">
                                     <label for="exampleInputPassword1">Value</label>
                                     <input value="{{isset($isfilter)?$filter_val:''}}" type="text" class="form-control" name="value" required>
                                 </div>
@@ -59,13 +59,16 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Vendor ID</th>
+                                    <th>Kode</th>
                                     <th>Nama</th>
                                     <th>Deskripsi</th>
-                                    <th>Contact Person</th>
-                                    <th>Alamat</th>
-                                    <th>User Pembuat</th>
-                                    <th>Tanggal Pembutan</th>
+                                    <th>alamat</th>
+                                    <th>Contact person</th>
+                                    <th>phone</th>
+                                    <th>Fax</th>
+                                    <th>email</th>
+                                    <th>User name</th>
+                                    <th>created at</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -74,16 +77,19 @@
                                 @foreach($data as $dt)
                                 <tr>
                                     <td class="text-right">{{$rownum++}}.</td>
-                                    <td>{{$dt->fcvendorid}}</td>
-                                    <td>{{$dt->fcname}}</td>
-                                    <td>{{$dt->fcdesc}}</td>
-                                    <td>{{$dt->fccontperson}}</td>
-                                    <td>{{$dt->fcaddress}}</td>
-                                    <td>{{$dt->fcuserid}}</td>
-                                    <td>{{date('d-m-Y', strtotime($dt->fctanggal))}}</td>
+                                    <td>{{$dt->code}}</td>
+                                    <td>{{$dt->nama}}</td>
+                                    <td>{{$dt->desk}}</td>
+                                    <td>{{$dt->alamat}}</td>
+                                    <td>{{$dt->contact_person}}</td>
+                                    <td>{{$dt->phone}}</td>
+                                    <td>{{$dt->fax}}</td>
+                                    <td>{{$dt->email}}</td>
+                                    <td>{{$dt->username}}</td>
+                                    <td>{{date('d-m-Y', strtotime($dt->created_at))}}</td>
                                     <td class="text-right">
-                                        <a class="btn btn-xs btn-success" href="master/vendor/edit/{{$dt->rowguid}}" >Edit</a>
-                                        <a class="btn btn-xs btn-danger btn-delete" href="master/vendor/delete/{{$dt->rowguid}}" >Delete</a>
+                                        <a class="btn btn-xs btn-success" href="master/vendor/edit/{{$dt->id}}" >Edit</a>
+                                        <a class="btn btn-xs btn-danger btn-delete" href="master/vendor/delete/{{$dt->id}}" >Delete</a>
                                     </td>
                                 </tr>
                                 @endforeach

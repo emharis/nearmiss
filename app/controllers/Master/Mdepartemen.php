@@ -38,7 +38,7 @@ class MdepartemenController extends \BaseController {
     }
 
     function getEdit($id) {
-        $data = \DB::table('departemen')->where('rowguid', $id)->first();
+        $data = \DB::table('departemen')->where('id', $id)->first();
         return \View::make('Master/M_departemen/edit', array(
                     'data' => $data
         ));
@@ -47,20 +47,19 @@ class MdepartemenController extends \BaseController {
     function postEdit() {
 
         \DB::table('departemen')
-                ->where('rowguid', \Input::get('rowguid'))
+                ->where('id', \Input::get('id'))
                 ->update(array(
-                    'fcdeptid' => \Input::get('fcdeptid'),
-                    'fcname' => \Input::get('fcname'),
-                    'fcdesc' => \Input::get('fcdesc'),
-                    'fcpic' => \Input::get('fcpic'),
-                    'fcuserid' => \Session::get('onusername')
+                    'code' => \Input::get('code'),
+                    'nama' => \Input::get('nama'),
+                    'desc' => \Input::get('desc'),
+                    'pic' => \Input::get('pic'),
         ));
 
-        return \Redirect::back();
+        return \Redirect::to('master/departemen');
     }
 
     function getDelete($id) {
-        \DB::table('departemen')->where('rowguid', $id)->delete();
+        \DB::table('departemen')->where('id', $id)->delete();
         return \Redirect::back();
     }
 
@@ -68,8 +67,9 @@ class MdepartemenController extends \BaseController {
         $data = \DB::table('departemen')->where(\Input::get('column'), 'like', '%' . \Input::get('value') . '%')->paginate(\Helpers::constval('show_number_datatable'));
         //array column filter
          $colarr = array(
-            'id' => 'Departemen ID',
+            'id' => 'Kode Departemen',
             'nama' => 'Nama',
+            'desc' => 'Deskripsi',
             'user_id' => 'User Pembuat',
             'created_at' => 'Tanggal Pembuatan',
         );

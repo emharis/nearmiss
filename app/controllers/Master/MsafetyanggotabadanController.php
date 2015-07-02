@@ -43,7 +43,7 @@ class MsafetyanggotabadanController extends \BaseController {
                     'desk' => \Input::get('desc')
         ));
 
-        return \Redirect::back();
+        return \Redirect::to('master/safetyanggotabadan');
     }
 
     function getDelete($id) {

@@ -19,12 +19,13 @@
         <div class="box box-primary">
                 <div class="box-header">
                     <div class="pull-right" >
-                        <a href="master/jenisbahaya" class="btn btn-danger">Cancel</a>
+                        <a href="master/safetyjenisbahaya" class="btn btn-danger">Cancel</a>
                     </div>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" action="master/jenisbahaya/edit" method="POST" >
+                <form role="form" action="master/safetyjenisbahaya/edit" method="POST" >
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                    <input type="hidden" name="dataid" value="{{ $data->id }}" />
                   <div class="box-body">
                       <div class="form-group">
                           <label for="exampleInputPassword1">Code</label>
@@ -32,21 +33,21 @@
                       </div>
                       <div class="form-group">
                           <label for="exampleInputPassword1">User Pembuat</label>
-                          <input value="{{$data->userupd}}" readonly type="text" name="userupd" class="form-control" required >
+                          <input value="{{$data->username}}" readonly type="text" name="username" class="form-control" required >
                       </div>
                       <div class="form-group">
                           <label for="exampleInputPassword1">Tanggal Pembuatan</label>
-                          <input value="{{$data->tglupd}}" readonly type="text" name="tglupd" class="form-control" required >
+                          <input value="{{date('d-m-Y', strtotime($data->created_at))}}" readonly type="text" name="created_at" class="form-control" required >
                       </div>
                       <div class="form-group">
                           <label for="exampleInputPassword1">Deskripsi</label>
-                          <input value="{{$data->description}}" autofocus type="text" name="desc" class="form-control" placeholder="Deskripsi" required maxlength="150">
+                          <input value="{{$data->desk}}" autofocus type="text" name="desc" class="form-control" placeholder="Deskripsi" required maxlength="150">
                       </div>
                   </div><!-- /.box-body -->
 
                   <div class="box-footer">
                     <button type="submit" class="btn btn-primary">Save</button>
-                    <a class="btn btn-danger" href="master/jenisbahaya" >Cancel</a>
+                    <a class="btn btn-danger" href="master/safetyjenisbahaya" >Cancel</a>
                   </div>
                 </form>
               </div><!-- /.box -->

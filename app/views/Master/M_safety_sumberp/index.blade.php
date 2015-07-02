@@ -32,8 +32,6 @@
                             <div class="box-body no-padding">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Column</label>
-
-                                    <?php $colarr = array('code' => 'Kode', 'description' => 'Deskripsi', 'userupd' => 'User Pembuat', 'tglupd' => 'Tanggal Pembuatan'); ?>
                                     {{Form::select('column',$colarr,(isset($isfilter)?$filter_col:null),array('class'=>'form-control'))}}
                                 </div>
                                 <div class="form-group">
@@ -74,12 +72,12 @@
                                 <tr>
                                     <td class="text-right">{{$rownum++}}.</td>
                                     <td>{{$dt->code}}</td>
-                                    <td>{{$dt->description}}</td>
-                                    <td>{{$dt->userupd}}</td>
-                                    <td>{{date('d-m-Y', strtotime($dt->tglupd))}}</td>
+                                    <td>{{$dt->desk}}</td>
+                                    <td>{{$dt->username}}</td>
+                                    <td>{{date('d-m-Y', strtotime($dt->created_at))}}</td>
                                     <td class="text-right">
-                                        <a class="btn btn-xs btn-success" href="master/safetysumberp/edit/{{$dt->code}}" >Edit</a>
-                                        <a class="btn btn-xs btn-danger btn-delete" href="master/safetysumberp/delete/{{$dt->code}}" >Delete</a>
+                                        <a class="btn btn-xs btn-success" href="master/safetysumberp/edit/{{$dt->id}}" >Edit</a>
+                                        <a class="btn btn-xs btn-danger btn-delete" href="master/safetysumberp/delete/{{$dt->id}}" >Delete</a>
                                     </td>
                                 </tr>
                                 @endforeach

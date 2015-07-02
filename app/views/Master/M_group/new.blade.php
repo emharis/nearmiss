@@ -1,6 +1,7 @@
 @extends('Parent.master')
 
 @section('styles')
+<link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
 @stop
 
 @section('content')
@@ -27,22 +28,14 @@
                   <div class="box-body">
                       <div class="form-group">
                           <label >Group Code</label>
-                          <input autofocus type="text" name="fcgroupcode" class="form-control" placeholder="Group Code" required maxlength="10">
+                          <input autofocus type="text" readonly name="code" class="form-control" placeholder="Group Code" required maxlength="10">
                       </div>
-                  </div><!-- /.box-body -->
-                  <div class="box-body">
+               
                       <div class="form-group">
                           <label >Group Name</label>
-                          <input autofocus type="text" name="fcgroupname" class="form-control" placeholder="Group Name" required maxlength="30">
+                          <input autofocus type="text" name="nama" class="form-control" placeholder="Group Name" required maxlength="30">
                       </div>
-                  </div><!-- /.box-body -->
-                  <div class="box-body">
-                      <div class="form-group">
-                          <label >Deskripsi</label>
-                          <input autofocus type="text" name="fcdescription" class="form-control" placeholder="Deskripsi" maxlength="80">
-                      </div>
-                  </div><!-- /.box-body -->
-                  <div class="box-body">
+                  
                       <div class="form-group">
                           <label >WS</label>
                           <input autofocus type="text" name="ws" class="form-control" placeholder="WS" maxlength="1" value="-">
@@ -61,4 +54,14 @@
 @stop
 
 @section('scripts')
+<!-- DATA TABES SCRIPT -->
+<script src="plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
+<script src="plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
+<!-- page script -->
+    <script type="text/javascript">
+      $(function () {
+          
+        $('.datatable').dataTable();
+      });
+    </script>
 @stop

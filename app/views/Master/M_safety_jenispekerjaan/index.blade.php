@@ -11,7 +11,7 @@
         <h1>
             Master Safety Jenis Pekerjaan
             <div class="pull-right" >
-                <a class="btn btn-primary bn-sm" href="master/jenispekerjaan/new" >New</a>
+                <a class="btn btn-primary bn-sm" href="master/safetyjenispekerjaan/new" >New</a>
             </div>
         </h1>
     </section>
@@ -28,12 +28,10 @@
                         </div>
                     </div>
                     <div class="box-body" >
-                        <form role="form" id="formFilter" action="master/jenispekerjaan/filter" method="POST">
+                        <form role="form" id="formFilter" action="master/safetyjenispekerjaan/filter" method="POST">
                             <div class="box-body no-padding">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Column</label>
-
-                                    <?php $colarr = array('code' => 'Kode', 'description' => 'Deskripsi', 'userupd' => 'User Pembuat', 'tglupd' => 'Tanggal Pembuatan'); ?>
                                     {{Form::select('column',$colarr,(isset($isfilter)?$filter_col:null),array('class'=>'form-control'))}}
                                 </div>
                                 <div class="form-group">
@@ -45,7 +43,7 @@
                             <div class="box-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                                 @if(isset($isfilter))
-                                <a class="btn btn-danger" href="master/jenispekerjaan" >Clear Filter</a>
+                                <a class="btn btn-danger" href="master/safetyjenispekerjaan" >Clear Filter</a>
                                 @endif
                             </div>
                         </form>
@@ -74,12 +72,12 @@
                                 <tr>
                                     <td class="text-right">{{$rownum++}}.</td>
                                     <td>{{$dt->code}}</td>
-                                    <td>{{$dt->description}}</td>
-                                    <td>{{$dt->userupd}}</td>
-                                    <td>{{date('d-m-Y', strtotime($dt->tglupd))}}</td>
+                                    <td>{{$dt->desk}}</td>
+                                    <td>{{$dt->username}}</td>
+                                    <td>{{date('d-m-Y', strtotime($dt->created_at))}}</td>
                                     <td class="text-right">
-                                        <a class="btn btn-xs btn-success" href="master/jenispekerjaan/edit/{{$dt->code}}" >Edit</a>
-                                        <a class="btn btn-xs btn-danger btn-delete" href="master/jenispekerjaan/delete/{{$dt->code}}" >Delete</a>
+                                        <a class="btn btn-xs btn-success" href="master/safetyjenispekerjaan/edit/{{$dt->id}}" >Edit</a>
+                                        <a class="btn btn-xs btn-danger btn-delete" href="master/safetyjenispekerjaan/delete/{{$dt->id}}" >Delete</a>
                                     </td>
                                 </tr>
                                 @endforeach

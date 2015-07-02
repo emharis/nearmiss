@@ -5,33 +5,34 @@ namespace App\Controllers\Master;
 class MpegawaiController extends \BaseController {
 
     function getIndex() {
-        $data = \DB::table('tsemployee')->orderBy('upddate', 'desc')->paginate(\Helpers::constval('show_number_datatable'));
+        $data = \DB::table('pegawai')->orderBy('created_at', 'desc')->paginate(\Helpers::constval('show_number_datatable'));
         //array column filter
         $colarr = array(
-            'fcemployeecode' => 'NIK',
-            'fcemployeename' => 'Nama',
-            'fcdescription' => 'Deskripsi',
-            'fcsex' => 'Jenis Kelamin',
-            'fclahir' => 'Tanggal Lahir',
-            'fcstatus' => 'Status',
-            'fcalamat' => 'Alamat',
-            'fckota' => 'Kota',
-            'fctelp' => 'Telp',
-            'fdtglmasuk' => 'Tanggal Masuk',
-            'fcpositioncode' => 'Posisi',
-            'fcemplevel' => 'Level Pegawai',
-            'fcgroupempl' => 'Grup Pegawai',
-            'fcdeptcode' => 'Kode Departemen',
-            'fcdivisioncode' => 'Kode Divisi',
+            'kode' => 'NIK',
+            'nama' => 'Nama',
+            'jns_kelamin' => 'Deskripsi',
+            'js_kelamin' => 'Jenis Kelamin',
+            'tgl_lahir' => 'Tanggal Lahir',
+            'tmpt_lahir' => 'Tempat Lahir',
+            'status' => 'Status',
+            'alamat' => 'Alamat',
+            'kota' => 'Kota',
+            'telp' => 'Telp',
+            'tgl_masuk' => 'Tanggal Masuk',
+            'posisi' => 'Posisi',
+            'level_pegawai' => 'Level Pegawai',
+            'group_pegawai' => 'Grup Pegawai',
+            'departemen' => 'Departemen',
+            'divisi' => 'Divisi',
             'userid' => 'User Pembuat',
             'upddate' => 'Tanggal Pembuatan',
-            'fclabelname' => 'Label Nama',
-            'fclabeldept' => 'Label Departemen',
+            'nama_label' => 'Label Nama',
+            'label_departemen' => 'Label Departemen',
             'email' => 'Email',
-            'fcresign' => 'Resign',
+            'resign' => 'Resign',
             'status_safety' => 'Status Safety',
             'status_nearmiss' => 'Status Near Miss',
-            'status_sms' => 'Status SMS',
+            'status_pic' => 'Status PIC',
         );
         return \View::make('Master/M_pegawai/index', [
                     'data' => $data,
@@ -44,7 +45,7 @@ class MpegawaiController extends \BaseController {
     }
 
     function postNew() {
-        \DB::table('tsemployee')->insert(array(
+        \DB::table('pegawai')->insert(array(
             'fcname' => \Input::get('fcname'),
             'fcdesc' => \Input::get('fcdesc'),
             'fccontperson' => \Input::get('fccontperson'),
@@ -60,7 +61,7 @@ class MpegawaiController extends \BaseController {
     }
 
     function getEdit($id) {
-        $data = \DB::table('tsemployee')->where('rowguid', $id)->first();
+        $data = \DB::table('pegawai')->where('rowguid', $id)->first();
         return \View::make('Master/M_pegawai/edit', array(
                     'data' => $data
         ));
@@ -68,7 +69,7 @@ class MpegawaiController extends \BaseController {
 
     function postEdit() {
 
-        \DB::table('tsemployee')
+        \DB::table('pegawai')
                 ->where('rowguid', \Input::get('rowguid'))
                 ->update(array(
                     'fcname' => \Input::get('fcname'),
@@ -86,12 +87,12 @@ class MpegawaiController extends \BaseController {
     }
 
     function getDelete($id) {
-        \DB::table('tsemployee')->where('rowguid', $id)->delete();
+        \DB::table('pegawai')->where('rowguid', $id)->delete();
         return \Redirect::back();
     }
 
     function postFilter() {
-        $data = \DB::table('tsemployee')->where(\Input::get('column'), 'like', '%' . \Input::get('value') . '%')->paginate(\Helpers::constval('show_number_datatable'));
+        $data = \DB::table('pegawai')->where(\Input::get('column'), 'like', '%' . \Input::get('value') . '%')->paginate(\Helpers::constval('show_number_datatable'));
         //array column filter
         $colarr = array(
             'fcpegawaiid' => 'Vendor ID',

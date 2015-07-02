@@ -43,7 +43,7 @@ class MsafetycederaController extends \BaseController {
                     'desk' => \Input::get('desc')
         ));
 
-        return \Redirect::back();
+        return \Redirect::to('master/safetycedera');
     }
 
     function getDelete($id) {

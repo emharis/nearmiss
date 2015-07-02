@@ -19,11 +19,11 @@
         <div class="box box-primary">
                 <div class="box-header">
                     <div class="pull-right" >
-                        <a href="master/jenisbahaya" class="btn btn-danger">Cancel</a>
+                        <a href="master/safetyjenisbahaya" class="btn btn-danger">Cancel</a>
                     </div>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" action="master/jenisbahaya/new" method="POST" >
+                <form role="form" action="master/safetyjenisbahaya/new" method="POST" >
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                   <div class="box-body">
                       <div class="form-group">
@@ -34,7 +34,7 @@
 
                   <div class="box-footer">
                     <button type="submit" class="btn btn-primary">Save</button>
-                    <a class="btn btn-danger" href="master/jenisbahaya" >Cancel</a>
+                    <a class="btn btn-danger" href="master/safetyjenisbahaya" >Cancel</a>
                   </div>
                 </form>
               </div><!-- /.box -->

@@ -27,7 +27,7 @@
                   <div class="box-body">
                       <div class="form-departemen">
                           <label >Kode</label>
-                          <input autofocus type="text" name="code" class="form-control" placeholder="Departemen ID" required maxlength="3">
+                          <input autofocus type="text" name="code" class="form-control" placeholder="Kode" required maxlength="3">
                       </div>
                   </div><!-- /.box-body -->
                   <div class="box-body">

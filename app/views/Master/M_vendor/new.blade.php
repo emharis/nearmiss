@@ -1,6 +1,7 @@
 @extends('Parent.master')
 
 @section('styles')
+<link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
 @stop
 
 @section('content')
@@ -8,7 +9,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Master Vendor
+            Master Safety Vendor
             <small>New</small>
           </h1>
     </section>
@@ -25,52 +26,43 @@
                 <form role="form" action="master/vendor/new" method="POST" >
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                   <div class="box-body">
-                      <div class="form-vendor">
-                          <label >Vendor ID</label>
-                          <input autofocus type="text" name="fcvendorid" class="form-control" placeholder="Vendor ID" required maxlength="10">
+
+                      <div class="form-group">
+                          <label for="exampleInputPassword1">Nama</label>
+                          <input autofocus type="text" name="nama" class="form-control" placeholder="nama" required maxlength="100">
+ 
                       </div>
-                  </div><!-- /.box-body -->
-                  <div class="box-body">
-                      <div class="form-vendor">
-                          <label >Nama</label>
-                          <input autofocus type="text" name="fcname" class="form-control" placeholder="Nama" required maxlength="100">
+                       <div class="form-group">
+                          <label for="exampleInputPassword1">Desk</label>
+                          <input autofocus type="text" name="desk" class="form-control" placeholder="desk" required maxlength="50">
+ 
                       </div>
-                  </div><!-- /.box-body -->
-                  <div class="box-body">
-                      <div class="form-vendor">
-                          <label >Deskripsi</label>
-                          <input autofocus type="text" name="fcdesc" class="form-control" placeholder="Deskripsi" maxlength="50">
+                      <div class="form-group">
+                          <label for="exampleInputPassword1">Alamat</label>
+                          <input autofocus type="text" name="alamat" class="form-control" placeholder="alamat" required maxlength="150">
+ 
                       </div>
-                  </div><!-- /.box-body -->
-                  <div class="box-body">
-                      <div class="form-vendor">
-                          <label >Contact Person</label>
-                          <input autofocus type="text" name="fccontperson" class="form-control" placeholder="Contact Person" maxlength="30" >
+                      <div class="form-group">
+                          <label for="exampleInputPassword1">Contact Person</label>
+                          <input autofocus type="text" name="contact_person" class="form-control" placeholder="contact_person" required maxlength="30">
+ 
                       </div>
-                  </div><!-- /.box-body -->
-                  <div class="box-body">
-                      <div class="form-vendor">
-                          <label >Phone</label>
-                          <input autofocus type="text" name="fcphone" class="form-control" placeholder="Phone" maxlength="30" >
+                      <div class="form-group">
+                          <label for="exampleInputPassword1">phone</label>
+                          <input autofocus type="text" name="phone" class="form-control" placeholder="phone" required maxlength="20">
+ 
                       </div>
-                  </div><!-- /.box-body -->
-                  <div class="box-body">
-                      <div class="form-vendor">
-                          <label >Email</label>
-                          <input autofocus type="text" name="fcemail" class="form-control" placeholder="Email" maxlength="30" >
+                      <div class="form-group">
+                          <label for="exampleInputPassword1">fax</label>
+                          <input autofocus type="text" name="fax" class="form-control" placeholder="fax" required maxlength="20">
+ 
                       </div>
-                  </div><!-- /.box-body -->
-                  <div class="box-body">
-                      <div class="form-vendor">
-                          <label >Fax</label>
-                          <input autofocus type="text" name="fcfax" class="form-control" placeholder="Fax" maxlength="30" >
+                      <div class="form-group">
+                          <label for="exampleInputPassword1">email</label>
+                          <input autofocus type="text" name="email" class="form-control" placeholder="email" required maxlength="100">
+  
                       </div>
-                  </div><!-- /.box-body -->
-                  <div class="box-body">
-                      <div class="form-vendor">
-                          <label >Alamat</label>
-                          <input autofocus type="text" name="fcaddress" class="form-control" placeholder="Alamat" maxlength="150" >
-                      </div>
+
                   </div><!-- /.box-body -->
 
                   <div class="box-footer">
@@ -85,4 +77,14 @@
 @stop
 
 @section('scripts')
+<!-- DATA TABES SCRIPT -->
+<script src="plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
+<script src="plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
+<!-- page script -->
+    <script type="text/javascript">
+      $(function () {
+          
+        $('.datatable').dataTable();
+      });
+    </script>
 @stop

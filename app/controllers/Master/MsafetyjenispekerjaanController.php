@@ -5,9 +5,16 @@ namespace App\Controllers\Master;
 class MsafetyjenispekerjaanController extends \BaseController {
 
     function getIndex() {
-        $data = \DB::table('safety_jp')->orderBy('tglupd', 'desc')->paginate(\Helpers::constval('show_number_datatable'));
+        $colarr = array(
+            'code' => 'Kode',
+            'desk' => 'Deskripsi',
+            'username' => 'User Pembuat',
+            'created_at' => 'Tanggal Pembuatan'
+        );
+        $data = \DB::table('VIEW_SF_JENIS_PEKERJAAN')->orderBy('created_at', 'desc')->paginate(\Helpers::constval('show_number_datatable'));
         return \View::make('Master/M_safety_jenispekerjaan/index', [
-                    'data' => $data
+                    'data' => $data,
+                    'colarr' => $colarr
         ]);
     }
 
@@ -16,41 +23,48 @@ class MsafetyjenispekerjaanController extends \BaseController {
     }
 
     function postNew() {
-        \DB::select("CALL SP_INSERT_JENISPEKERJAAN('" . \Input::get('desc') . "', '" . \Session::get('onusername') . "')");
+//        \DB::select("CALL SP_INSERT_SAFETY_ANGGOTABADAN('" . \Input::get('desc') . "', '" . \Session::get('onuserid') . "')");
+        \DB::select("CALL SP_INSERT_SAFETY('" . \Input::get('desc') . "', '" . \Session::get('onuserid') . "','sf_jenis_pekerjaan','sf_jenisbahaya_code_prefix')");
 
-        return \Redirect::to('master/jenispekerjaan');
+        return \Redirect::to('master/safetyjenispekerjaan');
     }
-
     function getEdit($id) {
-        $data = \DB::table('safety_jp')->where('code', $id)->first();
+        $data = \DB::table('VIEW_SF_JENIS_PEKERJAAN')->where('id', $id)->first();
         return \View::make('Master/M_safety_jenispekerjaan/edit', array(
                     'data' => $data
         ));
     }
 
     function postEdit() {
-        \DB::table('safety_jp')
-                ->where('code', \Input::get('code'))
+        \DB::table('sf_jenis_pekerjaan')
+                ->where('id', \Input::get('dataid'))
                 ->update(array(
-                    'description' => \Input::get('desc')
+                    'desk' => \Input::get('desc')
         ));
 
         return \Redirect::back();
     }
 
     function getDelete($id) {
-        \DB::table('safety_jp')->where('code', $id)->delete();
+        \DB::table('sf_jenis_pekerjaan')->where('id', $id)->delete();
         return \Redirect::back();
     }
 
     function postFilter() {
-        $data = \DB::table('safety_jp')->where(\Input::get('column'), 'like', '%' . \Input::get('value') . '%')->paginate(\Helpers::constval('show_number_datatable'));
+        $colarr = array(
+            'code' => 'Kode',
+            'desk' => 'Deskripsi',
+            'username' => 'User Pembuat',
+            'created_at' => 'Tanggal Pembuatan'
+        );
+        $data = \DB::table('VIEW_SF_JENIS_PEKERJAAN')->where(\Input::get('column'), 'like', '%' . \Input::get('value') . '%')->paginate(\Helpers::constval('show_number_datatable'));
         return \View::make('Master/M_safety_jenispekerjaan/index', [
                     'data' => $data,
                     'isfilter' => true,
                     'filter_col' => \Input::get('column'),
-                    'filter_val' => \Input::get('value')
+                    'filter_val' => \Input::get('value'),
+                    'colarr' => $colarr
         ]);
     }
-
+    
 }

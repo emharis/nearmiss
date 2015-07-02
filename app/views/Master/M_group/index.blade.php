@@ -61,10 +61,9 @@
                                     <th>No</th>
                                     <th>Group Code</th>
                                     <th>Group Name</th>
-                                    <th>Deskripsi</th>
+                                    <th>WS</th>
                                     <th>User Pembuat</th>
                                     <th>Tanggal Pembutan</th>
-                                    <th>WS</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -73,15 +72,14 @@
                                 @foreach($data as $dt)
                                 <tr>
                                     <td class="text-right">{{$rownum++}}.</td>
-                                    <td>{{$dt->fcgroupcode}}</td>
-                                    <td>{{$dt->fcgroupname}}</td>
-                                    <td>{{$dt->fcdescription}}</td>
-                                    <td>{{$dt->userid}}</td>
-                                    <td>{{date('d-m-Y', strtotime($dt->upddate))}}</td>
+                                    <td>{{$dt->code}}</td>
+                                    <td>{{$dt->nama}}</td>
                                     <td>{{$dt->ws}}</td>
+                                    <td>{{$dt->username}}</td>
+                                    <td>{{date('d-m-Y', strtotime($dt->created_at))}}</td>
                                     <td class="text-right">
-                                        <a class="btn btn-xs btn-success" href="master/group/edit/{{$dt->fcgroupcode}}" >Edit</a>
-                                        <a class="btn btn-xs btn-danger btn-delete" href="master/group/delete/{{$dt->fcgroupcode}}" >Delete</a>
+                                        <a class="btn btn-xs btn-success" href="master/group/edit/{{$dt->id}}" >Edit</a>
+                                        <a class="btn btn-xs btn-danger btn-delete" href="master/group/delete/{{$dt->id}}" >Delete</a>
                                     </td>
                                 </tr>
                                 @endforeach

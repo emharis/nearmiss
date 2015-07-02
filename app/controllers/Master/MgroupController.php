@@ -4,17 +4,15 @@ namespace App\Controllers\Master;
 
 class MgroupController extends \BaseController {
 
-    function getIndex() {
-        $data = \DB::table('secgroup')->orderBy('upddate', 'desc')->paginate(\Helpers::constval('show_number_datatable'));
-        //array column filter
+        function getIndex() {
         $colarr = array(
-            'fcgroupcode' => 'Group Code', 
-            'fcgroupname' => 'Group Name', 
-            'fcdescription' => 'Deskripsi', 
-            'userid' => 'User Pembuat',
-            'upddate' => 'Tanggal Pembuatan',
-            'ws' => 'WS',
-            );
+            'code' => 'Group Code', 
+            'nama' => 'Group Name', 
+            'ws' => 'WS',    
+            'username' => 'User Pembuat',
+            'created_at' => 'Tanggal Pembuatan',
+        );
+        $data = \DB::table('VIEW_GROUP')->orderBy('created_at', 'nama')->paginate(\Helpers::constval('show_number_datatable'));
         return \View::make('Master/M_group/index', [
                     'data' => $data,
                     'colarr' => $colarr
@@ -26,61 +24,56 @@ class MgroupController extends \BaseController {
     }
 
     function postNew() {
-        \DB::table('secgroup')->insert(array(
-            'fcgroupcode' => \Input::get('fcgroupcode'),
-            'fcgroupname' => \Input::get('fcgroupname'),
-            'fcdescription' => \Input::get('fcdescription'),
-            'userid' => \Session::get('onusername'),
-            'ws' => \Input::get('ws')
-        ));
+//        \DB::select("CALL SP_INSERT_SAFETY_ANGGOTABADAN('" . \Input::get('desc') . "', '" . \Session::get('onuserid') . "')");
+//        \DB::select("CALL SP_INSERT_VENDOR('" . \Input::get('desc') . "', '" . \Session::get('onuserid') . "','vendor','vendor_code_prefix')");
+          \DB::select("CALL SP_INSERT_GROUP('" . \Input::get('nama') . "','" . \Input::get('ws') . "', '" . \Session::get('onuserid') . "','sec_group','group_code_prefix')");
 
         return \Redirect::to('master/group');
     }
-
     function getEdit($id) {
-        $data = \DB::table('secgroup')->where('fcgroupcode', $id)->first();
+        $data = \DB::table('VIEW_group')->where('id', $id)->first();
         return \View::make('Master/M_group/edit', array(
                     'data' => $data
         ));
     }
 
     function postEdit() {
-
-        \DB::table('secgroup')
-                ->where('rowguid', \Input::get('rowguid'))
+        \DB::table('sec_group')
+                ->where('id', \Input::get('dataid'))
                 ->update(array(
-                    'fcgroupcode' => \Input::get('fcgroupcode'),
-                    'fcgroupname' => \Input::get('fcgroupname'),
-                    'fcdescription' => \Input::get('fcdescription'),
-                    'ws' => \Input::get('ws')
+            'nama' => \Input::get('nama'),
+            'ws' => \Input::get('ws'),
+           
+                    
         ));
 
         return \Redirect::back();
     }
 
     function getDelete($id) {
-        \DB::table('secgroup')->where('fcgroupcode', $id)->delete();
+        \DB::table('sec_group')->where('id', $id)->delete();
         return \Redirect::back();
     }
 
     function postFilter() {
-        $data = \DB::table('secgroup')->where(\Input::get('column'), 'like', '%' . \Input::get('value') . '%')->paginate(\Helpers::constval('show_number_datatable'));
-        //array column filter
         $colarr = array(
-            'fcgroupcode' => 'Group Code', 
-            'fcgroupname' => 'Group Name', 
-            'fcdescription' => 'Deskripsi', 
-            'userid' => 'User Pembuat',
-            'upddate' => 'Tanggal Pembuatan',
+            'code' => 'Group Code', 
+            'nama' => 'Group Name', 
             'ws' => 'WS',
-            );
+            'username' => 'User Pembuat',
+            'created_at' => 'Tanggal Pembuatan',
+
+        );
+        $data = \DB::table('VIEW_GROUP')->where(\Input::get('column'), 'like', '%' . \Input::get('value') . '%')->paginate(\Helpers::constval('show_number_datatable'));
         return \View::make('Master/M_group/index', [
                     'data' => $data,
                     'isfilter' => true,
                     'filter_col' => \Input::get('column'),
                     'filter_val' => \Input::get('value'),
-                    'colarr' => $colarr,
+                    'colarr' => $colarr
         ]);
     }
+    
+
 
 }

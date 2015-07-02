@@ -19,11 +19,11 @@
         <div class="box box-primary">
                 <div class="box-header">
                     <div class="pull-right" >
-                        <a href="master/jenispekerjaan" class="btn btn-danger">Cancel</a>
+                        <a href="master/safetyjenispekerjaan" class="btn btn-danger">Cancel</a>
                     </div>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" action="master/jenispekerjaan/new" method="POST" >
+                <form role="form" action="master/safetyjenispekerjaan/new" method="POST" >
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                   <div class="box-body">
                       <div class="form-group">
@@ -34,7 +34,7 @@
 
                   <div class="box-footer">
                     <button type="submit" class="btn btn-primary">Save</button>
-                    <a class="btn btn-danger" href="master/jenispekerjaan" >Cancel</a>
+                    <a class="btn btn-danger" href="master/safetyjenispekerjaan" >Cancel</a>
                   </div>
                 </form>
               </div><!-- /.box -->

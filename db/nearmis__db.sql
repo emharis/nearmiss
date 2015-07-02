@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `departemen` (
   `pic` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `code` (`code`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Dumping data for table nearmiss_db.departemen: ~1 rows (approximately)
 DELETE FROM `departemen`;
@@ -272,11 +272,14 @@ CREATE TABLE IF NOT EXISTS `sec_group` (
   PRIMARY KEY (`id`),
   KEY `fk_sec_group_users1_idx` (`user_id`),
   CONSTRAINT `fk_sec_group_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table nearmiss_db.sec_group: ~0 rows (approximately)
+-- Dumping data for table nearmiss_db.sec_group: ~2 rows (approximately)
 DELETE FROM `sec_group`;
 /*!40000 ALTER TABLE `sec_group` DISABLE KEYS */;
+INSERT INTO `sec_group` (`id`, `created_at`, `code`, `nama`, `ws`, `user_id`) VALUES
+	(1, '2015-06-21 11:45:25', 'GR1', 'MCE', '1', 1),
+	(2, '2015-06-21 11:48:13', 'GR2', 'BLEN', '1', 1);
 /*!40000 ALTER TABLE `sec_group` ENABLE KEYS */;
 
 
@@ -572,7 +575,7 @@ DROP TABLE IF EXISTS `vendor`;
 CREATE TABLE IF NOT EXISTS `vendor` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created_at` datetime DEFAULT NULL,
-  `kode` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `code` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
   `nama` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `desk` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `alamat` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -584,11 +587,15 @@ CREATE TABLE IF NOT EXISTS `vendor` (
   PRIMARY KEY (`id`),
   KEY `fk_ts_vendor_users1_idx` (`user_id`),
   CONSTRAINT `fk_ts_vendor_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table nearmiss_db.vendor: ~0 rows (approximately)
+-- Dumping data for table nearmiss_db.vendor: ~3 rows (approximately)
 DELETE FROM `vendor`;
 /*!40000 ALTER TABLE `vendor` DISABLE KEYS */;
+INSERT INTO `vendor` (`id`, `created_at`, `code`, `nama`, `desk`, `alamat`, `contact_person`, `phone`, `fax`, `email`, `user_id`) VALUES
+	(10, '2015-06-21 12:33:57', 'VE10', 'ALP', 'ALP Petro Industry', 'Gempol', 'raditya', '0821', '08212', 'raditya.bayu.waskita@gmail.com', 1),
+	(11, '2015-06-21 12:45:27', 'VE11', 'BNL', 'bahana', 'jakarta', 'bayu waskita', '0978', '087', 'waskita@gmail.com', 1),
+	(12, '2015-06-21 13:04:13', 'VE12', 'SVL', 'GANI', 'GANI', 'bayu', '098', '0111', 'bayu@gmail.com', 1);
 /*!40000 ALTER TABLE `vendor` ENABLE KEYS */;
 
 
@@ -604,6 +611,56 @@ CREATE TABLE `VIEW_DEPARTEMEN` (
 	`username` VARCHAR(30) NOT NULL COLLATE 'utf8_unicode_ci',
 	`desc` VARCHAR(150) NULL COLLATE 'utf8_unicode_ci',
 	`pic` VARCHAR(50) NULL COLLATE 'utf8_unicode_ci'
+) ENGINE=MyISAM;
+
+
+-- Dumping structure for view nearmiss_db.view_group
+DROP VIEW IF EXISTS `view_group`;
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `view_group` (
+	`id` INT(11) NOT NULL,
+	`code` VARCHAR(10) NULL COLLATE 'utf8_unicode_ci',
+	`nama` VARCHAR(30) NULL COLLATE 'utf8_unicode_ci',
+	`ws` CHAR(1) NULL COLLATE 'utf8_unicode_ci',
+	`user_id` INT(10) UNSIGNED NOT NULL,
+	`username` VARCHAR(30) NOT NULL COLLATE 'utf8_unicode_ci',
+	`created_at` DATETIME NULL
+) ENGINE=MyISAM;
+
+
+-- Dumping structure for view nearmiss_db.VIEW_PEGAWAI
+DROP VIEW IF EXISTS `VIEW_PEGAWAI`;
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `VIEW_PEGAWAI` (
+	`id` INT(11) NOT NULL,
+	`created_at` DATETIME NULL,
+	`kode` VARCHAR(45) NULL COLLATE 'utf8_unicode_ci',
+	`nama` VARCHAR(150) NULL COLLATE 'utf8_unicode_ci',
+	`jns_kelamin` ENUM('M','F') NULL COLLATE 'utf8_unicode_ci',
+	`tgl_lahir` DATE NULL,
+	`tmpt_lahir` VARCHAR(50) NULL COLLATE 'utf8_unicode_ci',
+	`status` VARCHAR(10) NULL COLLATE 'utf8_unicode_ci',
+	`alamat` VARCHAR(100) NULL COLLATE 'utf8_unicode_ci',
+	`kota` VARCHAR(50) NULL COLLATE 'utf8_unicode_ci',
+	`telp` VARCHAR(20) NULL COLLATE 'utf8_unicode_ci',
+	`tgl_masuk` DATE NULL,
+	`posisi_id` INT(11) NULL,
+	`level_pegawai` VARCHAR(2) NULL COLLATE 'utf8_unicode_ci',
+	`group_pegawai` VARCHAR(10) NULL COLLATE 'utf8_unicode_ci',
+	`nama_label` VARCHAR(50) NULL COLLATE 'utf8_unicode_ci',
+	`label_departemen` VARCHAR(30) NULL COLLATE 'utf8_unicode_ci',
+	`email` VARCHAR(60) NULL COLLATE 'utf8_unicode_ci',
+	`resign` ENUM('Y','N') NULL COLLATE 'utf8_unicode_ci',
+	`status_safety` ENUM('Y','N') NULL COLLATE 'utf8_unicode_ci',
+	`status_nearmiss` ENUM('Y','N') NULL COLLATE 'utf8_unicode_ci',
+	`status_pic` ENUM('Y','N') NULL COLLATE 'utf8_unicode_ci',
+	`user_id` INT(10) UNSIGNED NOT NULL,
+	`departemen_id` INT(11) NOT NULL,
+	`kode_departemen` VARCHAR(3) NOT NULL COLLATE 'utf8_unicode_ci',
+	`departemen` VARCHAR(45) NULL COLLATE 'utf8_unicode_ci',
+	`divisi_id` INT(11) NOT NULL,
+	`kode_divisi` VARCHAR(3) NOT NULL COLLATE 'utf8_unicode_ci',
+	`divisi` VARCHAR(45) NULL COLLATE 'utf8_unicode_ci'
 ) ENGINE=MyISAM;
 
 
@@ -633,11 +690,109 @@ CREATE TABLE `VIEW_SF_CEDERA` (
 ) ENGINE=MyISAM;
 
 
+-- Dumping structure for view nearmiss_db.view_sf_hubungan
+DROP VIEW IF EXISTS `view_sf_hubungan`;
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `view_sf_hubungan` (
+	`id` INT(11) NOT NULL,
+	`created_at` DATETIME NULL COMMENT '\n',
+	`code` VARCHAR(50) NULL COLLATE 'utf8_unicode_ci',
+	`desk` VARCHAR(150) NULL COLLATE 'utf8_unicode_ci',
+	`user_id` INT(10) UNSIGNED NOT NULL,
+	`username` VARCHAR(30) NOT NULL COLLATE 'utf8_unicode_ci'
+) ENGINE=MyISAM;
+
+
+-- Dumping structure for view nearmiss_db.view_sf_jenis_bahaya
+DROP VIEW IF EXISTS `view_sf_jenis_bahaya`;
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `view_sf_jenis_bahaya` (
+	`id` INT(11) NOT NULL,
+	`created_at` DATETIME NULL COMMENT '\n',
+	`code` VARCHAR(50) NULL COLLATE 'utf8_unicode_ci',
+	`desk` VARCHAR(150) NULL COLLATE 'utf8_unicode_ci',
+	`user_id` INT(10) UNSIGNED NOT NULL,
+	`username` VARCHAR(30) NOT NULL COLLATE 'utf8_unicode_ci'
+) ENGINE=MyISAM;
+
+
+-- Dumping structure for view nearmiss_db.view_sf_jenis_pekerjaan
+DROP VIEW IF EXISTS `view_sf_jenis_pekerjaan`;
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `view_sf_jenis_pekerjaan` (
+	`id` INT(11) NOT NULL,
+	`created_at` DATETIME NULL COMMENT '\n',
+	`code` VARCHAR(50) NULL COLLATE 'utf8_unicode_ci',
+	`desk` VARCHAR(150) NULL COLLATE 'utf8_unicode_ci',
+	`user_id` INT(10) UNSIGNED NOT NULL,
+	`username` VARCHAR(30) NOT NULL COLLATE 'utf8_unicode_ci'
+) ENGINE=MyISAM;
+
+
+-- Dumping structure for view nearmiss_db.view_sf_keadaan
+DROP VIEW IF EXISTS `view_sf_keadaan`;
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `view_sf_keadaan` (
+	`id` INT(11) NOT NULL,
+	`created_at` DATETIME NULL COMMENT '\n',
+	`code` VARCHAR(50) NULL COLLATE 'utf8_unicode_ci',
+	`desk` VARCHAR(150) NULL COLLATE 'utf8_unicode_ci',
+	`user_id` INT(10) UNSIGNED NOT NULL,
+	`username` VARCHAR(30) NOT NULL COLLATE 'utf8_unicode_ci'
+) ENGINE=MyISAM;
+
+
+-- Dumping structure for view nearmiss_db.view_sf_klasifikasi
+DROP VIEW IF EXISTS `view_sf_klasifikasi`;
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `view_sf_klasifikasi` (
+	`id` INT(11) NOT NULL,
+	`created_at` DATETIME NULL COMMENT '\n',
+	`code` VARCHAR(50) NULL COLLATE 'utf8_unicode_ci',
+	`desk` VARCHAR(150) NULL COLLATE 'utf8_unicode_ci',
+	`user_id` INT(10) UNSIGNED NOT NULL,
+	`username` VARCHAR(30) NOT NULL COLLATE 'utf8_unicode_ci'
+) ENGINE=MyISAM;
+
+
+-- Dumping structure for view nearmiss_db.view_vendor
+DROP VIEW IF EXISTS `view_vendor`;
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `view_vendor` (
+	`id` INT(11) NOT NULL,
+	`code` VARCHAR(10) NULL COLLATE 'utf8_unicode_ci',
+	`nama` VARCHAR(100) NULL COLLATE 'utf8_unicode_ci',
+	`desk` VARCHAR(50) NULL COLLATE 'utf8_unicode_ci',
+	`alamat` VARCHAR(150) NULL COLLATE 'utf8_unicode_ci',
+	`contact_person` VARCHAR(30) NULL COLLATE 'utf8_unicode_ci',
+	`phone` VARCHAR(20) NULL COLLATE 'utf8_unicode_ci',
+	`fax` VARCHAR(20) NULL COLLATE 'utf8_unicode_ci',
+	`email` VARCHAR(100) NULL COLLATE 'utf8_unicode_ci',
+	`user_id` INT(10) UNSIGNED NOT NULL,
+	`username` VARCHAR(30) NOT NULL COLLATE 'utf8_unicode_ci',
+	`created_at` DATETIME NULL
+) ENGINE=MyISAM;
+
+
 -- Dumping structure for view nearmiss_db.VIEW_DEPARTEMEN
 DROP VIEW IF EXISTS `VIEW_DEPARTEMEN`;
 -- Removing temporary table and create final VIEW structure
 DROP TABLE IF EXISTS `VIEW_DEPARTEMEN`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `VIEW_DEPARTEMEN` AS select `dp`.`id` AS `id`,`dp`.`code` AS `code`,`dp`.`nama` AS `nama`,`dp`.`created_at` AS `created_at`,`dp`.`user_id` AS `user_id`,`users`.`username` AS `username`,`dp`.`desc` AS `desc`,`dp`.`pic` AS `pic` from (`departemen` `dp` join `users` on((`dp`.`user_id` = `users`.`id`)));
+
+
+-- Dumping structure for view nearmiss_db.view_group
+DROP VIEW IF EXISTS `view_group`;
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `view_group`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_group` AS select `sec_group`.`id` AS `id`,`sec_group`.`code` AS `code`,`sec_group`.`nama` AS `nama`,`sec_group`.`ws` AS `ws`,`sec_group`.`user_id` AS `user_id`,`users`.`username` AS `username`,`sec_group`.`created_at` AS `created_at` from (`sec_group` join `users` on((`sec_group`.`user_id` = `users`.`id`))) order by `sec_group`.`id`;
+
+
+-- Dumping structure for view nearmiss_db.VIEW_PEGAWAI
+DROP VIEW IF EXISTS `VIEW_PEGAWAI`;
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `VIEW_PEGAWAI`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `VIEW_PEGAWAI` AS select `pegawai`.`id` AS `id`,`pegawai`.`created_at` AS `created_at`,`pegawai`.`kode` AS `kode`,`pegawai`.`nama` AS `nama`,`pegawai`.`jns_kelamin` AS `jns_kelamin`,`pegawai`.`tgl_lahir` AS `tgl_lahir`,`pegawai`.`tmpt_lahir` AS `tmpt_lahir`,`pegawai`.`status` AS `status`,`pegawai`.`alamat` AS `alamat`,`pegawai`.`kota` AS `kota`,`pegawai`.`telp` AS `telp`,`pegawai`.`tgl_masuk` AS `tgl_masuk`,`pegawai`.`posisi_id` AS `posisi_id`,`pegawai`.`level_pegawai` AS `level_pegawai`,`pegawai`.`group_pegawai` AS `group_pegawai`,`pegawai`.`nama_label` AS `nama_label`,`pegawai`.`label_departemen` AS `label_departemen`,`pegawai`.`email` AS `email`,`pegawai`.`resign` AS `resign`,`pegawai`.`status_safety` AS `status_safety`,`pegawai`.`status_nearmiss` AS `status_nearmiss`,`pegawai`.`status_pic` AS `status_pic`,`pegawai`.`user_id` AS `user_id`,`pegawai`.`departemen_id` AS `departemen_id`,`departemen`.`code` AS `kode_departemen`,`departemen`.`nama` AS `departemen`,`pegawai`.`divisi_id` AS `divisi_id`,`divisi`.`code` AS `kode_divisi`,`divisi`.`nama` AS `divisi` from ((`divisi` join `pegawai` on((`divisi`.`id` = `pegawai`.`divisi_id`))) join `departemen` on((`pegawai`.`departemen_id` = `departemen`.`id`)));
 
 
 -- Dumping structure for view nearmiss_db.VIEW_SF_ANGGOTA_BADAN
@@ -652,6 +807,48 @@ DROP VIEW IF EXISTS `VIEW_SF_CEDERA`;
 -- Removing temporary table and create final VIEW structure
 DROP TABLE IF EXISTS `VIEW_SF_CEDERA`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `VIEW_SF_CEDERA` AS select `sfa`.`id` AS `id`,`sfa`.`created_at` AS `created_at`,`sfa`.`code` AS `code`,`sfa`.`desk` AS `desk`,`sfa`.`user_id` AS `user_id`,`usr`.`username` AS `username` from (`sf_cedera` `sfa` join `users` `usr` on((`sfa`.`user_id` = `usr`.`id`)));
+
+
+-- Dumping structure for view nearmiss_db.view_sf_hubungan
+DROP VIEW IF EXISTS `view_sf_hubungan`;
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `view_sf_hubungan`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_sf_hubungan` AS select `sfh`.`id` AS `id`,`sfh`.`created_at` AS `created_at`,`sfh`.`code` AS `code`,`sfh`.`desk` AS `desk`,`sfh`.`user_id` AS `user_id`,`usr`.`username` AS `username` from (`sf_hubungan` `sfh` join `users` `usr` on((`sfh`.`user_id` = `usr`.`id`))) order by `sfh`.`id`;
+
+
+-- Dumping structure for view nearmiss_db.view_sf_jenis_bahaya
+DROP VIEW IF EXISTS `view_sf_jenis_bahaya`;
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `view_sf_jenis_bahaya`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_sf_jenis_bahaya` AS select `sfjb`.`id` AS `id`,`sfjb`.`created_at` AS `created_at`,`sfjb`.`code` AS `code`,`sfjb`.`desk` AS `desk`,`sfjb`.`user_id` AS `user_id`,`usr`.`username` AS `username` from (`sf_jenis_bahaya` `sfjb` join `users` `usr` on((`sfjb`.`user_id` = `usr`.`id`))) order by `sfjb`.`id`;
+
+
+-- Dumping structure for view nearmiss_db.view_sf_jenis_pekerjaan
+DROP VIEW IF EXISTS `view_sf_jenis_pekerjaan`;
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `view_sf_jenis_pekerjaan`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_sf_jenis_pekerjaan` AS select `sfjp`.`id` AS `id`,`sfjp`.`created_at` AS `created_at`,`sfjp`.`code` AS `code`,`sfjp`.`desk` AS `desk`,`sfjp`.`user_id` AS `user_id`,`usr`.`username` AS `username` from (`sf_jenis_pekerjaan` `sfjp` join `users` `usr` on((`sfjp`.`user_id` = `usr`.`id`))) order by `sfjp`.`id`;
+
+
+-- Dumping structure for view nearmiss_db.view_sf_keadaan
+DROP VIEW IF EXISTS `view_sf_keadaan`;
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `view_sf_keadaan`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_sf_keadaan` AS select `sfke`.`id` AS `id`,`sfke`.`created_at` AS `created_at`,`sfke`.`code` AS `code`,`sfke`.`desk` AS `desk`,`sfke`.`user_id` AS `user_id`,`usr`.`username` AS `username` from (`sf_keadaan` `sfke` join `users` `usr` on((`sfke`.`user_id` = `usr`.`id`))) order by `sfke`.`id`;
+
+
+-- Dumping structure for view nearmiss_db.view_sf_klasifikasi
+DROP VIEW IF EXISTS `view_sf_klasifikasi`;
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `view_sf_klasifikasi`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_sf_klasifikasi` AS select `sfkl`.`id` AS `id`,`sfkl`.`created_at` AS `created_at`,`sfkl`.`code` AS `code`,`sfkl`.`desk` AS `desk`,`sfkl`.`user_id` AS `user_id`,`usr`.`username` AS `username` from (`sf_klasifikasi` `sfkl` join `users` `usr` on((`sfkl`.`user_id` = `usr`.`id`))) order by `sfkl`.`id`;
+
+
+-- Dumping structure for view nearmiss_db.view_vendor
+DROP VIEW IF EXISTS `view_vendor`;
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `view_vendor`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_vendor` AS select `vendor`.`id` AS `id`,`vendor`.`code` AS `code`,`vendor`.`nama` AS `nama`,`vendor`.`desk` AS `desk`,`vendor`.`alamat` AS `alamat`,`vendor`.`contact_person` AS `contact_person`,`vendor`.`phone` AS `phone`,`vendor`.`fax` AS `fax`,`vendor`.`email` AS `email`,`vendor`.`user_id` AS `user_id`,`users`.`username` AS `username`,`vendor`.`created_at` AS `created_at` from (`vendor` join `users` on((`vendor`.`user_id` = `users`.`id`))) order by `vendor`.`id`;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

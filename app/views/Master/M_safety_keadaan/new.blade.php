@@ -9,7 +9,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Master Safety Keadaan
+            Master Safety keadaan
             <small>New</small>
           </h1>
     </section>

@@ -62,12 +62,12 @@
                                     <th>NIK</th>
                                     <th>Nama</th>
                                     <th>Jenis<br/>Kelamin</th>
-                                    <th>Deskripsi</th>
-                                    <th>Telp</th>
-                                    <th>Email</th>
+                                    <th>Level Pegawai</th>
+                                    <th>Divisi</th>
+                                    <th>Departemen</th>
                                     <th>Status <br/>Safety</th>
                                     <th>Status <br/>Near Miss</th>
-                                    <th>Status <br/>SMS</th>
+                                    <th>Status <br/>PIC</th>
                                     <th>User <br/>Pembuat</th>
                                     <th>Tgl <br/>Pembuatan</th>
                                     <th></th>
@@ -78,17 +78,24 @@
                                 @foreach($data as $dt)
                                 <tr>
                                     <td class="text-right">{{$rownum++}}.</td>
-                                    <td>{{$dt->fcemployeecode}}</td>
-                                    <td>{{$dt->fcname}}</td>
-                                    <td>{{$dt->fcsex}}</td>
-                                    <td>{{$dt->fcdescription}}</td>
-                                    <td>{{$dt->fctelp}}</td>
-                                    <td>{{$dt->email}}</td>
-                                    <td>{{$dt->status_safety}}</td>
-                                    <td>{{$dt->status_nearmiss}}</td>
-                                    <td>{{$dt->status_sms}}</td>
-                                    <td>{{$dt->userid}}</td>
-                                    <td>{{date('d-m-Y', strtotime($dt->fctanggal))}}</td>
+                                    <td>{{$dt->kode}}</td>
+                                    <td>{{$dt->Nama}}</td>
+                                    <td>
+                                        @if($dt->jns_kelamin == 'M')
+                                        <label class="label label-success" >PRIA</label>
+                                        @else
+                                        <label class="label label-warning" >WANITA</label>
+                                        @endif
+                                    </td>
+                                    <td>{{$dt->Nama}}</td>
+                                    <td>{{$dt->Nama}}</td>
+                                    <td>{{$dt->Nama}}</td>
+                                    <td>{{$dt->Nama}}</td>
+                                    <td>{{$dt->Nama}}</td>
+                                    <td>{{$dt->Nama}}</td>
+                                    <td>{{$dt->Nama}}</td>
+                                    <td>{{$dt->Nama}}</td>
+                                   
                                     <td class="text-right">
                                         <a class="btn btn-xs btn-success" href="master/pegawai/edit/{{$dt->rowguid}}" >Edit</a>
                                         <a class="btn btn-xs btn-danger btn-delete" href="master/pegawai/delete/{{$dt->rowguid}}" >Delete</a>

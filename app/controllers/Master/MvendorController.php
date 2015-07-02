@@ -5,20 +5,22 @@ namespace App\Controllers\Master;
 class MvendorController extends \BaseController {
 
     function getIndex() {
-        $data = \DB::table('tsvendor')->orderBy('fctanggal', 'desc')->paginate(\Helpers::constval('show_number_datatable'));
-        //array column filter
         $colarr = array(
-            'fcvendorid' => 'Vendor ID',
-            'fcname' => 'Nama',
-            'fcdesc' => 'Deskripsi',
-            'fccontperson' => 'Contact Person',
-            'fcaddress' => 'Alamat',
-            'fcuserid' => 'User Pembuat',
-            'fctanggal' => 'Tanggal Pembuatan',
-            'fcphone' => 'Phone',
-            'fcfax' => 'FAX',
-            'fcemail' => 'Email',
+            'code' => 'Vendor ID',
+            'nama' => 'Nama',
+            'desk' => 'Deskripsi',
+            'alamat' => 'Alamat',
+            'contact_person' => 'Contact Person',
+            'phone' => 'Phone',
+            'fax' => 'FAX',
+            'email' => 'Email',
+            'username' => 'User Pembuat',
+            'created_at' => 'Tanggal Pembuatan',
+            
+            
+        
         );
+        $data = \DB::table('VIEW_VENDOR')->orderBy('created_at', 'desc')->paginate(\Helpers::constval('show_number_datatable'));
         return \View::make('Master/M_vendor/index', [
                     'data' => $data,
                     'colarr' => $colarr
@@ -30,67 +32,55 @@ class MvendorController extends \BaseController {
     }
 
     function postNew() {
-        \DB::table('tsvendor')->insert(array(
-            'fcname' => \Input::get('fcname'),
-            'fcdesc' => \Input::get('fcdesc'),
-            'fccontperson' => \Input::get('fccontperson'),
-            'fcphone' => \Input::get('fcphone'),
-            'fcfax' => \Input::get('fcfax'),
-            'fcemail' => \Input::get('fcemail'),
-            'fcvendorid' => \Input::get('fcvendorid'),
-            'fcaddress' => \Input::get('fcaddress'),
-            'fcuserid' => \Session::get('onusername')
-        ));
+//        \DB::select("CALL SP_INSERT_SAFETY_ANGGOTABADAN('" . \Input::get('desc') . "', '" . \Session::get('onuserid') . "')");
+//        \DB::select("CALL SP_INSERT_VENDOR('" . \Input::get('desc') . "', '" . \Session::get('onuserid') . "','vendor','vendor_code_prefix')");
+          \DB::select("CALL SP_INSERT_VENDOR('" . \Input::get('nama') . "','" . \Input::get('desk') . "', '" . \Input::get('alamat') . "','" . \Input::get('contact_person') . "','" . \Input::get('phone') . "','" . \Input::get('fax') . "','" . \Input::get('email') . "','" . \Session::get('onuserid') . "','vendor','vendor_code_prefix')");
 
         return \Redirect::to('master/vendor');
     }
-
     function getEdit($id) {
-        $data = \DB::table('tsvendor')->where('rowguid', $id)->first();
+        $data = \DB::table('VIEW_VENDOR')->where('id', $id)->first();
         return \View::make('Master/M_vendor/edit', array(
                     'data' => $data
         ));
     }
 
     function postEdit() {
-
-        \DB::table('tsvendor')
-                ->where('rowguid', \Input::get('rowguid'))
+        \DB::table('vendor')
+                ->where('id', \Input::get('dataid'))
                 ->update(array(
-                    'fcname' => \Input::get('fcname'),
-                    'fcdesc' => \Input::get('fcdesc'),
-                    'fccontperson' => \Input::get('fccontperson'),
-                    'fcphone' => \Input::get('fcphone'),
-                    'fcfax' => \Input::get('fcfax'),
-                    'fcemail' => \Input::get('fcemail'),
-                    'fcvendorid' => \Input::get('fcvendorid'),
-                    'fcaddress' => \Input::get('fcaddress'),
-                    'fcuserid' => \Session::get('onusername')
+            'nama' => \Input::get('nama'),
+            'desk' => \Input::get('desk'),
+            'contact_person' => \Input::get('contact_person'),
+            'alamat' => \Input::get('alamat'),
+            'phone' => \Input::get('phone'),
+            'fax' => \Input::get('fax'),
+            'email' => \Input::get('email'),
+                    
         ));
 
         return \Redirect::back();
     }
 
     function getDelete($id) {
-        \DB::table('tsvendor')->where('rowguid', $id)->delete();
+        \DB::table('vendor')->where('id', $id)->delete();
         return \Redirect::back();
     }
 
     function postFilter() {
-        $data = \DB::table('tsvendor')->where(\Input::get('column'), 'like', '%' . \Input::get('value') . '%')->paginate(\Helpers::constval('show_number_datatable'));
-        //array column filter
         $colarr = array(
-            'fcvendorid' => 'Vendor ID',
-            'fcname' => 'Nama',
-            'fcdesc' => 'Deskripsi',
-            'fccontperson' => 'Contact Person',
-            'fcaddress' => 'Alamat',
-            'fcuserid' => 'User Pembuat',
-            'fctanggal' => 'Tanggal Pembuatan',
-            'fcphone' => 'Phone',
-            'fcfax' => 'FAX',
-            'fcemail' => 'Email',
+            'code' => 'Vendor ID',
+            'nama' => 'Nama',
+            'desk' => 'Deskripsi',
+            'contact_person' => 'Contact Person',
+            'alamat' => 'Alamat',
+            'username' => 'User Pembuat',
+            'created_at' => 'Tanggal Pembuatan',
+            'phone' => 'Phone',
+            'fax' => 'FAX',
+            'email' => 'Email',
         );
+        $data = \DB::table('VIEW_VENDOR')->where(\Input::get('column'), 'like', '%' . \Input::get('value') . '%')->paginate(\Helpers::constval('show_number_datatable'));
         return \View::make('Master/M_vendor/index', [
                     'data' => $data,
                     'isfilter' => true,
@@ -99,5 +89,4 @@ class MvendorController extends \BaseController {
                     'colarr' => $colarr
         ]);
     }
-
 }

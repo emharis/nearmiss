@@ -1,6 +1,7 @@
 @extends('Parent.master')
 
 @section('styles')
+<link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
 @stop
 
 @section('content')
@@ -24,29 +25,35 @@
                 <!-- form start -->
                 <form role="form" action="master/group/edit" method="POST" >
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                    <input type="hidden" name="rowguid" value="{{ $data->rowguid }}" />
+                    <input type="hidden" name="dataid" value="{{ $data->id }}" />
                   <div class="box-body">
+                      <div class="form-group">
+                          <label >id</label>
+                          <input autofocus type="text" readonly name="id" class="form-control" placeholder="id"  value="{{$data->id}}">
+                      </div>
+                 
                       <div class="form-group">
                           <label >Group Code</label>
-                          <input autofocus type="text" name="fcgroupcode" class="form-control" placeholder="Group Code" required maxlength="10" value="{{$data->fcgroupcode}}">
+                          <input autofocus type="text" readonly name="code" class="form-control" placeholder="Group Code" required maxlength="10" value="{{$data->code}}">
                       </div>
-                  </div><!-- /.box-body -->
-                  <div class="box-body">
+                
                       <div class="form-group">
                           <label >Group Name</label>
-                          <input autofocus type="text" name="fcgroupname" class="form-control" placeholder="Group Name" required maxlength="30" value="{{$data->fcgroupname}}" >
+                          <input autofocus type="text" name="nama" class="form-control" placeholder="Group Name" required maxlength="30" value="{{$data->nama}}" >
                       </div>
-                  </div><!-- /.box-body -->
-                  <div class="box-body">
-                      <div class="form-group">
-                          <label >Deskripsi</label>
-                          <input autofocus type="text" name="fcdescription" class="form-control" placeholder="Deskripsi" maxlength="80" value="{{$data->fcdescription}}" >
-                      </div>
-                  </div><!-- /.box-body -->
-                  <div class="box-body">
+                 
                       <div class="form-group">
                           <label >WS</label>
                           <input autofocus type="text" name="ws" class="form-control" placeholder="WS" maxlength="1" value="{{$data->ws}}">
+                      </div>
+                      
+                      <div class="form-group">
+                          <label for="exampleInputPassword1">User Name</label>
+                          <input value="{{$data->username}}" readonly type="text" name="username" class="form-control" required >
+                      </div>
+                      <div class="form-group">
+                          <label for="exampleInputPassword1">Tanggal Pembuatan</label>
+                          <input value="{{date('d-m-Y', strtotime($data->created_at))}}" readonly type="text" name="created_at" class="form-control" required >
                       </div>
                   </div><!-- /.box-body -->
 
@@ -62,4 +69,14 @@
 @stop
 
 @section('scripts')
+<!-- DATA TABES SCRIPT -->
+<script src="plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
+<script src="plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
+<!-- page script -->
+    <script type="text/javascript">
+      $(function () {
+          
+        $('.datatable').dataTable();
+      });
+    </script>
 @stop

@@ -25,8 +25,8 @@ Route::group(array('before' => 'auth'), function() {
         Route::controller('safetyanggotabadan', 'App\Controllers\Master\MsafetyanggotabadanController');
         Route::controller('safetycedera', 'App\Controllers\Master\MsafetycederaController');
         Route::controller('safetyhubungan', 'App\Controllers\Master\MsafetyhubunganController');
-        Route::controller('jenispekerjaan', 'App\Controllers\Master\MsafetyjenispekerjaanController');
-        Route::controller('jenisbahaya', 'App\Controllers\Master\MsafetyjenisbahayaController');
+        Route::controller('safetyjenispekerjaan', 'App\Controllers\Master\MsafetyjenispekerjaanController');
+        Route::controller('safetyjenisbahaya', 'App\Controllers\Master\MsafetyjenisbahayaController');
         Route::controller('safetykeadaan', 'App\Controllers\Master\MsafetykeadaanController');
         Route::controller('safetyklasifikasi', 'App\Controllers\Master\MsafetyklasifikasiController');
         Route::controller('group', 'App\Controllers\Master\MgroupController');
