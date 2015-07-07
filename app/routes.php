@@ -32,9 +32,14 @@ Route::group(array('before' => 'auth'), function() {
         Route::controller('group', 'App\Controllers\Master\MgroupController');
         Route::controller('vendor', 'App\Controllers\Master\MvendorController');
         Route::controller('departemen', 'App\Controllers\Master\MdepartemenController');
-        Route::controller('pegawai', 'App\Controllers\Master\MpegawaiController');
+        Route::controller('pegawai', 'App\Controllers\Master\MemployeeController');
         Route::controller('workreq', 'App\Controllers\Master\MworkreqController');
         Route::controller('safetysumberp', 'App\Controllers\Master\MsafetysumberpController');
+    });
+    
+    Route::group(array('prefix' => 'trans'), function() {
+        Route::controller('nearmiss', 'App\Controllers\Transaksi\TnearmissController');
+        
     });
 });
 

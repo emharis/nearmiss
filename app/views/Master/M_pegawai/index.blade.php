@@ -62,8 +62,7 @@
                                     <th>NIK</th>
                                     <th>Nama</th>
                                     <th>Jenis<br/>Kelamin</th>
-                                    <th>Level Pegawai</th>
-                                    <th>Divisi</th>
+                                    <th>Jabatan</th>
                                     <th>Departemen</th>
                                     <th>Status <br/>Safety</th>
                                     <th>Status <br/>Near Miss</th>
@@ -78,27 +77,26 @@
                                 @foreach($data as $dt)
                                 <tr>
                                     <td class="text-right">{{$rownum++}}.</td>
-                                    <td>{{$dt->kode}}</td>
-                                    <td>{{$dt->Nama}}</td>
+                                    <td>{{$dt->emp_no}}</td>
+                                    <td>{{$dt->first_name .' '. $dt->last_name}}</td>
                                     <td>
-                                        @if($dt->jns_kelamin == 'M')
+                                        @if($dt->gender == 'M')
                                         <label class="label label-success" >PRIA</label>
                                         @else
                                         <label class="label label-warning" >WANITA</label>
                                         @endif
                                     </td>
-                                    <td>{{$dt->Nama}}</td>
-                                    <td>{{$dt->Nama}}</td>
-                                    <td>{{$dt->Nama}}</td>
-                                    <td>{{$dt->Nama}}</td>
-                                    <td>{{$dt->Nama}}</td>
-                                    <td>{{$dt->Nama}}</td>
-                                    <td>{{$dt->Nama}}</td>
-                                    <td>{{$dt->Nama}}</td>
-                                   
+                                    <td>{{$dt->title}}</td>
+                                    <td>{{$dt->dept_name}}</td>
+                                    <td>{{$dt->safety_status}}</td>
+                                    <td>{{$dt->nearmiss_status}}</td>
+                                    <td>{{$dt->pic_status}}</td>
+                                    <td>{{$dt->username}}</td>
+                                    <td>{{$dt->username}}</td>
+                                    <td>{{date('d-m-Y', strtotime($dt->created_at))}}</td>
                                     <td class="text-right">
-                                        <a class="btn btn-xs btn-success" href="master/pegawai/edit/{{$dt->rowguid}}" >Edit</a>
-                                        <a class="btn btn-xs btn-danger btn-delete" href="master/pegawai/delete/{{$dt->rowguid}}" >Delete</a>
+                                        <a class="btn btn-xs btn-success" href="master/pegawai/edit/{{$dt->emp_no}}" >Edit</a>
+                                        <a class="btn btn-xs btn-danger btn-delete" href="master/pegawai/delete/{{$dt->emp_no}}" >Delete</a>
                                     </td>
                                 </tr>
                                 @endforeach
