@@ -12,14 +12,20 @@ class MsafetyhubunganController extends \BaseController {
             'created_at' => 'Tanggal Pembuatan'
         );
         $data = \DB::table('VIEW_SF_HUBUNGAN')->orderBy('created_at', 'desc')->paginate(\Helpers::constval('show_number_datatable'));
-        return \View::make('Master/M_safety_hubungan/index', [
+
+        return \View::make('Master/M_safety_hubungan/popindex', [
                     'data' => $data,
                     'colarr' => $colarr
         ]);
+//        return \View::make('Master/M_safety_hubungan/index', [
+//                    'data' => $data,
+//                    'colarr' => $colarr
+//        ]);
     }
 
     function getNew() {
-        return \View::make('Master/M_safety_hubungan/new');
+        return \View::make('Master/M_safety_hubungan/popnew');
+//        return \View::make('Master/M_safety_hubungan/new');
     }
 
     function postNew() {
@@ -28,11 +34,16 @@ class MsafetyhubunganController extends \BaseController {
 
         return \Redirect::to('master/safetyhubungan');
     }
+
     function getEdit($id) {
         $data = \DB::table('VIEW_SF_HUBUNGAN')->where('id', $id)->first();
-        return \View::make('Master/M_safety_hubungan/edit', array(
+
+        return \View::make('Master/M_safety_hubungan/popedit', array(
                     'data' => $data
         ));
+//        return \View::make('Master/M_safety_hubungan/edit', array(
+//                    'data' => $data
+//        ));
     }
 
     function postEdit() {
@@ -42,7 +53,11 @@ class MsafetyhubunganController extends \BaseController {
                     'desk' => \Input::get('desc')
         ));
 
-        return \Redirect::back();
+        if (\Request::ajax()) {
+         return json_encode(\DB::table('sf_hubungan')->find(\Input::get('dataid')));   
+        } else {
+            return \Redirect::back();
+        }
     }
 
     function getDelete($id) {
@@ -58,12 +73,21 @@ class MsafetyhubunganController extends \BaseController {
             'created_at' => 'Tanggal Pembuatan'
         );
         $data = \DB::table('VIEW_SF_HUBUNGAN')->where(\Input::get('column'), 'like', '%' . \Input::get('value') . '%')->paginate(\Helpers::constval('show_number_datatable'));
-        return \View::make('Master/M_safety_hubungan/index', [
+        
+        return \View::make('Master/M_safety_hubungan/popindex', [
                     'data' => $data,
                     'isfilter' => true,
                     'filter_col' => \Input::get('column'),
                     'filter_val' => \Input::get('value'),
                     'colarr' => $colarr
         ]);
+//        return \View::make('Master/M_safety_hubungan/index', [
+//                    'data' => $data,
+//                    'isfilter' => true,
+//                    'filter_col' => \Input::get('column'),
+//                    'filter_val' => \Input::get('value'),
+//                    'colarr' => $colarr
+//        ]);
     }
+
 }

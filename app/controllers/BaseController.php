@@ -3,9 +3,9 @@
 class BaseController extends Controller {
     
     public function __construct() {
-        $menus = \DB::table('menu')->where('parent_id',0)->orderBy('order','asc')->get();
+        $menus = \DB::table('menu')->where('parent_id',0)->where('publish','Y')->orderBy('order','asc')->get();
         foreach($menus as $mn){
-            $mn->child = \DB::table('menu')->where('parent_id',$mn->id)->orderBy('order','asc')->get();
+            $mn->child = \DB::table('menu')->where('parent_id',$mn->id)->where('publish','Y')->orderBy('order','asc')->get();
         }
         View::share('menus', $menus);
     }

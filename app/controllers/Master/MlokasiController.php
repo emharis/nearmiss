@@ -2,7 +2,7 @@
 
 namespace App\Controllers\Master;
 
-class MdepartemenController extends \BaseController {
+class MlokasiController extends \BaseController {
 
     function getIndex() {
         $data = \DB::table('VIEW_DEPARTEMEN')->orderBy('created_at', 'desc')->paginate(\Helpers::constval('show_number_datatable'));

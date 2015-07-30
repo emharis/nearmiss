@@ -12,14 +12,20 @@ class MsafetyanggotabadanController extends \BaseController {
             'created_at' => 'Tanggal Pembuatan'
         );
         $data = \DB::table('VIEW_SF_ANGGOTA_BADAN')->orderBy('created_at', 'desc')->paginate(\Helpers::constval('show_number_datatable'));
-        return \View::make('Master/M_safety_anggotabadan/index', [
+
+        return \View::make('Master/M_safety_anggotabadan/popindex', [
                     'data' => $data,
                     'colarr' => $colarr
         ]);
+//        return \View::make('Master/M_safety_anggotabadan/index', [
+//                    'data' => $data,
+//                    'colarr' => $colarr
+//        ]);
     }
 
     function getNew() {
-        return \View::make('Master/M_safety_anggotabadan/new');
+        return \View::make('Master/M_safety_anggotabadan/popnew');
+//        return \View::make('Master/M_safety_anggotabadan/new');
     }
 
     function postNew() {
@@ -31,9 +37,13 @@ class MsafetyanggotabadanController extends \BaseController {
 
     function getEdit($id) {
         $data = \DB::table('VIEW_SF_ANGGOTA_BADAN')->where('id', $id)->first();
-        return \View::make('Master/M_safety_anggotabadan/edit', array(
+
+        return \View::make('Master/M_safety_anggotabadan/popedit', array(
                     'data' => $data
         ));
+//        return \View::make('Master/M_safety_anggotabadan/edit', array(
+//                    'data' => $data
+//        ));
     }
 
     function postEdit() {
@@ -43,7 +53,11 @@ class MsafetyanggotabadanController extends \BaseController {
                     'desk' => \Input::get('desc')
         ));
 
-        return \Redirect::to('master/safetyanggotabadan');
+        if (\Request::ajax()) {
+            return json_encode(\DB::table('sf_anggota_badan')->find(\Input::get('dataid')));
+        } else {
+            return \Redirect::to('master/safetyanggotabadan');
+        }
     }
 
     function getDelete($id) {
@@ -59,13 +73,21 @@ class MsafetyanggotabadanController extends \BaseController {
             'created_at' => 'Tanggal Pembuatan'
         );
         $data = \DB::table('VIEW_SF_ANGGOTA_BADAN')->where(\Input::get('column'), 'like', '%' . \Input::get('value') . '%')->paginate(\Helpers::constval('show_number_datatable'));
-        return \View::make('Master/M_safety_anggotabadan/index', [
+        
+        return \View::make('Master/M_safety_anggotabadan/popindex', [
                     'data' => $data,
                     'isfilter' => true,
                     'filter_col' => \Input::get('column'),
                     'filter_val' => \Input::get('value'),
                     'colarr' => $colarr
         ]);
+//        return \View::make('Master/M_safety_anggotabadan/index', [
+//                    'data' => $data,
+//                    'isfilter' => true,
+//                    'filter_col' => \Input::get('column'),
+//                    'filter_val' => \Input::get('value'),
+//                    'colarr' => $colarr
+//        ]);
     }
 
 }

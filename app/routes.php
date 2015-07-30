@@ -24,6 +24,7 @@ Route::group(array('before' => 'auth'), function() {
     Route::group(array('prefix' => 'master'), function() {
         Route::controller('safetyanggotabadan', 'App\Controllers\Master\MsafetyanggotabadanController');
         Route::controller('safetycedera', 'App\Controllers\Master\MsafetycederaController');
+        Route::controller('safetylokasi', 'App\Controllers\Master\MsafetylokasiController');
         Route::controller('safetyhubungan', 'App\Controllers\Master\MsafetyhubunganController');
         Route::controller('safetyjenispekerjaan', 'App\Controllers\Master\MsafetyjenispekerjaanController');
         Route::controller('safetyjenisbahaya', 'App\Controllers\Master\MsafetyjenisbahayaController');
@@ -42,6 +43,8 @@ Route::group(array('before' => 'auth'), function() {
         
     });
 });
+
+Route::controller('test', 'App\Controllers\TestController');
 
 
 

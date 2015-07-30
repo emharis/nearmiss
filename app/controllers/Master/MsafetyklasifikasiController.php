@@ -12,14 +12,16 @@ class MsafetyklasifikasiController extends \BaseController {
             'created_at' => 'Tanggal Pembuatan'
         );
         $data = \DB::table('VIEW_SF_KLASIFIKASI')->orderBy('created_at', 'desc')->paginate(\Helpers::constval('show_number_datatable'));
-        return \View::make('Master/M_safety_klasifikasi/index', [
+//        return \View::make('Master/M_safety_klasifikasi/index', [
+        return \View::make('Master/M_safety_klasifikasi/popindex', [
                     'data' => $data,
                     'colarr' => $colarr
         ]);
     }
 
     function getNew() {
-        return \View::make('Master/M_safety_klasifikasi/new');
+        return \View::make('Master/M_safety_klasifikasi/popnew');
+//        return \View::make('Master/M_safety_klasifikasi/new');
     }
 
     function postNew() {
@@ -28,9 +30,11 @@ class MsafetyklasifikasiController extends \BaseController {
 
         return \Redirect::to('master/safetyklasifikasi');
     }
+
     function getEdit($id) {
         $data = \DB::table('VIEW_SF_KLASIFIKASI')->where('id', $id)->first();
-        return \View::make('Master/M_safety_klasifikasi/edit', array(
+//        return \View::make('Master/M_safety_klasifikasi/edit', array(
+        return \View::make('Master/M_safety_klasifikasi/popedit', array(
                     'data' => $data
         ));
     }
@@ -42,7 +46,11 @@ class MsafetyklasifikasiController extends \BaseController {
                     'desk' => \Input::get('desc')
         ));
 
-        return \Redirect::back();
+        if (\Request::ajax()) {
+            return json_encode(\DB::table('sf_klasifikasi')->find(\Input::get('dataid')));
+        } else {
+            return \Redirect::back();
+        }
     }
 
     function getDelete($id) {
@@ -58,7 +66,8 @@ class MsafetyklasifikasiController extends \BaseController {
             'created_at' => 'Tanggal Pembuatan'
         );
         $data = \DB::table('VIEW_SF_KLASIFIKASI')->where(\Input::get('column'), 'like', '%' . \Input::get('value') . '%')->paginate(\Helpers::constval('show_number_datatable'));
-        return \View::make('Master/M_safety_klasifikasi/index', [
+//        return \View::make('Master/M_safety_klasifikasi/index', [
+        return \View::make('Master/M_safety_klasifikasi/popindex', [
                     'data' => $data,
                     'isfilter' => true,
                     'filter_col' => \Input::get('column'),

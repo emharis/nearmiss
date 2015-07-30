@@ -12,14 +12,20 @@ class MsafetycederaController extends \BaseController {
             'created_at' => 'Tanggal Pembuatan'
         );
         $data = \DB::table('VIEW_SF_CEDERA')->orderBy('created_at', 'desc')->paginate(\Helpers::constval('show_number_datatable'));
-        return \View::make('Master/M_safety_cedera/index', [
+
+        return \View::make('Master/M_safety_cedera/popindex', [
                     'data' => $data,
                     'colarr' => $colarr
         ]);
+//        return \View::make('Master/M_safety_cedera/index', [
+//                    'data' => $data,
+//                    'colarr' => $colarr
+//        ]);
     }
 
     function getNew() {
-        return \View::make('Master/M_safety_cedera/new');
+        return \View::make('Master/M_safety_cedera/popnew');
+//        return \View::make('Master/M_safety_cedera/new');
     }
 
     function postNew() {
@@ -31,9 +37,13 @@ class MsafetycederaController extends \BaseController {
 
     function getEdit($id) {
         $data = \DB::table('VIEW_SF_CEDERA')->where('id', $id)->first();
-        return \View::make('Master/M_safety_cedera/edit', array(
+
+        return \View::make('Master/M_safety_cedera/popedit', array(
                     'data' => $data
         ));
+//        return \View::make('Master/M_safety_cedera/edit', array(
+//                    'data' => $data
+//        ));
     }
 
     function postEdit() {
@@ -43,7 +53,11 @@ class MsafetycederaController extends \BaseController {
                     'desk' => \Input::get('desc')
         ));
 
-        return \Redirect::to('master/safetycedera');
+        if (\Request::ajax()) {
+            return json_encode(\DB::table('sf_cedera')->find(\Input::get('dataid')));
+        } else {
+            return \Redirect::to('master/safetycedera');
+        }
     }
 
     function getDelete($id) {
@@ -59,13 +73,21 @@ class MsafetycederaController extends \BaseController {
             'created_at' => 'Tanggal Pembuatan'
         );
         $data = \DB::table('VIEW_SF_CEDERA')->where(\Input::get('column'), 'like', '%' . \Input::get('value') . '%')->paginate(\Helpers::constval('show_number_datatable'));
-        return \View::make('Master/M_safety_cedera/index', [
+        
+        return \View::make('Master/M_safety_cedera/popindex', [
                     'data' => $data,
                     'isfilter' => true,
                     'filter_col' => \Input::get('column'),
                     'filter_val' => \Input::get('value'),
                     'colarr' => $colarr
         ]);
+//        return \View::make('Master/M_safety_cedera/index', [
+//                    'data' => $data,
+//                    'isfilter' => true,
+//                    'filter_col' => \Input::get('column'),
+//                    'filter_val' => \Input::get('value'),
+//                    'colarr' => $colarr
+//        ]);
     }
 
 }
