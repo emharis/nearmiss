@@ -17,6 +17,13 @@ class LoginController extends \BaseController {
             'username' => \Input::get('username'),
             'password' => \Input::get('password')
         );
+        
+//        echo 'Authenticate user login...<br/>';
+//        echo \Input::get('username') . '<br/>';
+//        echo \Input::get('password') . '<br/>';
+//        $user = \Toddish\Verify\Models\User::where('username', \Input::get('username'))->first();
+//        echo print_r($user) . '<br/>';
+//         \Illuminate\Support\Facades\Auth::attempt($creds);
 
         try {
             \Illuminate\Support\Facades\Auth::attempt($creds);

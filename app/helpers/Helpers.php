@@ -60,6 +60,11 @@ class Helpers {
         return \DB::table('constval')->where('name',$name)->first()->value;
     }
     
+    public static function transCounter($colName){
+        return \DB::table('transcounter')->select(array($colName))->first()->$colName;
+        
+    }
+    
     public static function  tableColumns($tableName){
         return \DB::select(\DB::raw('SHOW COLUMNS FROM ' . $tableName));
     }

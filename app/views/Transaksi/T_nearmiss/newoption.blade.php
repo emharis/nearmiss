@@ -28,7 +28,7 @@
 
                 <div class="box-footer text-right">
                     <button type="submit" class="btn btn-primary btn-sm "  >Save</button>
-                    <a class="btn btn-danger btn-sm " onclick="window.close();" >Close</a>
+                    <a class="btn btn-danger btn-sm " onclick="window.close();" >Cancel</a>
                 </div>
             </div><!-- /.box -->
         </form>

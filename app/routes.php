@@ -39,7 +39,14 @@ Route::group(array('before' => 'auth'), function() {
     });
     
     Route::group(array('prefix' => 'trans'), function() {
-        Route::controller('nearmiss', 'App\Controllers\Transaksi\TnearmissController');
+        Route::controller('nrms', 'App\Controllers\Transaksi\NrmsController');
+        
+//        Route::controller('nrmssys', 'App\Controllers\Transaksi\NrmssysController');
+//        Route::controller('nrmsusr', 'App\Controllers\Transaksi\NrmsusrController');
+//        Route::controller('nrmspic', 'App\Controllers\Transaksi\NrmspicController');
+////        Route::controller('nrm', 'App\Controllers\Transaksi\NearmissController');
+//        Route::controller('nearmiss', 'App\Controllers\Transaksi\TnearmissController');
+//        Route::controller('thandle', 'App\Controllers\Transaksi\ThandleController');
         
     });
 });
