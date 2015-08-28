@@ -33,9 +33,24 @@
                 </table>
             </div>
             <div class="box-footer text-right" >
-                
+
             </div>
         </div>
+
+<!--        <div class="box box-solid" >
+            <div class="box-body" >
+                Input data baru, jika tidak ditemukan 
+                <form action="trans/nrms/new-option" method="POST" >
+                    \DB::select("CALL SP_INSERT_SAFETY('" . \Input::get('desc') . "', '" . \Session::get('onuserid') . "','" . \Input::get('table') . "','" . \Input::get('codeprefix') . "')");
+                    <div class="form-group">
+                    <label >Nama</label>
+                    <input type="text" name="desc"  class="form-control"/>
+                    <input type="hidden" name="table" value="{{$tableName}}" class="form-control"/>
+                    <button type="submit" class="btn btn-primary btn-xs" >Save</button>
+                </div>
+                </form>
+            </div>
+        </div>-->
 
     </section><!-- /.content -->
 </div><!-- /.content-wrapper -->
@@ -59,7 +74,6 @@ $(document).ready(function () {
     //set focus ke input searvh
     $('input[type=search]').focus();
     //add title 
-//    $('#DataTables_Table_0_filter').parent().prev().html('<h4>' + $('input[name=title]').val() + '</h4>');
     $('#DataTables_Table_0_filter').parent().prev().remove();
     $('#DataTables_Table_0_filter').parent().removeClass('col-sm-6');
     $('#DataTables_Table_0_filter').parent().addClass('col-sm-12');
@@ -67,23 +81,30 @@ $(document).ready(function () {
     $('#DataTables_Table_0_filter').addClass('pull-right');
     //ganti div filter ke sm-8
     //pindahkan pagination ke kiri
-    $('#DataTables_Table_0_paginate').parent().prev().remove();
+    $col1 = $('#DataTables_Table_0_paginate').parent().prev();
+    $col2 = $('#DataTables_Table_0_paginate').parent();
+    
+    $col1.addClass('text-left');
+    $col1.html($('#DataTables_Table_0_paginate'));
     $('#DataTables_Table_0_paginate').addClass('pull-left');
     //add tombol cancel
-    $('#DataTables_Table_0_paginate').parent().after('<div class="col-sm-5" ><a id="btn-cancel" class="btn btn-danger pull-right" >Cancel</a></div>');
+    $col2.addClass('text-right');
+    $col2.html('<div class="pull-right" ><a id="btn-cancel" class="btn btn-danger " >Cancel</a></div>');
+
     
+
     //close window
-    $(document).on('click','#btn-cancel',function () {
+    $(document).on('click', '#btn-cancel', function () {
         window.close();
     });
-    
+
     //pilih item
-    $(document).on('click','.btn-pilih',function(){
+    $(document).on('click', '.btn-pilih', function () {
         var id = $(this).data('id');
         var nama = $(this).data('nama');
         var hiddenField = $('input[name=hiddenField]').val();
         var namaField = $('input[name=namaField]').val();
-        opener.getData(id,nama,hiddenField,namaField);
+        opener.getData(id, nama, hiddenField, namaField);
         window.close();
     });
 });

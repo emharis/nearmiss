@@ -13,7 +13,7 @@
         <h1>
             Data Nearmiss/Kecelakaan Kerja
             <div class="pull-right" >
-                <a href="trans/nrms/new" class="btn btn-primary pull-right" id="btnNew">New</a>
+                <a href="trans/nrms/new" class="btn btn-sm btn-primary pull-right" id="btnNew">New</a>
             </div>
         </h1>
     </section>
@@ -22,9 +22,9 @@
     <section class="content">
         <div class="box box-solid">
             <form action="trans/nrms/filter" method="POST" >
-                <div class="box-body" >
+                <div  class="box-body" >
                     <h4>Filter : </h4>
-                    <div class="row" >
+                    <div id="box-filter" class="row" >
                         <div class="col-md-3" >
                             <div class="form-group">
                                 <label >Tanggal Awal</label>
@@ -52,10 +52,13 @@
                     </div>
                 </div>
                 <div class="box-footer text-right" >
-                    <button type="submit" class="btn btn-success" >Filter</button>
+                    <a id="btn-open-filter" class="btn btn-sm btn-primary" ><i class="fa fa-angle-double-down" ></i> Open Filter</a>
+                    <button id="btn-filter" type="submit" class="btn btn-sm btn-success" >Filter</button>
                     @if(isset($isfilter))
-                    <a href="trans/nrms" class="btn btn-sm btn-warning" >Clear Filter</a>
-                    @endif
+                    <a id="btn-clear-filter" href="trans/nrms" class="btn btn-sm btn-warning" >Clear Filter</a>
+                    @endif                    
+                    <a id="btn-close-filter" class="btn btn-sm btn-danger" ><i class="fa fa-angle-double-up" ></i> Close Filter</a>
+
                 </div>
             </form>
         </div>
@@ -63,7 +66,7 @@
         <div class="box box-solid">
             <!-- form start -->
 
-            <div class="box-body ">
+            <div class="box-body table-responsive">
                 <h4>Tabel Data : </h4>
                 <table class="table table-bordered table-condensed" >
                     <thead>
@@ -106,11 +109,17 @@
                             <td>{{$dt->kriteria}}</td>
                             <td>{{$dt->lokasi}}</td>
                             <td>{{$dt->jenis_bahaya}}</td>   
-                            <td>{{isset($dt->user_issue)?$dt->user_issue:'-'}}</td>   
+                            <td>
+                                @if($dt->username == 'admin')
+                                admin
+                                @else
+                                {{isset($dt->user_issue)?$dt->user_issue:'-'}}
+                                @endif
+                            </td>   
                             <td class="text-center">
                                 <div class="btn-group" >
-                                    <a class="btn btn-primary btn-xs btnEdit" href="trans/nrmspic/edit/{{$dt->id}}" >Edit</a>
-                                    <a class="btn btn-success btn-xs btnShow" href="trans/nrmspic/show/{{$dt->id}}" >Show</a>    
+                                    <a class="btn btn-primary btn-xs btnEdit" href="trans/nrms/edit/{{$dt->id}}" >Edit</a>
+                                    <a class="btn btn-success btn-xs btnShow" href="trans/nrms/show/{{$dt->id}}" >Show</a>    
                                 </div>
                             </td>
                         </tr>
@@ -125,6 +134,7 @@
 
     </section><!-- /.content -->
 </div><!-- /.content-wrapper -->
+<input type="hidden" name="isfilter" value="{{isset($isfilter)?$isfilter:'0'}}"/>
 @stop
 
 @section('scripts')
@@ -139,14 +149,42 @@
 <!-- page script -->
 <script type="text/javascript">
 $(function () {
-    //datepicker 
-//    $('.months-header ').addClass('small');
-//    $('.months-header .month').empty();
-//    $('.months-header .month').append('<select class="select-month form-control"><option value="1" >Januari</option><option value="2" >Februari</option></select>');
-//    $('.months-header .year').empty();
-//    $('.months-header .year').append('<select class="select-month form-control"><option value="2015" >2015</option><option value="2016" >2016</option></select>');
-    
-    
+    //hide box-filter
+    $('#box-filter,#btn-filter,#btn-clear-filter,#btn-close-filter').hide();
+
+    //open filter
+    $('#btn-open-filter').click(function () {
+        $('#btn-open-filter').fadeOut(100, function () {
+            $('#btn-filter,#btn-clear-filter,#btn-close-filter').fadeIn(100);
+        });
+        $('#box-filter').slideDown(250, function () {
+
+        });
+        return false;
+    });
+
+    //close filter
+    $('#btn-close-filter').click(function () {
+        $('#btn-filter,#btn-clear-filter,#btn-close-filter').fadeOut(100, function () {
+            $('#btn-open-filter').fadeIn(100);
+        });
+        $('#box-filter').slideUp(250, function () {
+
+
+        });
+        return false;
+    });
+
+    //jika form dalam mode filter, maka tampilkan box filternya
+    function checkIsFiltered() {
+        var isfilter = $('input[name=isfilter]').val();
+        if (isfilter == 1) {
+            $('#btn-open-filter').click();
+        }
+    }
+    checkIsFiltered();
+
+
     //ganti input filter untuk kolom status dan kriteria
     $('select[name=kolom]').change(function () {
         var val = $(this).val();
@@ -199,7 +237,7 @@ $(function () {
         newWindow = window.open(url, 'newTapel', 'toolbar=no,scrollbars=yes, width=' + winWidth + ', height=' + winHeight + ', top=' + top + ', left=' + left);
         newWindow.focus();
     }
-    
+
     //stay focus of newwindow
     $('body').on('click', function () {
         if (newWindow && !newWindow.closed) {

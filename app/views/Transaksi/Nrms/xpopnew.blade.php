@@ -17,12 +17,11 @@
         <div class="box box-primary">
             <div class="box-header" >
                 <h4>
-                    Edit Data Temuan Kecelakaan Kerja/Nearmiss 
+                    Input Data Temuan Kecelakaan Kerja/Nearmiss 
                 </h4>
             </div>
             <div class="box-body">
-                <form method="POST" action="trans/nrms/edit" class="" enctype="multipart/form-data" >
-                    {{Form::hidden('id',$data->id)}}
+                <form method="POST" action="trans/nrmssys/new" class="" enctype="multipart/form-data" >
                     <table class="table table-bordered table-condensed" >
                         <tbody>
                             <tr>
@@ -30,14 +29,14 @@
                                     Tanggal
                                 </td>
                                 <td class="col-sm-3" colspan="2" >
-                                    <div id="input-tgl" data-input="form-control" class="bfh-datepicker" data-format="d-m-y" data-date="{{date('d-m-Y',strtotime($data->tgl))}}" data-name="tgl" ></div>
+                                    <div id="input-tgl" data-input="form-control" class="bfh-datepicker" data-format="d-m-y" data-date="today" data-name="tgl" ></div>
                                 </td>
                                 <td></td>
                                 <td class="col-sm-2" >
                                     Ditujukan untuk/PIC
                                 </td>
                                 <td class="col-sm-3" colspan="2" >
-                                    {{Form::select('pic',$selectPic,$data->pic_no,array('class'=>'employees select-search form-control','data-live-search'=>'true','data-live-search'=>'true','title'=>' ','required'))}}
+                                    {{Form::select('pic',$selectPic,null,array('class'=>'employees select-search form-control','data-live-search'=>'true','data-live-search'=>'true','title'=>' ','required'))}}
                                 </td>
                             </tr>
                             <tr>
@@ -45,7 +44,7 @@
                                     Lokasi
                                 </td>
                                 <td class="col-sm-3" >
-                                    {{Form::select('lokasi',$selectLokasi,$data->lokasi_id,array('class'=>'sf_lokasi select-search form-control','data-live-search'=>'true','data-live-search'=>'true','title'=>' ','required'))}}
+                                    {{Form::select('lokasi',$selectLokasi,null,array('class'=>'sf_lokasi select-search form-control','data-live-search'=>'true','data-live-search'=>'true','title'=>' ','required'))}}
                                 </td>
                                 <td class="col-sm-1" >
                                     <a class="btn btn-primary btnNewOption" data-prefix="sf_lokasi_code_prefix" data-header="Lokasi" data-tablename="sf_lokasi" ><i class="fa fa-plus" ></i></a>
@@ -55,7 +54,7 @@
                                     Jenis Pekerjaan
                                 </td>
                                 <td class="col-sm-3" >
-                                    {{Form::select('jenis_pekerjaan',$selectJenisPekerjaan,$data->jenis_pekerjaan_id,array('class'=>'sf_jenis_pekerjaan select-search form-control ','data-live-search'=>'true','title'=>' ','required'))}}
+                                    {{Form::select('jenis_pekerjaan',$selectJenisPekerjaan,null,array('class'=>'sf_jenis_pekerjaan select-search form-control ','data-live-search'=>'true','title'=>' ','required'))}}
                                 </td>
                                 <td class="col-sm-1" >
                                     <a class="btn btn-primary btnNewOption" data-prefix="sf_jenispekerjaan_code_prefix" data-header="Jenis Pekerjaan" data-tablename="sf_jenis_pekerjaan" ><i class="fa fa-plus" ></i></a>
@@ -66,7 +65,7 @@
                                     Hubungan plant lain
                                 </td>
                                 <td class="col-sm-3" >
-                                    {{Form::select('hubungan',$selectHubungan,$data->hubungan_id,array('class'=>'sf_hubungan select-search form-control','data-live-search'=>'true','title'=>' '))}}
+                                    {{Form::select('hubungan',$selectHubungan,null,array('class'=>'sf_hubungan select-search form-control','data-live-search'=>'true','title'=>' '))}}
                                 </td>
                                 <td class="col-sm-1" >
                                     <a class="btn btn-primary btnNewOption" data-prefix="sf_hubungan_code_prefix" data-header="Hubungan dengan plant" data-tablename="sf_hubungan" ><i class="fa fa-plus" ></i></a>
@@ -76,7 +75,7 @@
                                     Jenis Bahaya
                                 </td>
                                 <td class="col-sm-3" >
-                                    {{Form::select('jenis_bahaya',$selectJenisBahaya,$data->jenis_bahaya_id,array('class'=>'sf_jenis_bahaya select-search form-control','data-live-search'=>'true','title'=>' ','required'))}}
+                                    {{Form::select('jenis_bahaya',$selectJenisBahaya,null,array('class'=>'sf_jenis_bahaya select-search form-control','data-live-search'=>'true','title'=>' ','required'))}}
                                 </td>
                                 <td class="col-sm-1" >
                                     <a class="btn btn-primary btnNewOption" data-prefix="sf_jenisbahaya_code_prefix" data-header="Jenis Bahaya" data-tablename="sf_jenis_bahaya" ><i class="fa fa-plus" ></i></a>
@@ -87,7 +86,7 @@
                                     Anggota Badan
                                 </td>
                                 <td class="col-sm-3" >
-                                    {{Form::select('anggota_badan',$selectAnggotaBadan,$data->anggota_badan_id,array('class'=>'sf_anggota_badan select-search form-control','data-live-search'=>'true','title'=>' '))}}
+                                    {{Form::select('anggota_badan',$selectAnggotaBadan,null,array('class'=>'sf_anggota_badan select-search form-control','data-live-search'=>'true','title'=>' '))}}
                                 </td>
                                 <td class="col-sm-1" >
                                     <a class="btn btn-primary btnNewOption" data-prefix="sf_anggotabadan_code_prefix" data-header="Anggota Badan" data-tablename="sf_anggota_badan" ><i class="fa fa-plus" ></i></a>
@@ -101,7 +100,7 @@
                                                 'K3'=>'K3',
                                                 'LINGKUNGAN'=>'LINGKUNGAN',
                                                 'HEALTHY'=>'HEALTHY',
-                                                ),$data->kriteria,array('class'=>'select-search form-control','data-live-search'=>'true','title'=>' ','required'))}}
+                                                ),null,array('class'=>'select-search form-control','data-live-search'=>'true','title'=>' ','required'))}}
                                 </td>
                                 <td class="col-sm-1" >
 
@@ -112,7 +111,7 @@
                                     Cedera
                                 </td>
                                 <td class="col-sm-3" >
-                                    {{Form::select('cedera',$selectCedera,$data->cedera_id,array('class'=>'sf_cedera select-search form-control','data-live-search'=>'true','title'=>' '))}}
+                                    {{Form::select('cedera',$selectCedera,null,array('class'=>'sf_cedera select-search form-control','data-live-search'=>'true','title'=>' '))}}
                                 </td>
                                 <td class="col-sm-1" >
                                     <a class="btn btn-primary btnNewOption" data-prefix="sf_cedera_code_prefix" data-header="Cedera" data-tablename="sf_cedera" ><i class="fa fa-plus" ></i></a>
@@ -122,7 +121,7 @@
                                     Sumber Penyebab
                                 </td>
                                 <td class="col-sm-3" >
-                                    {{Form::select('sumber_penyebab',$selectSumberPenyebab,$data->sumber_penyebab_id,array('class'=>'sf_sumber_penyebab select-search form-control','data-live-search'=>'true','title'=>' ','required'))}}
+                                    {{Form::select('sumber_penyebab',$selectSumberPenyebab,null,array('class'=>'sf_sumber_penyebab select-search form-control','data-live-search'=>'true','title'=>' ','required'))}}
                                 </td>
                                 <td class="col-sm-1" >
                                     <a class="btn btn-primary btnNewOption" data-prefix="sf_sumberp_code_prefix" data-header="Sumber Penyebab" data-tablename="sf_sumber_penyebab" ><i class="fa fa-plus" ></i></a>
@@ -133,7 +132,7 @@
                                     Keadaan tidak aman
                                 </td>
                                 <td class="col-sm-3" >
-                                    {{Form::select('keadaan',$selectKeadaan,$data->keadaan_id,array('class'=>'sf_keadaan select-search form-control','data-live-search'=>'true','title'=>' '))}}
+                                    {{Form::select('keadaan',$selectKeadaan,null,array('class'=>'sf_keadaan select-search form-control','data-live-search'=>'true','title'=>' '))}}
                                 </td>
                                 <td class="col-sm-1" >
                                     <a class="btn btn-primary btnNewOption" data-prefix="sf_keadaan_code_prefix" data-header="Keadaan" data-tablename="sf_keadaan" ><i class="fa fa-plus" ></i></a>
@@ -143,7 +142,7 @@
                                     Kontraktor celaka
                                 </td>
                                 <td class="col-sm-3" >
-                                    {{Form::select('kontraktor_ceaka',$selectCedera,$data->vendor_cedera_id,array('class'=>'sf_cedera select-search form-control','data-live-search'=>'true','title'=>' '))}}
+                                    {{Form::select('kontraktor_ceaka',$selectCedera,null,array('class'=>'sf_cedera select-search form-control','data-live-search'=>'true','title'=>' '))}}
                                 </td>
                                 <td class="col-sm-1" >
                                     <a class="btn btn-primary btnNewOption" data-prefix="sf_cedera_code_prefix" data-header="Cedera" data-tablename="sf_cedera" ><i class="fa fa-plus" ></i></a>
@@ -154,17 +153,17 @@
                                     Jenis Kontraktor
                                 </td>
                                 <td class="col-sm-3" >
-                                    {{Form::select('vendor',$selectVendor,$data->vendor_id,array('class'=>'vendor select-search form-control','data-live-search'=>'true','title'=>' '))}}
+                                    {{Form::select('vendor',$selectVendor,null,array('class'=>'vendor select-search form-control','data-live-search'=>'true','title'=>' '))}}
                                 </td>
                                 <td class="col-sm-1" >
                                     <a class="btn btn-primary btnNewOption" data-prefix="null" data-header="Vendor" data-tablename="vendor" ><i class="fa fa-plus" ></i></a>
                                 </td>
                                 <td></td>
                                 <td class="col-sm-2" >
-
+                                    Dilaporkan oleh
                                 </td>
                                 <td class="col-sm-3" colspan="2" >
-
+                                    {{Form::select('user_issue',$selectUserIssue,null,array('class'=>'employees select-search form-control','data-live-search'=>'true','data-live-search'=>'true','title'=>' ','required'))}}
                                 </td>
                             </tr>
                             <tr>
@@ -172,44 +171,75 @@
                                     Tindakan tidak aman
                                 </td>
                                 <td class="col-sm-3" colspan="2">
-                                    {{Form::textarea('tindakan_tidak_aman',$data->tindakan,array('class'=>'form-control','rows'=>'3','required'))}}
+                                    {{Form::textarea('tindakan_tidak_aman',null,array('class'=>'form-control','rows'=>'3','required'))}}
                                 </td>
                                 <td></td>
                                 <td class="col-sm-2" >
                                     Uraian
                                 </td>
                                 <td class="col-sm-3" colspan="2" >
-                                    {{Form::textarea('uraian',$data->uraian,array('class'=>'form-control','rows'=>'3','required'))}}
+                                    {{Form::textarea('uraian',null,array('class'=>'form-control','rows'=>'3','required'))}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-2" >
+                                    Pencegahan
+                                </td>
+                                <td class="col-sm-3" colspan="2">
+                                    {{Form::textarea('pencegahan',null,array('class'=>'form-control','rows'=>'3'))}}
+                                </td>
+                                <td></td>
+                                <td class="col-sm-2" >
+                                    Koreksi
+                                </td>
+                                <td class="col-sm-3" colspan="2" >
+                                    {{Form::textarea('koreksi',null,array('class'=>'form-control','rows'=>'3'))}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-2" >
+                                    Tgl Koreksi
+                                </td>
+                                <td class="col-sm-3" colspan="2">
+                                    <div id="input-tgl-koreksi" data-input="form-control" class="bfh-datepicker" data-format="d-m-y" data-date="today" data-name="tgl_koreksi" ></div>
+                                </td>
+                                <td></td>
+                                <td class="col-sm-2" >
+                                    Status
+                                </td>
+                                <td class="col-sm-3" colspan="2" >
+                                    <select name="status" class="form-control" >
+                                        <option value="OP" >OPEN</option>
+                                        <option value="CK" >ON PROGRESS</option>
+                                        <option value="CL" >CLOSED</option>
+                                    </select>
                                 </td>
                             </tr>
                             <tr>
                                 <td >
                                     <label>Foto temuan:</label>
                                 </td>
-                                <td colspan="6" >
+                                <td colspan="2" >
                                     <a id="btn-browse-img" class="btn btn-xs btn-primary" >Browse...</a>
                                 </td>
-                                
+                                <td></td>
+                                <td >
+                                    <label>Foto perbaikan:</label>
+                                </td>
+                                <td colspan="2" >
+                                    <a id="btn-browse-img-perbaikan" class="btn btn-xs btn-primary" >Browse...</a>
+                                </td>
                             </tr>
                             <tr>
-                                <td  colspan="7">
+                                <td  colspan="3">
                                     <div class="row" id="image-preview" >
-                                        @foreach($dataFoto as $dt)
-                                        <div class="col-sm-3" >
-                                            <div class = "box box-primary " >
-                                                <div class = "box-body" >
-                                                    <a href="trans/nrms/delfoto" data-imgid="{{$dt->id}}" id="btn_del_img_{{$dt->id}}" class = "btn-del-image" > <i class = "fa fa-times pull-right" > </i></a >
-                                                    
-                                                    @if(File::exists('uploads/'.$dt->local_img))
-                                                    <a href="uploads/{{$dt->local_img}}" data-lightbox="img-prev" ><img id = "img_{{$dt->id}}" src = "uploads/{{$dt->local_img}}" class = "col-sm-12 img-prev" width = "100%" height="100px" /></a>
-                                                    @else
-                                                    <a href="{{'data:image/'.$dt->type.';base64,'.$dt->img}}" data-lightbox="img-prev" ><img id = "img_{{$dt->id}}" src = "{{'data:image/'.$dt->type.';base64,'.$dt->img}}" class = "col-sm-12 img-prev" width = "100%" height="100px" /></a>                                                    
-                                                    @endif
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                        @endforeach
+
+                                    </div>
+                                </td>
+                                <td></td>
+                                <td  colspan="3">
+                                    <div class="row" id="image-preview-perbaikan" >
+
                                     </div>
                                 </td>
                             </tr>
@@ -232,10 +262,6 @@
 
     </section><!-- /.content -->
 </div><!-- /.content-wrapper -->
-<div class="hide" >
-    <input name="imgCount" value="{{count($dataFoto)}}"/>
-    <input name="imgCount2" value="{{count($dataFotoKoreksi)}}"/>
-</div>
 @stop
 
 @section('scripts')
@@ -255,7 +281,7 @@
 <!-- page script -->
 <script type="text/javascript">
 $(document).ready(function () {
-//close form
+    //close form
     $('#btnCancel').click(function () {
         window.close();
         return false;
@@ -264,7 +290,7 @@ $(document).ready(function () {
     var uploader = new plupload.Uploader({
         runtimes: 'html5',
         browse_button: 'btn-browse-img', // this can be an id of a DOM element or the DOM element itself
-        url: "{{URL::to('trans/nrms/upload')}}",
+        url: "{{URL::to('trans/nrmssys/upload')}}",
         resize: {
             width: 400,
             quality: 90
@@ -276,16 +302,16 @@ $(document).ready(function () {
             ]
         },
         multipart_params: {
-            "tipe": "T",
-            'temuanId': $('input[name=id]').val()
+            "tipe": "T"
         }
     });
     uploader.bind("FilesAdded", handlePluploadFilesAdded);
+    uploader.bind("BeforeUpload", BeforeUpload);
+    uploader.bind("FileUploaded", FileUploaded);
     uploader.bind("UploadComplete", UploadComplete);
     uploader.init();
     var num = 1;
-    var imgCount = parseInt($('input[name=imgCount]').val());
-
+    var imgCount = 0;
     function handlePluploadFilesAdded(uploader, files) {
         if ((imgCount + files.length) <= 4) {
             $('.plupload_filelist_content', uploader).empty();
@@ -296,13 +322,14 @@ $(document).ready(function () {
                 img.onload = function () {
                     $('#btn_del_img_' + num).show();
                     //add image preview
-                    $('#image-preview').append('<div class="col-sm-3" >' +
+                    $('#image-preview').append('<div class="col-sm-6" >' +
                             '<div class = "box box-primary " >' +
                             '<div class = "box-body" >' +
-                            '<a href="#" data-imgid="' + file.id + '" data-num="' + num + '" id = "btn_del_img_' + num + '" class = "btn-del-image" > <i class = "fa fa-times pull-right" > </i></a >' +
+                            '<a data-imgid="' + file.id + '" data-num="' + num + '" id = "btn_del_img_' + num + '" class = "btn-del-image" > <i class = "fa fa-times pull-right" > </i></a >' +
                             '<a href="' + this.getAsDataURL() + '" data-lightbox="img-prev" ><img id = "img_' + num + 'x" src = "' + this.getAsDataURL() + '" class = "col-sm-12 img-prev" width = "100%" height="100px" /></a>' +
                             '</div></div></div>');
                     num++;
+
                 };
                 img.load(file.getSource());
             });
@@ -313,45 +340,126 @@ $(document).ready(function () {
                 uploader.removeFile(file);
             });
         }
-    }
 
+    }
+    function BeforeUpload(uploader, file) {
+
+    }
+    function FileUploaded(uploader, file, response) {
+//                                                alert(response.response);
+    }
     function UploadComplete(uploader, files) {
         //close window
         window.close();
     }
 
     $(document).on('click', '.btn-del-image', function () {
-        var btn = $(this);
-        var imgid = btn.data('imgid');
-        //remove image dari database
-        var url = btn.attr('href');
+        var imgid = $(this).data('imgid');
+        var num = $(this).data('num');
+        uploader.removeFile(imgid);
+        $('#btn_del_img_' + num).parent().parent().parent().remove();
+        //kurangi jumlah imgCount
+        imgCount = imgCount - 1;
+    });
+    //==============end of plupload===========
+    //
+    //
+    //
+    //
+    // //============PLUPLOAD 2==================
 
-        if (confirm('Hapus foto ini?')) {            
-            if (url !== '#' && url !== null && url !== '') {
-                $.post(url, {"id": imgid}, function (res) {
-                    //remove image dari uploader
-                    try {
-                        uploader.removeFile(imgid);
-                    } catch ($ex) {
-                        alert($ex);
-                    }
-                });
-            }
-            //remove image preview
-            btn.parent().parent().parent().remove();
-            //kurangi jumlah imgCount2
-            imgCount = imgCount - 1;
-
+    var uploader2 = new plupload.Uploader({
+        runtimes: 'html5',
+        browse_button: 'btn-browse-img-perbaikan', // this can be an id of a DOM element or the DOM element itself
+        url: "{{URL::to('trans/nrmssys/upload')}}",
+        resize: {
+            width: 400,
+            quality: 90
+        },
+        filters: {
+            // Specify what files to browse for
+            mime_types: [
+                {title: "Image files", extensions: "jpg,gif,png"}
+            ]
+        },
+        multipart_params: {
+            "tipe": "K"
         }
+    });
+    uploader2.bind("FilesAdded", handlePluploadFilesAdded2);
+    uploader2.bind("UploadComplete", UploadComplete2);
+    uploader2.init();
+//    var num2 = 1;
+    var imgCount2 = 0;
+    function handlePluploadFilesAdded2(uploader2, files) {
+        if ((imgCount2 + files.length) <= 4) {
+            $('.plupload_filelist_content', uploader2).empty();
+            //add foto dan tampilkan ke view
+            plupload.each(files, function (file) {
+                imgCount2++;
+                var img = new o.Image();
+                img.onload = function () {
+//                    $('#btn_del_img_' + num2).show();
+                    //add image preview
+//                    alert(this.getAsDataURL());
+
+                    $('#image-preview-perbaikan').append(
+                            '<div class="col-sm-6" >' +
+                            '<div class = "box box-warning" >' +
+                            '<div class = "box-body" >' +
+                            '<a data-imgid="' + file.id + '" id="btn-del-img-perbaikan-' + file.id + '" href="#" class="btn-del-image-perbaikan" > <i class = "fa fa-times pull-right" > </i></a >' +
+                            '<a href="' + this.getAsDataURL() + '" data-lightbox="img-prev-perbaikan" >' +
+                            '<img id = "img_perbaikan_' + file.id + '" src = "' + this.getAsDataURL() + '" class ="col-sm-12" width = "100%" height="100px" />' +
+                            '</a>' +
+                            '</div></div></div>'
+                            );
+//                    num2++;
+
+                };
+                img.load(file.getSource());
+            });
+        } else {
+            alert('Jumlah foto maksimal 4 item');
+            //remove recent added foto
+            uploader2.each(files, function (file) {
+                uploader2.removeFile(file);
+            });
+        }
+
+    }
+    function UploadComplete2(uploader2, files) {
+        //close window
+        window.close();
+    }
+
+    $(document).on('click', '.btn-del-image-perbaikan', function () {
+        var imgid = $(this).data('imgid');
+        uploader2.removeFile(imgid);
+        $('#btn-del-img-perbaikan-' + imgid).parent().parent().parent().remove();
+        //kurangi jumlah imgCount2
+        imgCount2 = imgCount2 - 1;
 
         return false;
     });
+    //==============end of plupload 2===========
+    //prepare form for jqueryAjax
 
-//==============end of plupload===========
-
-
+//    $('input[name=tgl]').datepicker({
+//        changeMonth: true,
+//        changeYear: true,
+//        dateFormat: 'dd-mm-yy',
+//        beforeShow: function () {
+//            $(".ui-datepicker").css('font-size', 11);
+//        }
+//    });
+    //select element with search
+    $('.select-search').val([]);
     //set seect user issu
+    $('select[name=user_issue]').val(1);
     $('.select-search').chosen();
+
+    //set mask text box tanggal
+    //set semua select element (combo box) ke not selected
 
     var newWindow;
     $('.btnNewOption').click(function () {
@@ -369,20 +477,16 @@ $(document).ready(function () {
         }
         var left = ((width / 2) - (winWidht / 2)) + dualScreenLeft;
         var top = ((height / 2) - (winHeight / 2)) + dualScreenTop;
-        var url = 'trans/nrms/new-option/' + $(this).data('tablename') + '/' + $(this).data('prefix') + '/' + $(this).data('header');
+        var url = 'trans/nrmssys/new-option/' + $(this).data('tablename') + '/' + $(this).data('prefix') + '/' + $(this).data('header');
         newWindow = window.open(url, 'new-lokasi', 'toolbar=no,scrollbars=yes, width=' + winWidht + ', height=' + winHeight + ', top=' + top + ', left=' + left);
         newWindow.focus();
     });
-
-    //Agar new widow tetap di depan ketika di klik di luar window
     $('body').on('click', function () {
         if (newWindow && !newWindow.closed) {
             newWindow.focus();
         }
 
     });
-
-    //Form Submit
     $('form').submit(function (e) {
         $('.for-overlay').overlay();
         $(this).ajaxSubmit(function () {
@@ -390,27 +494,144 @@ $(document).ready(function () {
             if (uploader.files.length > 0) {
                 uploader.start();
             }
+            if (uploader2.files.length > 0) {
+                uploader2.start();
+            }
             
-
             //refresh parent
             opener.reloadMe();
-            if ((uploader.files.length ) == 0) {
+            if ((uploader.files.length + uploader2.files.length) == 0) {
                 window.close();
             }
         });
         return false;
     });
-
+    //sembunyikan tombol delete image
+    $('.btn-del-image').hide();
+//                                    $('.box-body img').hide();
+    //tampikan preview image
+    $('.img-upload').on('change', function (ev) {
+        var f = ev.target.files[0];
+        var fr = new FileReader();
+        var name = $(this).attr('name');
+        fr.onload = function (ev2) {
+            console.dir(ev2);
+            $('#' + name).show();
+            $('#' + name).attr('src', ev2.target.result);
+            //tampikan tombol delete image
+            $('#btn_del_' + name).show();
+        };
+        fr.readAsDataURL(f);
+    });
     //hapus image
-//    $('.btn-del-image').click(function (e) {
-//        var iD = $(this).attr('id');
-//        iD = iD.replace('btn_del_', '');
-//        //remove image
-//        $('img#' + iD).attr('src', '');
-////                                        $('img#'+iD).hide();
-//        $('input[name=' + iD + ']').val(null);
-//        return false;
-//    });
+    $('.btn-del-image').click(function (e) {
+        var iD = $(this).attr('id');
+        iD = iD.replace('btn_del_', '');
+        //remove image
+        $('img#' + iD).attr('src', '');
+//                                        $('img#'+iD).hide();
+        $('input[name=' + iD + ']').val(null);
+        return false;
+    });
+    //END OF SCRIPT
 });
+//update select data lokasi
+function rebuildSelectLokasi(val) {
+    //update select lokasi
+    var value = JSON.parse(val);
+    var o = new Option(value.desk, value.id);
+    $(o).html(value.desk);
+    $("select." + value.table).append(o);
+    $("select." + value.table).val([value.id]);
+    $('.select-search').trigger("chosen:updated");
+}
+
+/* repeatString() returns a string which has been repeated a set number of times */
+function repeatString(str, num) {
+    out = '';
+    for (var i = 0; i < num; i++) {
+        out += str;
+    }
+    return out;
+}
+
+/*
+ dump() displays the contents of a variable like var_dump() does in PHP. dump() is
+ better than typeof, because it can distinguish between array, null and object.  
+ Parameters:
+ v:              The variable
+ howDisplay:     "none", "body", "alert" (default)
+ recursionLevel: Number of times the function has recursed when entering nested
+ objects or arrays. Each level of recursion adds extra space to the 
+ output to indicate level. Set to 0 by default.
+ Return Value:
+ A string of the variable's contents 
+ Limitations:
+ Can't pass an undefined variable to dump(). 
+ dump() can't distinguish between int and float.
+ dump() can't tell the original variable type of a member variable of an object.
+ These limitations can't be fixed because these are *features* of JS. However, dump()
+ */
+function dump(v, howDisplay, recursionLevel) {
+    howDisplay = (typeof howDisplay === 'undefined') ? "alert" : howDisplay;
+    recursionLevel = (typeof recursionLevel !== 'number') ? 0 : recursionLevel;
+    var vType = typeof v;
+    var out = vType;
+    switch (vType) {
+        case "number":
+            /* there is absolutely no way in JS to distinguish 2 from 2.0
+             so 'number' is the best that you can do. The following doesn't work:
+             var er = /^[0-9]+$/;
+             if (!isNaN(v) && v % 1 === 0 && er.test(3.0))
+             out = 'int';*/
+        case "boolean":
+            out += ": " + v;
+            break;
+        case "string":
+            out += "(" + v.length + '): "' + v + '"';
+            break;
+        case "object":
+            //check if null
+            if (v === null) {
+                out = "null";
+            }
+            //If using jQuery: if ($.isArray(v))
+            //If using IE: if (isArray(v))
+            //this should work for all browsers according to the ECMAScript standard:
+            else if (Object.prototype.toString.call(v) === '[object Array]') {
+                out = 'array(' + v.length + '): {\n';
+                for (var i = 0; i < v.length; i++) {
+                    out += repeatString('   ', recursionLevel) + "   [" + i + "]:  " +
+                            dump(v[i], "none", recursionLevel + 1) + "\n";
+                }
+                out += repeatString('   ', recursionLevel) + "}";
+            }
+            else { //if object    
+                sContents = "{\n";
+                cnt = 0;
+                for (var member in v) {
+                    //No way to know the original data type of member, since JS
+                    //always converts it to a string and no other way to parse objects.
+                    sContents += repeatString('   ', recursionLevel) + "   " + member +
+                            ":  " + dump(v[member], "none", recursionLevel + 1) + "\n";
+                    cnt++;
+                }
+                sContents += repeatString('   ', recursionLevel) + "}";
+                out += "(" + cnt + "): " + sContents;
+            }
+            break;
+    }
+
+    if (howDisplay == 'body') {
+        var pre = document.createElement('pre');
+        pre.innerHTML = out;
+        document.body.appendChild(pre)
+    }
+    else if (howDisplay == 'alert') {
+        alert(out);
+    }
+
+    return out;
+}
 </script>
 @stop
