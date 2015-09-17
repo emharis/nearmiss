@@ -17,6 +17,13 @@ class BaseController extends Controller {
             $emp = \DB::table('employees')->where('emp_no',$user->username)->first();
             View::share('onemp', $emp);
         }
+        
+        $constvals = \DB::table('constval')->get();
+        $const = array();
+        foreach($constvals as $dt){
+            $const[$dt->name] = $dt->value;
+        }
+        View::share('const', $const);
     }
 
 	/**

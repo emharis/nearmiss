@@ -3,9 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/media/windata/projects/src/nearmiss/app/controllers/Transaksi/NrmsController.php</file>
-            <file>file:/media/windata/projects/src/nearmiss/app/views/Transaksi/Nrms/index.blade.php</file>
-            <file>file:/media/windata/projects/src/nearmiss/app/views/Transaksi/Nrms/popnew.blade.php</file>
+            <file>file:/media/windata/projects/src/nearmiss/app/views/Transaksi/Clnrms/datatable.blade.php</file>
+            <file>file:/media/windata/projects/src/nearmiss/app/views/Transaksi/Clnrms/index.blade.php</file>
+            <file>file:/media/windata/projects/src/nearmiss/app/controllers/Transaksi/ClnrmsController.php</file>
+            <file>file:/media/windata/projects/src/nearmiss/app/views/Transaksi/Clnrms/checkeddata.blade.php</file>
+            <file>file:/media/windata/projects/src/nearmiss/app/views/Transaksi/Clnrms/popedit.blade.php</file>
         </group>
     </open-files>
 </project-private>

@@ -6,6 +6,7 @@
             <name>nearmiss</name>
         </data>
         <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
+            <word>elseif</word>
             <word>Pekerjaan</word>
         </spellchecker-wordlist>
     </configuration>

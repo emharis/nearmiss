@@ -7,134 +7,153 @@
 @stop
 
 @section('content')
-<div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <h1>
-            Data Nearmiss/Kecelakaan Kerja
-            <div class="pull-right" >
-                <a href="trans/nrms/new" class="btn btn-sm btn-primary pull-right" id="btnNew">New</a>
-            </div>
-        </h1>
-    </section>
-
+<div class="content-wrapper"  >
     <!-- Main content -->
-    <section class="content">
-        <div class="box box-solid">
-            <form action="trans/nrms/filter" method="POST" >
-                <div  class="box-body" >
-                    <h4>Filter : </h4>
-                    <div id="box-filter" class="row" >
-                        <div class="col-md-3" >
-                            <div class="form-group">
-                                <label >Tanggal Awal</label>
-                                <div id="input-tgl-awal" data-selectbox="true" class="bfh-datepicker" data-format="d-m-y" data-date="{{isset($isfilter)?$tgl_awal:date('d-m-Y')}}" data-name="tgl_awal" ></div>
-                            </div>
+    <div class="row" >
+        <div class="col-md-12">
+            <div class="box box-solid" >
+                <!-- form start -->
+                <div class="box-header" >
+                    <div class="row" >
+                        <div class="col-md-12" >
+                            <h3 class="box-title">Data Nearmiss/Kecelakaan Kerja</h3>             
                         </div>
-                        <div class="col-md-3" >
-                            <div class="form-group">
-                                <label >Tanggal Akhir</label>
-                                <div id="input-tgl-akhir" data-selectbox="true" class="bfh-datepicker" data-format="d-m-y" data-date="{{isset($isfilter)?$tgl_akhir:date('d-m-Y')}}" data-name="tgl_akhir" ></div>
-                            </div>
+                        <div class="col-md-6 "  >
+
                         </div>
-                        <div class="col-md-3" >
-                            <div class="form-group">
-                                <label >Kolom Filter</label>
-                                {{Form::select('kolom',$colarr,isset($isfilter)?$kolom:'null',array('class'=>'form-control'))}}
-                            </div>
-                        </div>
-                        <div class="col-md-3" >
-                            <div class="form-group">
-                                <label >Text Filter</label>
-                                <input type="text" autocomplete="off" class="form-control " name="filter_text" value="{{isset($isfilter)?$filter_text:''}}" />
-                            </div>
+                        <div class="col-md-12 "  >
+                            <label {{$status == 'OP' ? 'class="label label-danger"':'' }} ><a data-status="OP" class="link-status" href="trans/nrms" style="color: {{$status == 'OP' ? 'white':'#DD4B39' }};//#DD4B39;" ><i class="fa fa-circle-o" ></i> Open : <i id="open_case_num" >{{$opNum}}</i> Kasus</a></label>
+                            &nbsp;
+                            <label {{$status == 'CK' ? 'class="label label-warning"':'' }} ><a data-status="CK" class="link-status" href="trans/nrms/index/CK" style="color: {{$status == 'CK' ? 'white':'#DA7C02' }};" ><i class="fa fa-gears" ></i> Checked : <i id="checked_case_num" >{{$ckNum}}</i> Kasus</a></label>
+                            &nbsp;
+                            <label {{$status == 'CL' ? 'class="label label-success"':'' }} ><a data-status="CL" class="link-status" href="trans/nrms/index/CL" style="color: {{$status == 'CL' ? 'white':'#00A65A' }};" ><i class="fa fa-check" ></i> Closed : <i id="closed_case_num" >{{$clNum}}</i> Kasus</a></label>
+                            <div class="pull-right" >
+                                <a href="#" class="" style="color:#ac2925;" id="btnDel"> <i class="fa fa-trash-o" ></i> Delete</a>
+                                &nbsp;
+                                <a href="trans/nrms/new" class="" id="btnNew"> <i class="fa fa-plus-circle" ></i> New</a>
+                                &nbsp;
+                                <a href="#" style="color:#00a65a;" class="" id="btn-filter"> <i class="fa fa-filter" ></i> Filter</a>
+                                &nbsp;
+                            </div>   
                         </div>
                     </div>
                 </div>
-                <div class="box-footer text-right" >
-                    <a id="btn-open-filter" class="btn btn-sm btn-primary" ><i class="fa fa-angle-double-down" ></i> Open Filter</a>
-                    <button id="btn-filter" type="submit" class="btn btn-sm btn-success" >Filter</button>
-                    @if(isset($isfilter))
-                    <a id="btn-clear-filter" href="trans/nrms" class="btn btn-sm btn-warning" >Clear Filter</a>
-                    @endif                    
-                    <a id="btn-close-filter" class="btn btn-sm btn-danger" ><i class="fa fa-angle-double-up" ></i> Close Filter</a>
+                <div class="box-body ">
+                    <div id="filter-box"  >
+                        <form method="POST" action="trans/nrms/filter" > 
+                            <input type="hidden" name="isfilter" value="{{isset($isfilter)?$isfilter:'false'}}" />
+                            <input type="hidden" name="filter_status" value="{{$status}}" />
+                            <input type="hidden" name="json_post" value="{{isset($json_post)?$json_post:''}}" />
+                            <div class="box box-solid" >
+                                <table class="table table-condensed table-bordered" >
+                                    <tbody>
+                                        <tr>
+                                            <td class="col-md-2" <label>Tanggal Awal</label></td>
+                                            <td class="col-md-2" ><label>Tanggal Akhir</label></td>
+                                            <td class="col-md-2" ><label>Kolom</label></td>
+                                            <td class="col-md-3" ><label>Filter Text</label></td>
+                                            <td class="col-md-3"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div id="input-tgl-awal" data-selectbox="true" class="bfh-datepicker" data-format="d-m-y" data-date="{{isset($isfilter)?$tgl_awal:date('d-m-Y')}}" data-name="tgl_awal" ></diva>
+                                            </td>
+                                            <td>
+                                                <div id="input-tgl-akhir" data-selectbox="true" class="bfh-datepicker" data-format="d-m-y" data-date="{{isset($isfilter)?$tgl_akhir:date('d-m-Y')}}" data-name="tgl_akhir" ></div>
+                                            </td>
+                                            <td>
+                                                <?php
+                                                $kolomArr = array(
+                                                    'lokasi' => 'Lokasi',
+                                                    'jenis_pekerjaan' => 'Jenis Pekerjaan',
+                                                    'jenis_bahaya' => 'Jenis Bahaya',
+                                                    'cedera' => 'Cedera',
+                                                    'anggota_badan' => 'Anggota Badan',
+                                                    'sumber_penyebab' => 'Sumber Penyebab',
+                                                    'hubungan' => 'Hubungan',
+                                                    'keadaan' => 'Keadaan',
+                                                    'vendor' => 'Jenis Kontraktor',
+                                                    'vendor_cedera' => 'Kontraktor Cedera',
+                                                    'klasifikasi' => 'Klasifikasi',
+                                                );
+                                                ?>
+                                                {{Form::select('kolom',$kolomArr,isset($kolom)?$kolom:null,array('class'=>'form-control'))}}
+                                            </td>
+                                            <td>
+                                                <input type="text" name="filter_text" class="form-control" value="{{isset($filterText)?$filterText:''}}"/>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-primary " ><i class="fa fa-search" ></i> Filter</button>
+                                                <a href="trans/nrms" class="btn btn-warning" id="btn-clear-filter" > <i class="fa fa-paint-brush" ></i> Clear Filter</a>
+                                            </td>
 
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5" class="text-right">
+                                                <a href="#" id="btn-close-filter" ><i class="fa fa-angle-double-up" ></i> Close Filter</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                    <div style="min-height: 400px;" >
+                        <table class="table table-bordered table-condensed table-striped" >
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <input type="checkbox" id="ck-all" />
+                                    </th>
+                                    <th>No</th>
+                                    <th>Tanggal</th>
+                                    <th>Kriteria</th>
+                                    <th>Lokasi</th>                       
+                                    <th>Jenis Bahaya</th>
+                                    <th>PIC</th>
+                                    <th>User Issue</th>
+                                    <th class="col-md-2" ></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if(count($data)>0)
+                                <?php $rownum = 1; ?>
+                                @foreach($data as $dt)
+                                <tr style="cursor: pointer;" data-id="{{$dt->id}}" data-url="trans/nrms/edit/{{$dt->id}}" >
+                                    <td >
+                                        <input type="checkbox" class="ck-row" id="ck-row-{{$dt->id}}" data-id="{{$dt->id}}" />
+                                    </td>
+                                    <td class="row-data text-right">{{($data->getCurrentPage()-1)*\Helpers::constval('show_number_datatable')+$rownum++}}</td>
+                                    <td class="row-data" >{{date('d-m-Y',strtotime($dt->tgl))}}</td>
+                                    <td class="row-data" >{{$dt->kriteria}}</td>
+                                    <td class="row-data" >{{$dt->lokasi}}</td>
+                                    <td class="row-data" >{{$dt->jenis_bahaya}}</td>
+                                    <td class="row-data" >{{$dt->pic_name}}</td>
+                                    <td class="row-data" >{{$dt->user_issue}}</td>
+                                    <td></td>
+                                </tr>
+                                @endforeach
+                                @else
+                                <tr>
+                                    <td colspan="8" class="text-center">
+                                        <i>Tidak ada data yang ditampilkan</i>
+                                    </td>
+                                </tr>
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
+                </div><!-- /.box-body -->
+                <div class="box-footer text-right">
+                    {{$data->links()}}
                 </div>
-            </form>
+            </div><!-- /.box -->
         </div>
+    </div>
 
-        <div class="box box-solid">
-            <!-- form start -->
+</section><!-- /.content -->
 
-            <div class="box-body table-responsive">
-                <h4>Tabel Data : </h4>
-                <table class="table table-bordered table-condensed" >
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Status</th>
-                            <th>Tanggal</th>
-                            <th>Kode</th>
-                            <th>Kriteria</th>
-                            <th>Lokasi</th>                       
-                            <th>Jenis Bahaya</th>
-                            <th>User Issue</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if(count($data)==0)
-                        <tr>
-                            <td colspan="9" class="text-center" >
-                                <i>Tidak ada data yang ditampilkan</i>
-                            </td>
-                        </tr>
-                        @endif
-                        <?php $rownum = 1; ?>
-                        @foreach($data as $dt)
-                        <tr   >
-                            <td>{{$rownum++}}</td>
-                            <!--<td class="{{$dt->status == 'OP'?'label-danger':($dt->status == 'CK'?'label-warning':($dt->status == 'CL'?'label-success':''))}}" >-->
-                            <td  >
-                                @if($dt->status == 'OP')
-                                <label class="label bg-red" >OPEN</label>                       
-                                @elseif($dt->status == 'CK')
-                                <label class="label bg-orange" >ON PROGRESS</label>                       
-                                @else
-                                <label class="label bg-green" >CLOSED</label>                       
-                                @endif
-                            </td>
-                            <td>{{date('d/m/Y',strtotime($dt->tgl))}}</td>
-                            <td>{{$dt->kode}}</td>
-                            <td>{{$dt->kriteria}}</td>
-                            <td>{{$dt->lokasi}}</td>
-                            <td>{{$dt->jenis_bahaya}}</td>   
-                            <td>
-                                @if($dt->username == 'admin')
-                                admin
-                                @else
-                                {{isset($dt->user_issue)?$dt->user_issue:'-'}}
-                                @endif
-                            </td>   
-                            <td class="text-center">
-                                <div class="btn-group" >
-                                    <a class="btn btn-primary btn-xs btnEdit" href="trans/nrms/edit/{{$dt->id}}" >Edit</a>
-                                    <a class="btn btn-success btn-xs btnShow" href="trans/nrms/show/{{$dt->id}}" >Show</a>    
-                                </div>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
 
-                {{$data->links()}}
-            </div><!-- /.box-body -->
-            <div class="box-footer "></div>
-        </div><!-- /.box -->
-
-    </section><!-- /.content -->
-</div><!-- /.content-wrapper -->
-<input type="hidden" name="isfilter" value="{{isset($isfilter)?$isfilter:'0'}}"/>
 @stop
 
 @section('scripts')
@@ -145,63 +164,92 @@
 <!--<script src="plugins/bootstrap-form-helpers/js/bootstrap-formhelpers.min.js" type="text/javascript"></script>-->
 <script src="plugins/bootstrap-form-helpers/js/bootstrap-formhelpers.js" type="text/javascript"></script>
 <script src="plugins/bootstrap-form-helpers/js/bootstrap-formhelpers-datepicker.id_ID.js" type="text/javascript"></script>
-
+<script src="plugins/loader/jquery.easy-overlay.js" type="text/javascript"></script>
+<script src="plugins/jqueryform/jquery.form.min.js" type="text/javascript"></script>
 <!-- page script -->
 <script type="text/javascript">
-$(function () {
-    //hide box-filter
-    $('#box-filter,#btn-filter,#btn-clear-filter,#btn-close-filter').hide();
+$(document).ready(function () {
+    //sembunyikan tombol delete data nearmiss
+    $('#btnDel').hide();
+    //sembunyikan form filter
+    var isfilter = $('input[name=isfilter]').val();
+    if (isfilter == 'true' || isfilter == true || isfilter == 1) {
+        $('#filter-box').show();
+    } else {
+        $('#filter-box').hide();
+    }
 
-    //open filter
-    $('#btn-open-filter').click(function () {
-        $('#btn-open-filter').fadeOut(100, function () {
-            $('#btn-filter,#btn-clear-filter,#btn-close-filter').fadeIn(100);
-        });
-        $('#box-filter').slideDown(250, function () {
-
-        });
+    //open filter box
+    $('#btn-filter').click(function () {
+        $('#filter-box').slideDown(250);
+        $(this).hide();
         return false;
     });
 
-    //close filter
+    //close filter box
     $('#btn-close-filter').click(function () {
-        $('#btn-filter,#btn-clear-filter,#btn-close-filter').fadeOut(100, function () {
-            $('#btn-open-filter').fadeIn(100);
-        });
-        $('#box-filter').slideUp(250, function () {
-
-
+        $('#filter-box').slideUp(250, function () {
+            $('#btn-filter').show();
         });
         return false;
     });
 
-    //jika form dalam mode filter, maka tampilkan box filternya
-    function checkIsFiltered() {
-        var isfilter = $('input[name=isfilter]').val();
-        if (isfilter == 1) {
-            $('#btn-open-filter').click();
+    //check all checkbox
+    var ischecked = false;
+    $('#ck-all').click(function () {
+        $('.ck-row').prop('checked', $(this).prop('checked'));
+        //update var ischecked
+        ischecked = $(this).prop('checked');
+        showBtnDel();
+    });
+
+    //tampilkan tombol delete
+    $('.ck-row').change(function () {
+        var checkedFoundNum = 0;
+        $('.ck-row').each(function () {
+            if ($(this).prop('checked')) {
+                checkedFoundNum++;
+            }
+        });
+        if (checkedFoundNum > 0) {
+            ischecked = true;
+        } else {
+            ischecked = false;
+        }
+        showBtnDel();
+    });
+    function showBtnDel() {
+        if (ischecked) {
+            $('#btnDel').show();
+        } else {
+            $('#btnDel').hide();
         }
     }
-    checkIsFiltered();
 
+    //delete data nearmiss yang di centang
+    $('#btnDel').click(function () {
+        var ids = [];
+        $('.ck-row').each(function () {
+            if ($(this).prop('checked')) {
+                ids[ids.length] = $(this).data('id');
+            }
+        });
 
-    //ganti input filter untuk kolom status dan kriteria
-    $('select[name=kolom]').change(function () {
-        var val = $(this).val();
-
-        if (val == 'status') {
-            //ganti input filter_text dengan select status
-            var selectStatus = '{{Form::select('filter_text',array('K3'=>'K3','LINGKUNGAN'=>'LINGKUNGAN','HEALTHY'=>'HEALTHY'),null,array('class'=>'form - control'))}}';
-
-//           alert(selectStatus);
-            $('input[name=filter_text]').replaceWith(selectStatus);
-        } else if (val == 'kriteria') {
-            alert('kriteria')
+        if (confirm('Hapus data ini?')) {
+            $.post('trans/nrms/delete', {
+                'ids': JSON.stringify(ids)
+            }, function (res) {
+                $('.ck-row').each(function () {
+                    if ($(this).prop('checked')) {
+                        $(this).parent('td').parent('tr').fadeOut(100);
+                    }
+                });
+                location.reload();
+            });
         }
-    });
 
-    //datatable init
-    $('.datatable').dataTable();
+        return false;
+    });
 
     //New Process
     $('#btnNew').click(function () {
@@ -209,18 +257,18 @@ $(function () {
         showWindow(url, 1024, 600);
         return false;
     });
-    //Edit Data
-    $('.btnEdit').click(function () {
-        var url = $(this).attr('href');
-        showWindow(url, 970, 600);
-        return false;
-    });
-    //Show data
-    $('.btnShow').click(function () {
-        var url = $(this).attr('href');
-        showWindow(url, 970, 600);
-        return false;
-    });
+//    //Edit Data
+//    $('.btnEdit').click(function () {
+//        var url = $(this).attr('href');
+//        showWindow(url, 1024, 600);
+//        return false;
+//    });
+//    //Show data
+//    $('.btnShow').click(function () {
+//        var url = $(this).attr('href');
+//        showWindow(url, 1024, 600);
+//        return false;
+//    });
 
     //show new window
     var newWindow;
@@ -243,29 +291,25 @@ $(function () {
         if (newWindow && !newWindow.closed) {
             newWindow.focus();
         }
-
     });
 
-    //show window add new
-    $('#btnNew').click(function () {
-        var url = $(this).attr('href');
-        showWindow(url, 970, 600);
-        return false;
-    });
-
-    //hapus data nearmiss
-    $(document).on('click', '.btnDelete', function () {
-        var url = $(this).attr('href');
-        if (confirm('Hapus data Nearmiss ini?')) {
-            $.get(url, null, function (res) {
-                location.reload();
-            });
+    //row data click
+    //show form edit
+    $('.row-data').click(function () {
+        var id = $(this).parent('tr').data('id');
+        var status = $('input[name=filter_status]').val();
+        if (status == 'OP') {
+            //tampilkan form edit
+            var url = $(this).parent().data('url');
+            showWindow(url, 1024, 600);
+        } else if (status == 'CK') {
+            var url = 'trans/nrms/show/' + id;
+            showWindow(url, 1024, 600);
         }
         return false;
     });
 
 });
-
 /**
  * Refresh Form
  * @returns {undefined}

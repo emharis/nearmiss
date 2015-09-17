@@ -36,10 +36,14 @@ Route::group(array('before' => 'auth'), function() {
         Route::controller('pegawai', 'App\Controllers\Master\MemployeeController');
         Route::controller('workreq', 'App\Controllers\Master\MworkreqController');
         Route::controller('safetysumberp', 'App\Controllers\Master\MsafetysumberpController');
+        Route::controller('permit', 'App\Controllers\Master\MpermitController');
     });
     
     Route::group(array('prefix' => 'trans'), function() {
         Route::controller('nrms', 'App\Controllers\Transaksi\NrmsController');
+        Route::controller('pnrms', 'App\Controllers\Transaksi\PnrmsController');
+        Route::controller('clnrms', 'App\Controllers\Transaksi\ClnrmsController');
+        Route::controller('dnrms', 'App\Controllers\Transaksi\DnrmsController');
         
 //        Route::controller('nrmssys', 'App\Controllers\Transaksi\NrmssysController');
 //        Route::controller('nrmsusr', 'App\Controllers\Transaksi\NrmsusrController');

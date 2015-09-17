@@ -1,0 +1,26 @@
+[
+   {
+      "id": 1,
+      "status": "OP",
+      "tgl": "2015-08-01",
+      "kriteria": "K3",
+      "lokasi": "API Separator",
+      "jenis_bahaya": "Hancur"
+   },
+   {
+      "id": 2,
+      "status": "OP",
+      "tgl": "2015-09-02",
+      "kriteria": "K3",
+      "lokasi": "A-400",
+      "jenis_bahaya": "Jatuh dari ketinggian"
+   },
+   {
+      "id": 3,
+      "status": "OP",
+      "tgl": "2015-09-03",
+      "kriteria": "K3",
+      "lokasi": "ANtara Area 10 dan Area 400",
+      "jenis_bahaya": "Jatuh dari ketinggian"
+   }
+]

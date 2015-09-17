@@ -221,6 +221,60 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <ul class="sidebar-menu">
                         <li class="header">MENU UTAMA</li>
                         <!-- Optionally, you can add icons to the links -->
+                        <li class=""><a href="home"><i class="fa fa-home"></i> <span>Home</span></a></li>
+                        @if($onuser->can('access_master'))
+                        <li class="treeview">
+                            <a href="home"><i class="fa fa-th-large"></i> <span>Master</span> <i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="treeview-menu" style="display: none;">
+                                <li class=""><a href="master/safetyanggotabadan">Anggota Badan</a></li>
+                                <li class=""><a href="master/safetycedera">Cedera</a></li>
+                                <li class=""><a href="master/safetyhubungan">Hub dengan plant</a></li>
+                                <li class=""><a href="master/safetyjenispekerjaan">Jenis Pekerjaan</a></li>
+                                <li class=""><a href="master/safetyjenisbahaya">Jenis Bahaya</a></li>
+                                <li class=""><a href="master/safetylokasi">Lokasi</a></li>
+                                <li class=""><a href="master/safetykeadaan">Keadaan</a></li>
+                                <li class=""><a href="master/safetyklasifikasi">Klasifikasi</a></li>
+                                <li class=""><a href="master/group">Group</a></li>
+                                <li class=""><a href="master/vendor">Vendor</a></li>
+                                <li class=""><a href="master/pegawai">Pegawai</a></li>
+                                <li class=""><a href="master/departemen">Departemen</a></li>
+                                <li class=""><a href="master/workreq">Work Request</a></li>
+                                <li class=""><a href="master/safetysumberp">Sumber Penyebab</a></li>
+                            </ul>
+                        </li>
+                        @endif
+
+                        <li class="treeview {{(Request::is('trans/*')?'active':'')}}" >
+                            <a href="home"><i class="fa fa-download"></i> <span>Transaksi</span> <i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="treeview-menu">
+                                <li class=""><a href="">Work Permit</a></li>
+                                @if($onuser->can('input_nearmiss'))
+                                <li class="{{(Request::is('trans/nrms')?'active':'')}}"><a href="trans/nrms">Kecelakaan Kerja/Nearmiss</a></li>
+                                @endif
+                                @if($onuser->can('processing_nearmiss'))
+                                <li class="{{(Request::is('trans/pnrms')?'active':'')}}"><a href="trans/pnrms">Revisi Temuan KK/Nearmiss</a></li>
+                                @endif
+                                @if($onuser->can('closing_nearmiss'))
+                                <li class="{{(Request::is('trans/clnrms')?'active':'')}}"><a href="trans/clnrms">Closing KK/Nearmiss</a></li>
+                                @endif
+                            </ul>
+                        </li>
+
+<!--                        <li class="treeview ">
+                            <a href="home"><i class="fa fa-signal"></i> <span>Monitoring</span> <i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="treeview-menu">
+                                <li class=""><a href="">Near Miss</a></li>
+                                <li class=""><a href="">Grafik Near Miss</a></li>
+                            </ul>
+                        </li>-->
+                    </ul>
+                    
+                </section>
+                
+<!--                <section class="sidebar">
+                    <ul class="sidebar-menu">
+                        <li class="header">MENU UTAMA</li>
+                         Optionally, you can add icons to the links 
                         @foreach($menus as $mn)
                         @if(count($mn->child)>0)
                         <li class="treeview {{(Request::is($mn->if_url)?'active':'')}}">
@@ -237,22 +291,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                         @endforeach
                     </ul>
-                </section>
+                </section>-->
                 <!-- /.sidebar -->
             </aside>
 
             <!-- Content Wrapper. Contains page content -->
             @yield('content')
 
-            <!-- Main Footer -->
+<!--             Main Footer 
             <footer class="main-footer">
-                <!-- To the right -->
+                 To the right 
                 <div class="pull-right hidden-xs">
-                    
+
                 </div>
-                <!-- Default to the left -->
+                 Default to the left 
                 <strong>Copyright &copy; 2015 <a href="#">Nearmiss</a>.</strong> All rights reserved.
-            </footer>
+            </footer>-->
 
             <!-- Control Sidebar -->      
             <aside class="control-sidebar control-sidebar-dark">                

@@ -4,6 +4,20 @@
 <link href="plugins/lightbox/css/lightbox.css" rel="stylesheet" type="text/css"/>
 <link href="plugins/bootstrap-form-helpers/css/bootstrap-formhelpers.css" rel="stylesheet" type="text/css"/>
 <link href="plugins/choosen/bootstrap-chosen.css" rel="stylesheet" type="text/css"/>
+<link href="plugins/selectize/css/selectize.bootstrap3.css" rel="stylesheet" type="text/css"/>
+
+<style>
+    .img-container{
+        height: 150px;
+        line-height: 150px;
+        text-align: center;
+    }
+    .img-container .img-prev{
+        max-width: 100%;
+        max-height: 100%;
+        vertical-align: middle;
+    }
+</style>
 @stop
 
 @section('content')
@@ -21,174 +35,97 @@
                         <div class="col-md-6" >
                             <div class="form-group">
                                 <label >Tanggal Kejadian</label>
-                                <div id="input-tgl-awal" class="bfh-datepicker" data-format="d-m-y" data-date="{{date('d-m-Y')}}" data-name="tgl_awal" ></div>
+                                <div id="input-tgl-awal" class="bfh-datepicker" data-selectbox="true" data-format="d-m-y" data-date="{{date('d-m-Y')}}" data-name="tgl" ></div>
                             </div>
                         </div>
                         <div class="col-md-6" >
                             <div class="form-group">
                                 <label >Lokasi</label>
-                                <div class="input-group">
-                                    <input   data-hidden="lokasi_id" data-title="Pilih Data Lokasi" data-table="sf_lokasi"  type="text" name="lokasi" class="form-control input-option"/>
-                                    {{Form::select('cblokasi',$selectLokasi,null,array('data-id'=>'lokasi_id','data-textbox'=>'lokasi','required','class'=>'sf_lokasi select-search form-control','data-live-search'=>'true','data-live-search'=>'true','title'=>' ',''))}}
-                                    <span class="input-group-btn">
-                                        <a class="btn btn-info btn-add-option" data-table="sf_lokasi" data-title="Input Data Loksi Baru"  type="button"><i class="fa fa-plus" ></i></a>
-                                    </span>
-                                </div>
-                                <input type="hidden" name="lokasi_id"/>
+                                {{Form::select('cblokasi',$selectLokasi,null,array('class'=>'select2 form-control','data-table'=>'sf_lokasi','data-hidden'=>'txlokasi'))}}                 
+                                <input type="hidden" name="txlokasi"/>
                             </div>
                         </div>
                         <div class="col-md-6" >
                             <div class="form-group">
                                 <label >Jenis Pekerjaan</label>
-                                <div class="input-group">
-                                    <input  data-hidden="jenis_pekerjaan_id" data-title="Pilih Data Jenis Pekejaan" data-table="sf_jenis_pekerjaan"  type="text" name="jenis_pekerjaan" class="form-control input-option"/>
-                                    {{Form::select('cbjenis_pekerjaan',$selectJenisPekerjaan,null,array('data-id'=>'jenis_pekerjaan_id','data-textbox'=>'jenis_pekerjaan','required','class'=>'sf_jenis_pekerjaan select-search form-control ','data-live-search'=>'true','title'=>' ',''))}}
-                                    <span class="input-group-btn">
-                                        <a class="btn btn-info btn-add-option" type="button" data-table="sf_jenis_pekerjaan" data-title="Input Data Jenis Pekerjaan Baru" ><i class="fa fa-plus" ></i></a>
-                                    </span>
-                                </div>                            
-                                <input type="hidden" name="jenis_pekerjaan_id"/>
+                                {{Form::select('cbjenis_pekerjaan',$selectJenisPekerjaan,null,array('class'=>'select2 form-control','data-table'=>'sf_jenis_pekerjaan','data-hidden'=>'txjenis_pekerjaan'))}}                 
+                                <input type="hidden" name="txjenis_pekerjaan"/>
                             </div>
                         </div>
                         <div class="col-md-6" >
                             <div class="form-group">
                                 <label >Hubungan dengan plant lain</label>
-                                <div class="input-group">
-                                    <input  data-hidden="hubungan_id" data-title="Pilih data hubungan antar plant" data-table="sf_hubungan"  type="text" name="hubungan" class="form-control input-option"/>
-                                    {{Form::select('cbhubungan',$selectHubungan,null,array('data-id'=>'','data-textbox'=>'','required','class'=>'sf_hubungan select-search form-control','data-live-search'=>'true','title'=>' '))}}
-                                    <span class="input-group-btn">
-                                        <a class="btn btn-info btn-add-option" type="button" data-table="sf_hubungan" data-title="Input Data Hubungan"  ><i class="fa fa-plus" ></i></a>
-                                    </span>
-                                </div>
-
-                                <input type="hidden" name="hubungan_id"/>
+                                {{Form::select('cbhubungan',$selectHubungan,null,array('class'=>'select2 form-control','data-table'=>'sf_hubungan','data-hidden'=>'txhubungan'))}}                 
+                                <input type="hidden" name="txhubungan"/>
                             </div>
                         </div>
                         <div class="col-md-6" >
                             <div class="form-group">
                                 <label >Jenis bahaya</label>
-                                <div class="input-group">
-                                    <input  data-hidden="jenis_bahaya_id" data-title="Pilih Data Jenis Bahaya" data-table="sf_jenis_bahaya"  type="text" name="jenis_bahaya" class="form-control input-option"/>
-                                    {{Form::select('cbjenis_bahaya',$selectJenisBahaya,null,array('data-id'=>'','data-textbox'=>'','required','class'=>'sf_jenis_bahaya select-search form-control','data-live-search'=>'true','title'=>' ',''))}}
-                                    <span class="input-group-btn">
-                                        <a class="btn btn-info btn-add-option" type="button" data-table="sf_jenis_bahaya" data-title="Input Data Jenis Bahaya"  ><i class="fa fa-plus" ></i></a>
-                                    </span>
-                                </div>
-
-                                <input type="hidden" name="jenis_bahaya_id"/>
+                                {{Form::select('cbjenis_bahaya',$selectJenisBahaya,null,array('class'=>'select2 form-control','data-table'=>'sf_jenis_bahaya','data-hidden'=>'txjenis_bahaya'))}}                 
+                                <input type="hidden" name="txjenis_bahaya"/>
                             </div>
                         </div>
                         <div class="col-md-6" >
                             <div class="form-group">
                                 <label >Anggota badan</label>
-                                <div class="input-group">
-                                    <input  data-hidden="anggota_badan_id" data-title="Pilih Data Anggota Badan" data-table="sf_anggota_badan"  type="text" name="anggota_badan" class="form-control input-option"/>
-                                    {{Form::select('cbanggota_badan',$selectAnggotaBadan,null,array('data-id'=>'','data-textbox'=>'','required','class'=>'sf_anggota_badan select-search form-control','data-live-search'=>'true','title'=>' '))}}
-                                    <span class="input-group-btn">
-                                        <a class="btn btn-info btn-add-option" type="button" data-table="sf_anggota_badan" data-title="Input Data Anggota Badan" ><i class="fa fa-plus" ></i></a>
-                                    </span>
-                                </div>
-
-                                <input type="hidden" name="anggota_badan_id"/>
+                                {{Form::select('cbanggota_badan',$selectAnggotaBadan,null,array('class'=>'select2 form-control','data-table'=>'sf_anggota_badan','data-hidden'=>'txanggota_badan'))}}
+                                <input type="hidden" name="txanggota_badan"/>
                             </div>
                         </div>
                         <div class="col-md-6" >
                             <div class="form-group">
                                 <label >Kriteria</label>
-                                {{Form::select('kriteria',array('K3'=>'K3','Lingkungan'=>'Lingkungan','Kesehatan'=>'Kesehatan'),null,array('data-id'=>'','data-textbox'=>'','required','class'=>'select-search form-control'))}}
+                                {{Form::select('kriteria',array('K3'=>'K3','Lingkungan'=>'Lingkungan','Kesehatan'=>'Kesehatan'),null,array('data-id'=>'','data-textbox'=>'','required','class'=>'form-control'))}}
                             </div>
                         </div>
                         <div class="col-md-6" >
                             <div class="form-group">
                                 <label >Klasifikasi</label>
-                                <div class="input-group">
-                                    <input  data-hidden="klasifikasi_id" data-title="Pilih Data Klasifikasi" data-table="sf_klasifikasi"  type="text" name="klasifikasi" class="form-control input-option"/>
-                                    {{Form::select('cbklasifikasi',$selectKlasifikasi,null,array('data-id'=>'','data-textbox'=>'','required','class'=>'sf_klasifikasi select-search form-control','data-live-search'=>'true','title'=>' '))}}
-                                    <span class="input-group-btn">
-                                        <a class="btn btn-info btn-add-option" type="button" data-table="sf_klasifikasi" data-title="Input Data Klasifikasi"  ><i class="fa fa-plus" ></i></a>
-                                    </span>
-                                </div>
-
-                                <input type="hidden" name="klasifikasi_id"/>
-
+                                {{Form::select('cbklasifikasi',$selectKlasifikasi,null,array('class'=>'select2 form-control','data-table'=>'sf_klasifikasi','data-hidden'=>'txklasifikasi'))}}                 
+                                <input type="hidden" name="txklasifikasi"/>
                             </div>
                         </div>
                         <div class="col-md-6" >
                             <div class="form-group">
                                 <label >Ditujukan untuk (PIC)</label>
-                                <input  data-hidden="pic_id" data-title="Pilih Data PIC" data-table="employees"  type="text" name="pic" class="form-control input-option"/>
-                                {{Form::select('pic',$selectPic,null,array('data-id'=>'','data-textbox'=>'','required','class'=>'employees select-search form-control','data-live-search'=>'true','data-live-search'=>'true','title'=>' ',''))}}
-                                <input type="hidden" name="pic_id"/>
+                                {{Form::select('cbpic',$selectPic,null,array('class'=>'select3 form-control','data-table'=>'employees','data-hidden'=>'txpic'))}}                 
+                                <input type="hidden" name="txpic"/>
                             </div>
                         </div>
                         <div class="col-md-6" >
                             <div class="form-group">
                                 <label >Cedera</label>
-                                <div class="input-group">
-                                    <input  data-hidden="cedera_id" data-title="Pilih Data Cedera" data-table="sf_cedera"  type="text" name="cedera" class="form-control input-option"/>
-                                    {{Form::select('cbcedera',$selectCedera,null,array('data-id'=>'','data-textbox'=>'','required','class'=>'sf_cedera select-search form-control','data-live-search'=>'true','title'=>' '))}}
-                                    <span class="input-group-btn">
-                                        <a class="btn btn-info btn-add-option" type="button" data-table="sf_cedera" data-title="Input Data Cedera"  ><i class="fa fa-plus" ></i></a>
-                                    </span>
-                                </div>
-
-                                <input type="hidden" name="cedera_id"/>
+                                {{Form::select('cbcedera',$selectCedera,null,array('class'=>'select2 form-control','data-table'=>'sf_cedera','data-hidden'=>'txcedera'))}}                 
+                                <input type="hidden" name="txcedera"/>
                             </div>
                         </div>                   
                         <div class="col-md-6" >
                             <div class="form-group">
                                 <label >Sumber penyebab</label>
-                                <div class="input-group">
-                                    <input  data-hidden="sumber_penyebab_id" data-title="Pilih Data Sumber Penyebab" data-table="sf_sumber_penyebab"  type="text" name="sumber_penyebab" class="form-control input-option"/>
-                                    {{Form::select('cbsumber_penyebab',$selectSumberPenyebab,null,array('data-id'=>'','data-textbox'=>'','required','class'=>'sf_sumber_penyebab select-search form-control','data-live-search'=>'true','title'=>' ',''))}}
-                                    <span class="input-group-btn">
-                                        <a class="btn btn-info btn-add-option" type="button" data-table="sf_sumber_penyebab" data-title="Input Data Sumber Penyebab"  ><i class="fa fa-plus" ></i></a>
-                                    </span>
-                                </div>
-
-                                <input type="hidden" name="sumber_penyebab_id"/>
+                                {{Form::select('cbsumber_penyebab',$selectSumberPenyebab,null,array('class'=>'select2 form-control','data-table'=>'sf_sumber_penyebab','data-hidden'=>'txsumber_penyebab'))}}                 
+                                <input type="hidden" name="txsumber_penyebab"/>
                             </div>
                         </div>                    
                         <div class="col-md-6" >
                             <div class="form-group">
                                 <label >Keadaan tidak aman</label>
-                                <div class="input-group">
-                                    <input  data-hidden="keadaan_id" data-title="Pilih Data Keadaan" data-table="sf_keadaan"  type="text" name="keadaan" class="form-control input-option"/>
-                                    {{Form::select('cbkeadaan',$selectKeadaan,null,array('data-id'=>'','data-textbox'=>'','required','class'=>'sf_keadaan select-search form-control','data-live-search'=>'true','title'=>' '))}}
-                                    <span class="input-group-btn">
-                                        <a class="btn btn-info btn-add-option" type="button" data-table="sf_keadaan" data-title="Input Data Keadaan"  ><i class="fa fa-plus" ></i></a>
-                                    </span>
-                                </div>
-
-                                <input type="hidden" name="keadaan_id"/>
+                                {{Form::select('cbkeadaan',$selectKeadaan,null,array('class'=>'select2 form-control','data-table'=>'sf_keadaan','data-hidden'=>'txkeadaan'))}}
+                                <input type="hidden" name="txkeadaan"/>
                             </div>
                         </div>                    
                         <div class="col-md-6" >
                             <div class="form-group">
-                                <label >Kontraktor celaka</label>
-                                <div class="input-group">
-                                    <input  data-hidden="kontraktor_id" data-title="Pilih Data Kontraktor Celaka" data-table="sf_cedera"  type="text" name="kontraktor" class="form-control input-option"/>
-                                    {{Form::select('cbkontraktor_ceaka',$selectCedera,null,array('data-id'=>'','data-textbox'=>'','required','class'=>'sf_cedera select-search form-control','data-live-search'=>'true','title'=>' '))}}
-                                    <span class="input-group-btn">
-                                        <a class="btn btn-info btn-add-option" type="button" data-table="sf_cedera" data-title="Input Data Cedera"  ><i class="fa fa-plus" ></i></a>
-                                    </span>
-                                </div>
-
-                                <input type="hidden" name="kontraktor_id"/>
+                                <label >Kontraktor cedera</label>
+                                {{Form::select('cbkontraktor_cedera',$selectCedera,null,array('class'=>'select2 form-control','data-table'=>'sf_cedera','data-hidden'=>'txkontraktor_cedera'))}}                 
+                                <input type="hidden" name="txkontraktor_cedera"/>
                             </div>
                         </div>
                         <div class="col-md-6" >
                             <div class="form-group">
                                 <label >Jenis Kontraktor</label>
-                                <div class="input-group">
-                                    <input  data-hidden="jenis_kontraktor_id" data-title="Pilih Jenis Kontraktor" data-table="vendor"  type="text" name="jenis_kontraktor" class="form-control input-option"/>
-                                    {{Form::select('cbvendor',$selectVendor,null,array('data-id'=>'','data-textbox'=>'','required','class'=>'vendor select-search form-control','data-live-search'=>'true','title'=>' '))}}
-                                    <span class="input-group-btn">
-                                        <a class="btn btn-info btn-add-option" type="button" data-table="vendor" data-title="Input Data Vendor"  ><i class="fa fa-plus" ></i></a>
-                                    </span>
-                                </div>
-
-                                <input type="hidden" name="jenis_kontraktor_id"/>
+                                {{Form::select('cbjenis_kontraktor',$selectVendor,null,array('class'=>'select2 form-control','data-table'=>'vendor','data-hidden'=>'txjenis_kontraktor'))}}                 
+                                <input type="hidden" name="txjenis_kontraktor"/>
                             </div>
                         </div>
                         <div class="col-md-6" >
@@ -211,14 +148,19 @@
                         </div>
                         <div class="col-md-12" >
                             <div class="box box-solid" >
-                                <div class="box-body" style="background-color: whitesmoke;" >
+                                <div class="box-body" >
                                     <div class="form-group" >
-                                        <label >Foto temuan</label>
-                                        <br/>
+                                        <label >Foto temuan</label>  &nbsp;                                      
                                         <a class="btn btn-xs btn-success" id="btn-pilih-foto" >Pilih foto</a>
-                                        <br/>&nbsp;
-                                        <div id="image-preview"  ></div>
                                     </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-12" >
+                            <div class="box box-solid" >
+                                <div class="box-body" style="background-color: whitesmoke;" >
+                                    <div id="image-preview"  ></div>
                                 </div>
                             </div>
 
@@ -245,45 +187,80 @@
 <script src="plugins/plupload/plupload.full.min.js" type="text/javascript"></script>
 <script src="plugins/loader/jquery.easy-overlay.js" type="text/javascript"></script>
 <script src="plugins/lightbox/js/lightbox.min.js" type="text/javascript"></script>
-<script src="plugins/bootstrap-form-helpers/js/bootstrap-formhelpers.min.js" type="text/javascript"></script>
+<script src="plugins/bootstrap-form-helpers/js/bootstrap-formhelpers.js" type="text/javascript"></script>
 <script src="plugins/bootstrap-form-helpers/js/bootstrap-formhelpers-datepicker.id_ID.js" type="text/javascript"></script>
 <script src="plugins/choosen/chosen.jquery.js" type="text/javascript"></script>
+<script src="plugins/selectize/js/standalone/selectize.js" type="text/javascript"></script>
 <script>
 $(document).ready(function () {
-    //select box choosen
-    $('.select-search').val([]);
-    $('.select-search').chosen();
-    //on change letakkan data text dan id ke textbox
-    $('.select-search').change(function(){
+//select box choosen
+//    $('.select-search').val([]);
+//    $('.select-search').chosen();
+
+
+    $('.select2,.select3').val([]);
+
+    $('.select2,.select3').change(function () {
+        var value = $(this).val();
+        var dataText = $(this).text();
+
+        var url = 'trans/nrms/new-option';
+        var table = $(this).data('table');
+        var name = $(this).attr('name');
+        var hidden = $(this).data('hidden');
+
+        if (allowCreate) {
+            $.post(url, {
+                table: table,
+                nama: value
+            }, function (res) {
+                var res = JSON.parse(res);
+                $('select[name=' + name + '] option:selected').val(res.id);
+                //set text hidden
+                $('input[name=' + hidden + ']').val(dataText);
+                allowCreate = false;
+            });
+        } else {
+            //set text hidden
+            $('input[name=' + hidden + ']').val(dataText);
+        }
+    });
+
+    var allowCreate = false;
+    $('.select2').selectize({
+        create: function (input) {
+            allowCreate = true;
+            return {value: input, text: input};
+        }
+    });
+    $('.select3').selectize({
+        create: false
+    });
+
+//on change letakkan data text dan id ke textbox
+    $('.select-search').change(function () {
         textbox = $(this).data('textbox');
         id = $(this).data('id');
-        $('input[name='+ textbox + ']').val($(this).children("option").filter(":selected").text());
-        $('input[name='+id + ']').val($(this).val());
+        $('input[name=' + textbox + ']').val($(this).children("option").filter(":selected").text());
+        $('input[name=' + id + ']').val($(this).val());
     });
-    //add new option
+//add new option
     $('.btn-add-option').click(function () {
         var tableName = $(this).data('table');
         var title = $(this).data('title');
-
         var url = "trans/nrms/new-option/" + tableName + "/" + title;
         var winWidth = 400;
         var winHeight = 250;
-
         var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : screen.left;
         var dualScreenTop = window.screenTop != undefined ? window.screenTop : screen.top;
-
         width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
         height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
-
         var left = ((width / 2) - (winWidth / 2)) + dualScreenLeft;
         var top = ((height / 2) - (winHeight / 2)) + dualScreenTop;
-
         newWindow = window.open(url, '', 'toolbar=no,scrollbars=yes, width=' + winWidth + ', height=' + winHeight + ', top=' + top + ', left=' + left);
-
         return false;
     });
-
-    //pilih foto
+//pilih foto
     var uploader = new plupload.Uploader({
         runtimes: 'html5',
         browse_button: 'btn-pilih-foto', // this can be an id of a DOM element or the DOM element itself
@@ -295,7 +272,7 @@ $(document).ready(function () {
         filters: {
             // Specify what files to browse for
             mime_types: [
-                {title: "Image files", extensions: "jpg,gif,png"}
+                {title: "Image files", extensions: "jpg,png"}
             ]
         },
         multipart_params: {
@@ -305,7 +282,6 @@ $(document).ready(function () {
     uploader.bind("FilesAdded", handlePluploadFilesAdded);
     uploader.bind("UploadComplete", UploadComplete);
     uploader.init();
-
     var num = 1;
     var imgCount = 0;
     function handlePluploadFilesAdded(uploader, files) {
@@ -317,13 +293,26 @@ $(document).ready(function () {
                 var img = new o.Image();
                 img.onload = function () {
                     //add image preview
-                    $('#image-preview').append('<div class="col-sm-3" >' +
-                            '<div class = "box box-solid " >' +
-                            '<div class = "box-body" >' +
-                            '<a href="#" data-imgid="' + file.id + '" class = "btn-del-image" > <i class = "fa fa-times pull-right" > </i></a >' +
-                            '<a href="' + this.getAsDataURL() + '" data-lightbox="img-prev" ><img id = "img_' + file.id + 'x" src = "' + this.getAsDataURL() + '" class = "col-sm-12 img-prev" width = "100%" height="100px" /></a>' +
-                            '</div></div></div>');
+//                    $('#image-preview').append('<div class="col-sm-3" >' +
+//                            '<div class = "box box-solid " >' +
+//                            '<div class = "box-body" >' +
+//                            '<a href="#" data-imgid="' + file.id + '" class = "btn-del-image" > <i class = "fa fa-times pull-right" > </i></a >' +
+//                            '<a href="' + this.getAsDataURL() + '" data-lightbox="img-prev" ><img id = "img_' + file.id + 'x" src = "' + this.getAsDataURL() + '" class = "col-sm-12 img-prev" width = "100%" height="100px" /></a>' +
+//                            '</div></div></div>');
 
+                    $('#image-preview').append(
+                            '<div class="col-sm-3" >' +
+                            '<div class = "box box-primary " >' +
+                            '<div class = "box-body img-container"  >' +
+                            '<a href="' + this.getAsDataURL() + '" data-lightbox="img-prev" >' +
+                            '<img id = "img_' + file.id + '" src = "' + this.getAsDataURL() + '" class = "img-prev"  />' +
+                            '</a>' +
+                            '</div>' +
+                            '<div class="box-footer text-right" >' +
+                            '<a href="#" data-imgid="' + file.id + '" class = "btn-del-image btn btn-xs btn-danger" >Delete</a >' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>');
                 };
                 img.load(file.getSource());
             });
@@ -337,7 +326,7 @@ $(document).ready(function () {
 
     }
     function UploadComplete(uploader, files) {
-        //close window
+//close window
         window.close();
     }
     $(document).on('click', '.btn-del-image', function () {
@@ -348,12 +337,11 @@ $(document).ready(function () {
         imgCount = imgCount - 1;
         return false;
     });
-
 //    submit form/simpan data temuan nearmiss
     $('form').submit(function (e) {
         $('.for-overlay').overlay();
         $(this).ajaxSubmit(function () {
-            //upload image
+//upload image
             if (uploader.files.length > 0) {
                 uploader.start();
             }
@@ -361,7 +349,7 @@ $(document).ready(function () {
 //                uploader2.start();
 //            }
 
-            //refresh parent
+//refresh parent
             opener.reloadMe();
             if ((uploader.files.length) == 0) {
 //            if ((uploader.files.length + uploader2.files.length) == 0) {
@@ -370,13 +358,11 @@ $(document).ready(function () {
         });
         return false;
     });
-
-    //close window
+//close window
     $('#btn-cancel').click(function () {
         window.close();
     });
-
-    //tampilkan window option pilih data 
+//tampilkan window option pilih data 
     var newWindow;
     $('.input-option').focus(function () {
         showWindow($(this));
@@ -384,38 +370,29 @@ $(document).ready(function () {
     $('.input-option').click(function () {
         showWindow($(this));
     });
-
     var newWindow;
     function showWindow(obj) {
         var url = "trans/nrms/option/" + obj.data('table') + "/" + obj.data('title') + '/' + obj.data('hidden') + '/' + obj.attr('name');
         var winWidth = 600;
         var winHeight = 500;
-
         var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : screen.left;
         var dualScreenTop = window.screenTop != undefined ? window.screenTop : screen.top;
-
         width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
         height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
-
         var left = ((width / 2) - (winWidth / 2)) + dualScreenLeft;
         var top = ((height / 2) - (winHeight / 2)) + dualScreenTop;
-
         newWindow = window.open(url, 'Pilih Data Lokasi', 'toolbar=no,scrollbars=yes, width=' + winWidth + ', height=' + winHeight + ', top=' + top + ', left=' + left);
     }
 
     $(document).on('click', 'body', function () {
         newWindow.focus();
     });
-
-
 });
-
 function getData(id, value, hiddenField, namaField) {
 
     if (hiddenField == null || namaField == null) {
         $('input[data-table=' + value.table + ']').val(value.desk);
         hiddenField = $('input[data-table=' + value.table + ']').data('hidden');
-
         $('input[name=' + hiddenField + ']').val(id);
 //        $('input[name=' + namaField + ']').val(value);
     } else {

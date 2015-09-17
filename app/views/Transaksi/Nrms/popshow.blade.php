@@ -21,7 +21,7 @@
             <div class="box-body">
                 <form method="POST" action="trans/nearmiss/edit" class="" enctype="multipart/form-data" >
                     <input type="hidden" name="id" value="{{$data->id}}"/>
-                    <table class="table table-bordered table-condensed" >
+                    <table class="table table-bordered table-condensed table-striped" >
                         <tbody>
                             <tr>
                                 <td class="col-sm-2" >
@@ -183,11 +183,55 @@
                                     <div class="row" id="image-preview" >
                                         @foreach($dataFoto as $dt)
                                         <div class="col-sm-3" >
-                                            <div class = "box box-primary" >
-                                                <div class = "box-body" style="background-color: whitesmoke;" >
+                                            <div class = "box box-warning" >
+                                                <div class = "box-body" style="background-color: whitesmoke;" >                                                    
+                                                    @if(File::exists('uploads/'.$dt->local_img))
                                                     <a href="uploads/{{$dt->local_img}}" data-lightbox="img-prev" >
-                                                        <img id="img_db_{{$dt->id}}" src = "uploads/{{$dt->local_img}}" class = "col-sm-12 img-prev" width = "100%" height="100px" />
+                                                        <img id = "img_{{$dt->id}}" src = "uploads/{{$dt->local_img}}" class = "col-sm-12 img-prev" width = "100%" height="100px" />
                                                     </a>
+                                                    @else
+                                                    <a href="{{'data:image/'.$dt->type.';base64,'.$dt->img}}" data-lightbox="img-prev" ><img id = "img_{{$dt->id}}" src = "{{'data:image/'.$dt->type.';base64,'.$dt->img}}" class = "col-sm-12 img-prev" width = "100%" height="100px" /></a>                                                    
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" >
+                                    <label>REVISI</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label>Tanggal Revisi</label></td>
+                                <td>{{date('d-m-Y',strtotime($data->tgl_koreksi))}}</td>
+                                <td></td>
+                                <td><label>Uraian Revisi</label></td>
+                                <td>
+                                    {{$data->koreksi}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" >
+                                    <label>Foto Revisi</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td  colspan="7">
+                                    <div class="row" id="image-preview-koreksi" >
+                                        @foreach($koreksiFoto as $dt)
+                                        <div class="col-sm-3" >
+                                            <div class = "box box-success" >
+                                                <div class = "box-body" style="background-color: whitesmoke;" >                                                    
+                                                    @if(File::exists('uploads/'.$dt->local_img))
+                                                    <a href="uploads/{{$dt->local_img}}" data-lightbox="img-prev-koreksi" >
+                                                        <img id = "img_{{$dt->id}}" src = "uploads/{{$dt->local_img}}" class = "col-sm-12 img-prev" width = "100%" height="100px" />
+                                                    </a>
+                                                    @else
+                                                    <a href="{{'data:image/'.$dt->type.';base64,'.$dt->img}}" data-lightbox="img-prev" ><img id = "img_{{$dt->id}}" src = "{{'data:image/'.$dt->type.';base64,'.$dt->img}}" class = "col-sm-12 img-prev" width = "100%" height="100px" /></a>                                                    
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
