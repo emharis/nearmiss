@@ -219,27 +219,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- sidebar: style can be found in sidebar.less -->
                 <section class="sidebar">
                     <ul class="sidebar-menu">
-                        <li class="header">MENU UTAMA</li>
+                        <li class="header">MENU UTAMA  </li>
                         <!-- Optionally, you can add icons to the links -->
                         <li class=""><a href="home"><i class="fa fa-home"></i> <span>Home</span></a></li>
                         @if($onuser->can('access_master'))
-                        <li class="treeview">
+                        <li class="treeview {{(Request::is('master/*')?'active':'')}}">
                             <a href="home"><i class="fa fa-th-large"></i> <span>Master</span> <i class="fa fa-angle-left pull-right"></i></a>
-                            <ul class="treeview-menu" style="display: none;">
-                                <li class=""><a href="master/safetyanggotabadan">Anggota Badan</a></li>
-                                <li class=""><a href="master/safetycedera">Cedera</a></li>
-                                <li class=""><a href="master/safetyhubungan">Hub dengan plant</a></li>
-                                <li class=""><a href="master/safetyjenispekerjaan">Jenis Pekerjaan</a></li>
-                                <li class=""><a href="master/safetyjenisbahaya">Jenis Bahaya</a></li>
-                                <li class=""><a href="master/safetylokasi">Lokasi</a></li>
-                                <li class=""><a href="master/safetykeadaan">Keadaan</a></li>
-                                <li class=""><a href="master/safetyklasifikasi">Klasifikasi</a></li>
-                                <li class=""><a href="master/group">Group</a></li>
-                                <li class=""><a href="master/vendor">Vendor</a></li>
-                                <li class=""><a href="master/pegawai">Pegawai</a></li>
-                                <li class=""><a href="master/departemen">Departemen</a></li>
-                                <li class=""><a href="master/workreq">Work Request</a></li>
-                                <li class=""><a href="master/safetysumberp">Sumber Penyebab</a></li>
+                            <ul class="treeview-menu" >
+                                <li class="{{(Request::is('master/safetyanggotabadan*')?'active':'')}}" ><a href="master/safetyanggotabadan">Anggota Badan</a></li>
+                                <li class="{{(Request::is('master/safetycedera*')?'active':'')}}"><a href="master/safetycedera">Cedera</a></li>
+                                <li class="{{(Request::is('master/safetyhubungan*')?'active':'')}}"><a href="master/safetyhubungan">Hub dengan plant</a></li>
+                                <li class="{{(Request::is('master/safetyjenispekerjaan*')?'active':'')}}"><a href="master/safetyjenispekerjaan">Jenis Pekerjaan</a></li>
+                                <li class="{{(Request::is('master/safetyjenisbahaya*')?'active':'')}}"><a href="master/safetyjenisbahaya">Jenis Bahaya</a></li>
+                                <li class="{{(Request::is('master/safetylokasi*')?'active':'')}}"><a href="master/safetylokasi">Lokasi</a></li>
+                                <li class="{{(Request::is('master/safetykeadaan*')?'active':'')}}"><a href="master/safetykeadaan">Keadaan</a></li>
+                                <li class="{{(Request::is('master/safetyklasifikasi*')?'active':'')}}"><a href="master/safetyklasifikasi">Klasifikasi</a></li>
+                                <li class="{{(Request::is('master/group*')?'active':'')}}"><a href="master/group">Group</a></li>
+                                <li class="{{(Request::is('master/vendor*')?'active':'')}}"><a href="master/vendor">Vendor</a></li>
+                                <li class="{{(Request::is('master/pegawai*')?'active':'')}}"><a href="master/pegawai">Pegawai</a></li>
+                                <li class="{{(Request::is('master/departemen*')?'active':'')}}"><a href="master/departemen">Departemen</a></li>
+                                <li class="{{(Request::is('master/permit*')?'active':'')}}"><a href="master/permit">Work Permitt</a></li>
+                                <li class="{{(Request::is('master/safetysumberp*')?'active':'')}}"><a href="master/safetysumberp">Sumber Penyebab</a></li>
                             </ul>
                         </li>
                         @endif
